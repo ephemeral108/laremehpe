@@ -1,0 +1,19 @@
+.box {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.box .frame {
+  display: flex;
+}
+.box .frame img {
+  height: 1rem;
+  width: 1rem;
+  margin-left: -3rem;
+}
+.box .frame input {
+  outline: none;
+  border-radius: 10rem;
+  height: fit-content;
+}
