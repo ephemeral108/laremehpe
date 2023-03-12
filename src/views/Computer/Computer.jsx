@@ -10,6 +10,7 @@ export function Computer() {
   let arr = ["123456", "123456", "123456", "123456"];
   return (
     <div className={styles.box}>
+      <img src="/wallpaper2.png" alt="wallpaper" className={styles.wallpaper} />
       <div className={styles.headBox}></div>
       <div className={styles.logo}>
         <img src="/icon.png" alt="logo" title="stop and stare" />

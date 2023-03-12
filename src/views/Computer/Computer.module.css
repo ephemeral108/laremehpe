@@ -6,7 +6,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: url(/wallpaper2.png) no-repeat 0 0 / 100% 100%;
+  overflow: hidden;
+  position: relative;
+}
+.box .wallpaper {
+  height: 110%;
+  width: 110%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  transition: filter 0.3s;
 }
 .box .headBox {
   height: 56px;
@@ -23,11 +34,19 @@
   height: 130px;
   width: 130px;
 }
-.box .frame {
+.box .frame:hover {
   width: 561px;
+}
+.box .frame:focus-within {
+  width: 561px;
+}
+.box .frame {
+  width: 280px;
   height: 44px;
+  transition: width 0.5s;
   box-sizing: border-box;
   position: relative;
+  z-index: 9;
 }
 .box .frame img {
   position: absolute;
@@ -36,6 +55,7 @@
   transform: translateY(-50%);
   height: 24px;
   width: 24px;
+  z-index: 2;
 }
 .box .frame input {
   width: 100%;
@@ -46,15 +66,19 @@
   outline: none;
   padding: 0 50px;
   box-sizing: border-box;
-  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-}
-.box .frame input:focus {
-  border-radius: 15px 15px 0 0;
+  position: relative;
+  z-index: 2;
 }
 .box .frame input:focus ~ .menu {
-  display: inline-block;
+  height: 500px;
 }
 .box .frame .menu {
   width: 100%;
-  display: none;
+  height: 0;
+  overflow: hidden;
+  transform: translateY(-20px);
+  transition: height 0.5s;
+}
+.box:focus-within > .wallpaper {
+  filter: blur(8px);
 }

@@ -6,7 +6,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: url(/wallpaper2.png) no-repeat 0 0 / 100% 100%;
+  overflow: hidden;
+  position: relative;
+  .wallpaper {
+    @size: 110%;
+    height: @size;
+    width: @size;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    transition: filter 0.3s;
+  }
   .headBox {
     height: 56px;
     width: 100%;
@@ -22,11 +34,19 @@
       width: 130px;
     }
   }
-  .frame {
+  .frame:hover {
     width: 561px;
+  }
+  .frame:focus-within {
+    width: 561px;
+  }
+  .frame {
+    width: 280px;
     height: 44px;
+    transition: width 0.5s;
     box-sizing: border-box;
     position: relative;
+    z-index: 9;
     img {
       position: absolute;
       top: 50%;
@@ -35,6 +55,7 @@
       @imgSize: 24px;
       height: @imgSize;
       width: @imgSize;
+      z-index: 2;
     }
     input {
       width: 100%;
@@ -45,18 +66,26 @@
       outline: none;
       padding: 0 50px;
       box-sizing: border-box;
-      box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+      //   box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+      position: relative;
+      z-index: 2;
     }
 
-    input:focus {
-      border-radius: 15px 15px 0 0;
-    }
+    // input:focus {
+    //   border-radius: 15px 15px 0 0;
+    // }
     input:focus ~ .menu {
-      display: inline-block;
+      height: 500px;
     }
     .menu {
       width: 100%;
-      display: none;
+      height: 0;
+      overflow: hidden;
+      transform: translateY(-20px);
+      transition: height 0.5s;
     }
   }
+}
+.box:focus-within > .wallpaper {
+  filter: blur(8px);
 }
