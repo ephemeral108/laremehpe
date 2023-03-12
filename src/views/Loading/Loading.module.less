@@ -19,7 +19,7 @@
 }
 
 .loop(@count) when (@count > 0) {
-  .loop(@count - 1); // 递归调用自身
+  .loop(@count - 1); 
   span:nth-child(@{count}) {
     @sec: @count * 0.3s;
     animation: leap 1s @sec infinite linear alternate-reverse;
