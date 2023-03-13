@@ -29,6 +29,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 .box .logo img {
   height: 130px;
@@ -39,14 +41,16 @@
 }
 .box .frame:focus-within {
   width: 561px;
+  opacity: 0.9;
 }
 .box .frame {
   width: 280px;
   height: 44px;
-  transition: width 0.5s;
+  transition: all 0.5s;
   box-sizing: border-box;
   position: relative;
   z-index: 9;
+  opacity: 0.5;
 }
 .box .frame img {
   position: absolute;
@@ -70,7 +74,7 @@
   z-index: 2;
 }
 .box .frame input:focus ~ .menu {
-  height: 500px;
+  height: 600px;
 }
 .box .frame .menu {
   width: 100%;

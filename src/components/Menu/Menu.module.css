@@ -1,6 +1,6 @@
 .ul {
   width: 100%;
-  padding-top: 30px;
+  padding-top: 5px;
   background-color: #fff;
   border-radius: 0 0 15px 15px;
   position: relative;
@@ -30,9 +30,13 @@
   filter: drop-shadow(2px 4px 6px black);
   z-index: 2;
 }
+.item:first-child {
+  margin-top: 15px;
+}
 .item:last-child {
   border-radius: 0 0 15px 15px;
 }
-.item:hover {
+.chosen {
   background-color: #f0f0f0;
+  color: #315efb;
 }

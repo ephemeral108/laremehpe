@@ -29,6 +29,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    z-index: 1;
     img {
       height: 130px;
       width: 130px;
@@ -39,14 +41,16 @@
   }
   .frame:focus-within {
     width: 561px;
+    opacity: 0.9;
   }
   .frame {
     width: 280px;
     height: 44px;
-    transition: width 0.5s;
+    transition: all 0.5s;
     box-sizing: border-box;
     position: relative;
     z-index: 9;
+    opacity: 0.5;
     img {
       position: absolute;
       top: 50%;
@@ -66,16 +70,12 @@
       outline: none;
       padding: 0 50px;
       box-sizing: border-box;
-      //   box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
       position: relative;
       z-index: 2;
     }
 
-    // input:focus {
-    //   border-radius: 15px 15px 0 0;
-    // }
     input:focus ~ .menu {
-      height: 500px;
+      height: 600px;
     }
     .menu {
       width: 100%;
