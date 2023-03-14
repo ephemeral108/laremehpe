@@ -4,6 +4,10 @@ import { Menu } from "../../components/Menu/Menu";
 import { useEffect, useState, useRef } from "react";
 import { goto } from "../../utils/common/common";
 
+import { backend } from "../../utils/backend/backend";
+
+const cloud = new backend();
+
 function getRec(val) {
   let o = document.getElementById("script");
   let s = document.createElement("script");
@@ -97,6 +101,15 @@ export function Index() {
     myRef.current.setSelectionRange(0, inputVal.length);
   }
 
+  async function clipboard() {
+    const send = await navigator.clipboard.readText();
+    setVal(send);
+    const receive = await cloud.copy();
+    setInputVal(receive);
+    await navigator.clipboard.writeText(receive);
+    cloud.paste(send);
+  }
+
   return (
     <div className={styles.box}>
       <div
@@ -125,7 +138,7 @@ export function Index() {
           onClick={inputSelect}
           ref={myRef}
         />
-        <img src="/search.svg" alt="search logo" />
+        <img src="/search.svg" alt="search logo" onClick={clipboard} />
         <div className={styles.menu} style={{ height: menuHeight + "px" }}>
           <Menu
             arr={recArr}
