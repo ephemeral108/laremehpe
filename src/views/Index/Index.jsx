@@ -22,8 +22,8 @@ export function Index() {
     setInputVal("");
     setConfig({
       wallpaper: localStorage.getItem("wallpaper") || "./wallpaper.jpg",
-      width: window.screen.width * 1.1, //wallpaper
-      height: window.screen.height * 1.1, //wallpaper
+      width: window.screen.width * 1.1 + "px", //wallpaper
+      height: window.screen.height * 1.1 + "px", //wallpaper
     });
   }, []);
 
@@ -88,10 +88,12 @@ export function Index() {
 
   return (
     <div className={styles.box}>
-      <img
-        src={config.wallpaper}
-        width={config.width}
-        height={config.height}
+      <div
+        style={{
+          backgroundImage: `url(${config.wallpaper})`,
+          width: config.width,
+          height: config.height,
+        }}
         alt="wallpaper"
         className={styles.wallpaper}
       />
