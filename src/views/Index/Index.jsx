@@ -6,7 +6,11 @@ import { goto } from "../../utils/common/common";
 
 import { backend } from "../../utils/backend/backend";
 
-const cloud = new backend();
+let cloud = null;
+
+document.onload = function () {
+  cloud = new backend();
+};
 
 function getRec(val) {
   let o = document.getElementById("script");
