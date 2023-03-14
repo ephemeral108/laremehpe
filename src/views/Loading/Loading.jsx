@@ -3,10 +3,7 @@ import styles from "./Loading.module.css";
 
 export function Loading() {
   useEffect(() => {
-    setTimeout(() => {
-      window.location =
-        document.body.clientWidth >= 414 ? "#/computer" : "#/mobile";
-    }, 2000);
+    window.location.href = "#/index";
   }, []);
 
   return (
