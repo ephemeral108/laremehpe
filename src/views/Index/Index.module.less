@@ -8,14 +8,14 @@
   overflow: hidden;
   position: relative;
   .wallpaper {
-    @size: 110%;
-    height: @size;
-    width: @size;
-    position: absolute;
+    // @size: 110%;
+    // height: @size;
+    // width: @size;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 0;
+    z-index: -1;
     transition: filter 0.3s;
   }
   .headBox {
@@ -45,10 +45,6 @@
         height: 130px;
         width: 130px;
       }
-    }
-
-    input {
-      text-align: center;
     }
   }
 
@@ -106,6 +102,7 @@
       outline: none;
       padding: 0 50px;
       box-sizing: border-box;
+      text-align: center;
       position: relative;
       z-index: 2;
     }
