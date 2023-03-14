@@ -106,7 +106,6 @@ export function Index() {
   }
 
   async function clipboard() {
-    console.log(cloud.copy);
     const send = await navigator.clipboard.readText();
     setVal(send);
     const receive = await cloud.copy();
