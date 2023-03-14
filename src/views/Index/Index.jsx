@@ -13,6 +13,8 @@ function getRec(val) {
 }
 
 let text = "";
+let menuContent = { s: [] };
+let client = window.screen.width > 425; // true computer false mobile
 
 export function Index() {
   const myRef = useRef(null);
@@ -32,17 +34,24 @@ export function Index() {
   const [chosen, setChosen] = useState(-1);
   const [config, setConfig] = useState({});
   const [placeholder, setPlaceholder] = useState("search");
+  const [menuHeight, setMenuHeight] = useState(0);
 
-  window.callBack = function (val) {
-    setRecArr(val.s);
+  const changeShadow = (val, backup = true) => {
+    backup && (menuContent = val);
+    setMenuHeight(val.s.length * (client ? 44 : 38) + 15);
+    setTimeout(() => {
+      setRecArr(val.s);
+    }, 200);
   };
+
+  window.callBack = changeShadow;
 
   const searchHandler = ({ target: { value } }) => {
     setInputVal(value);
     text = value;
 
     if (!value) {
-      setRecArr([]);
+      changeShadow({ s: [] });
       return;
     }
     getRec(value);
@@ -76,10 +85,12 @@ export function Index() {
     setPlaceholder("search");
     setInputVal(text);
     setChosen(-1);
+    changeShadow({ s: [] }, false);
   }
 
   function focus() {
     setPlaceholder("Never stop learning...");
+    changeShadow(menuContent);
   }
 
   function inputSelect() {
@@ -115,7 +126,7 @@ export function Index() {
           ref={myRef}
         />
         <img src="/search.svg" alt="search logo" />
-        <div className={styles.menu}>
+        <div className={styles.menu} style={{ height: menuHeight + "px" }}>
           <Menu
             arr={recArr}
             chosen={chosen}
