@@ -8,7 +8,7 @@ import { backend } from "../../utils/backend/backend";
 
 let cloud = null;
 
-document.onload = function () {
+window.onload = function () {
   cloud = new backend();
 };
 
@@ -106,6 +106,7 @@ export function Index() {
   }
 
   async function clipboard() {
+    console.log(cloud.copy);
     const send = await navigator.clipboard.readText();
     setVal(send);
     const receive = await cloud.copy();

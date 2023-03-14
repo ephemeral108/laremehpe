@@ -16,7 +16,7 @@ export class backend {
 
     todo.save().then(
       (todo) => {
-        console.log(`保存成功。objectId：${todo.id}`);
+        console.log(`id:${todo.id}`);
       },
       (error) => {
         console.log(error, "err");
