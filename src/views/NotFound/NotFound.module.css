@@ -1,5 +1,6 @@
 .box {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -7,4 +8,7 @@
   padding: 30px;
   box-sizing: border-box;
   line-height: 5rem;
+}
+.box h1 {
+  margin: auto 0;
 }

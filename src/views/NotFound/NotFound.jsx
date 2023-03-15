@@ -5,6 +5,10 @@ export function NotFound() {
       <h1>
         You seems lost, maybe you could <a href="#/loading">go back</a> !
       </h1>
+      <h2>
+        Or you could try our new feature:
+        <a href="#/experiment">to experimental page</a>
+      </h2>
     </div>
   );
 }
