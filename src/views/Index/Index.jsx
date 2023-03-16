@@ -106,12 +106,19 @@ export function Index() {
   }
 
   async function clipboard() {
-    const send = await navigator.clipboard.readText();
-    setVal(send);
-    const receive = await cloud.copy();
-    setInputVal(receive);
-    await navigator.clipboard.writeText(receive);
-    cloud.paste(send);
+    let receive;
+    try {
+      const send = await navigator.clipboard.readText();
+      setVal(send);
+      receive = await cloud.copy();
+      setInputVal(receive);
+      await navigator.clipboard.writeText(receive);
+      cloud.paste(send);
+    } catch (e) {
+      receive = await cloud.copy();
+      cloud.paste(inputVal);
+      setInputVal(receive);
+    }
   }
 
   return (
@@ -127,7 +134,12 @@ export function Index() {
       />
       <div className={styles.headBox}></div>
       <div className={styles.logo}>
-        <img src="/icon.png" alt="logo" title="stop and stare" />
+        <img
+          src="/icon.png"
+          alt="logo"
+          title="stop and stare"
+          onClick={() => (window.location.href = "#/functions")}
+        />
       </div>
       <div className={styles.frame}>
         <input

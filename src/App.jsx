@@ -5,6 +5,7 @@ import { Toast } from "./components/Toast/Toast";
 import { Loading } from "./views/Loading/Loading";
 import { Index } from "./views/Index/Index";
 import { Experiment } from "./views/Experiment/Experiment";
+import { Functions } from "./views/Functions/Functions";
 function App() {
   return (
     <ToastConfigProvider>
@@ -13,6 +14,7 @@ function App() {
           <Route path="/index" element={<Index />} />
           <Route path="/loading" element={<Loading />} />
           <Route path="/experiment" element={<Experiment />} />
+          <Route path="/functions" element={<Functions />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </HashRouter>
