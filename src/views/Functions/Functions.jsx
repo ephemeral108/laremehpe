@@ -1,8 +1,5 @@
 import styles from "./Functions.module.css";
 const funList = [
-  //   {
-  //     name: "memo",
-  //   },
   {
     name: "favourite",
   },

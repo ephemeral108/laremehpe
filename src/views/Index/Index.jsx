@@ -3,8 +3,8 @@ import { setVal } from "../../components/Toast/Toast";
 import { Menu } from "../../components/Menu/Menu";
 import { useEffect, useState, useRef } from "react";
 import { goto } from "../../utils/common/common";
-
 import { backend } from "../../utils/backend/backend";
+// import axios from "axios";
 
 let cloud = null;
 
@@ -35,6 +35,9 @@ export function Index() {
       width: window.screen.width * 1.1 + "px", //wallpaper
       height: window.screen.height * 1.1 + "px", //wallpaper
     });
+    // axios.get("http://www.google.com").then((response) => {
+    //   console.log(response, "res");
+    // });
   }, []);
 
   const [recArr, setRecArr] = useState([]);

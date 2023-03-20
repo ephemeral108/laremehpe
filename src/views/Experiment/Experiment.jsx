@@ -1,14 +1,16 @@
+import { useState } from "react";
 import styles from "./Experiment.module.css";
 
-function foo() {
-  prompt("foo");
-}
-
 export function Experiment() {
+  const [val, setVal] = useState([]);
+
+  async function foo() {}
+
   return (
     <div className={styles.box}>
       <button onClick={foo}>button</button>
-      <input type="text" autoFocus id="test" />
+      <button onClick={() => setVal([])}>clear</button>
+      <h1>{val.join(<br />)}</h1>
     </div>
   );
 }
