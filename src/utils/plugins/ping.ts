@@ -6,6 +6,9 @@ export function ping(
   return new Promise<void>((resolve, reject) => {
     const img = new Image();
     img.src = `${url}?time=${cache ? 0 : new Date().valueOf()}`;
+    setTimeout(() => {
+      reject();
+    }, timeout);
     img.onload = () => {
       resolve();
     };
