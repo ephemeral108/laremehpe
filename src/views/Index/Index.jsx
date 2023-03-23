@@ -12,6 +12,21 @@ window.onload = function () {
   cloud = new backend();
 };
 
+document.addEventListener("visibilitychange", function () {
+  if (document.visibilityState === "visible") {
+    document.getElementById("input").focus();
+    const oldNode = document.getElementsByTagName("title")[0];
+    const newNode = document.createElement("title");
+    newNode.innerText = "laremehpe";
+    oldNode.parentNode.replaceChild(newNode, oldNode);
+  } else if (document.visibilityState === "hidden") {
+    const oldNode = document.getElementsByTagName("title")[0];
+    const newNode = document.createElement("title");
+    newNode.innerText = "waiting...";
+    oldNode.parentNode.replaceChild(newNode, oldNode);
+  }
+});
+
 function getRec(val) {
   let o = document.getElementById("script");
   let s = document.createElement("script");
@@ -102,7 +117,7 @@ export function Index() {
   function focus() {
     setPlaceholder("Never stop learning...");
     changeShadow(menuContent);
-    myRef.current.setSelectionRange(0, inputVal.length);
+    inputVal.length && myRef.current.setSelectionRange(0, inputVal.length);
   }
 
   // function inputSelect() {
@@ -147,6 +162,7 @@ export function Index() {
       </div>
       <div className={styles.frame}>
         <input
+          id="input"
           type="text"
           value={inputVal}
           onChange={searchHandler}
