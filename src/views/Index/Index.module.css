@@ -49,10 +49,6 @@
     position: relative;
     z-index: 1;
   }
-  .box .logo img {
-    height: 130px;
-    width: 130px;
-  }
 }
 @media (min-width: 768px) {
   .box .frame {
@@ -74,10 +70,10 @@
     position: relative;
     z-index: 1;
   }
-  .box .logo img {
-    height: 130px;
-    width: 130px;
-  }
+}
+.box .logo img {
+  height: 130px;
+  width: fit-content;
 }
 .box .frame {
   height: 44px;

@@ -4,6 +4,7 @@ import { Menu } from "../../components/Menu/Menu";
 import { useEffect, useState, useRef } from "react";
 import { goto } from "../../utils/common/common";
 import { backend } from "../../utils/backend/backend";
+import { ping } from "../../utils/plugins/ping";
 // import axios from "axios";
 
 let cloud = null;
@@ -50,9 +51,14 @@ export function Index() {
       width: window.screen.width * 1.1 + "px", //wallpaper
       height: window.screen.height * 1.1 + "px", //wallpaper
     });
-    // axios.get("http://www.google.com").then((response) => {
-    //   console.log(response, "res");
-    // });
+    localStorage.setItem("searchEngine", "https://www.baidu.com/s?wd=");
+    const googleLogo =
+      "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png";
+    ping(googleLogo).then(() => {
+      let logo = document.getElementById("logo");
+      logo.src = googleLogo;
+      localStorage.setItem("searchEngine", "https://www.google.com/search?q=");
+    });
   }, []);
 
   const [recArr, setRecArr] = useState([]);
@@ -157,6 +163,7 @@ export function Index() {
           src="/icon.png"
           alt="logo"
           title="stop and stare"
+          id="logo"
           onClick={() => (window.location.href = "#/functions")}
         />
       </div>

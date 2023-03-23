@@ -3,5 +3,6 @@ export function goto(wd: string) {
     window.open(wd);
     return;
   }
-  window.location.href = `https://www.baidu.com/s?wd=${encodeURIComponent(wd)}`;
+  window.location.href =
+    localStorage.getItem("searchEngine") + encodeURIComponent(wd);
 }
