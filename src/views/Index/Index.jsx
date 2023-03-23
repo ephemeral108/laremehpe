@@ -102,11 +102,12 @@ export function Index() {
   function focus() {
     setPlaceholder("Never stop learning...");
     changeShadow(menuContent);
-  }
-
-  function inputSelect() {
     myRef.current.setSelectionRange(0, inputVal.length);
   }
+
+  // function inputSelect() {
+  //   myRef.current.setSelectionRange(0, inputVal.length);
+  // }
 
   async function clipboard() {
     let receive;
@@ -154,7 +155,6 @@ export function Index() {
           onFocus={focus}
           placeholder={placeholder}
           autoFocus
-          onClick={inputSelect}
           ref={myRef}
         />
         <img src="/search.svg" alt="search logo" onClick={clipboard} />
