@@ -52,8 +52,8 @@ export function Index() {
       height: window.screen.height * 1.1 + "px", //wallpaper
     });
     localStorage.setItem("searchEngine", "https://www.baidu.com/s?wd=");
-    // const googleLogo =
-    //   "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png";
+    const googleLogo =
+      "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png";
     ping(googleLogo, false).then(() => {
       // document.getElementById("logo").src = googleLogo;
       setVal("use google search");
