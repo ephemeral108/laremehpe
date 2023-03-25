@@ -1,28 +1,22 @@
 import styles from "./Toast.module.css";
 import { useToastContext } from "../../context/ToastContext";
+import { useCallback } from "react";
 let setVal = null;
-
+let flag = false;
 function Toast() {
-  let {
-    flag,
-    infoList,
-    innerText,
-    toastProp,
-    setFlag,
-    setInnerText,
-    setToastProp,
-  } = useToastContext();
+  let { infoList, innerText, toastProp, setInnerText, setToastProp } =
+    useToastContext();
 
-  setVal = (val) => {
+  setVal = useCallback((val) => {
     val && (infoList = [...infoList, val]);
     if (flag) return;
-    setFlag(() => true);
+    flag = true;
     setInnerText(() => infoList[0]);
     setToastProp(() => ({
       className: [styles.showToast, styles.toast].join(" "),
     }));
     setTimeout(() => {
-      setFlag(() => false);
+      flag = false;
       setInnerText(() => null);
       setToastProp(() => ({ className: null }));
       setTimeout(() => {
@@ -32,7 +26,7 @@ function Toast() {
         } else infoList = [];
       }, 500);
     }, 4000);
-  };
+  }, []);
 
   return <div {...toastProp}>{innerText}</div>;
 }

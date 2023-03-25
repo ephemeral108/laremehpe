@@ -56,7 +56,7 @@ export function Index() {
       "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png";
     ping(googleLogo, false).then(() => {
       // document.getElementById("logo").src = googleLogo;
-      setVal("use google search");
+      setVal("google search");
       localStorage.setItem("searchEngine", "https://www.google.com/search?q=");
     });
   }, []);

@@ -1,7 +1,6 @@
 import { createContext, useState, useContext } from "react";
 
 const ToastConfig = createContext({
-  flag: false,
   infoList: [],
   innerText: "",
   toastProp: {
@@ -15,7 +14,6 @@ export const useToastContext = () => {
 
 export const ToastConfigProvider = (props) => {
   //Toast.jsx
-  const [flag, setFlag] = useState(false);
   let infoList = [];
   const [innerText, setInnerText] = useState(null);
   const [toastProp, setToastProp] = useState({
@@ -26,11 +24,9 @@ export const ToastConfigProvider = (props) => {
   return (
     <ToastConfig.Provider
       value={{
-        flag,
         infoList,
         innerText,
         toastProp,
-        setFlag,
         setInnerText,
         setToastProp,
       }}
