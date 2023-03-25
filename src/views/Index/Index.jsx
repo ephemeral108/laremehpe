@@ -54,7 +54,7 @@ export function Index() {
     localStorage.setItem("searchEngine", "https://www.baidu.com/s?wd=");
     const googleLogo =
       "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png";
-    ping(googleLogo).then(() => {
+    ping(googleLogo, false).then(() => {
       let logo = document.getElementById("logo");
       logo.src = googleLogo;
       localStorage.setItem("searchEngine", "https://www.google.com/search?q=");
