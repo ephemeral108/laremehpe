@@ -27,11 +27,6 @@ export class backend {
   copy() {
     const query = new AV.Query("dictionary");
     return query.get("6410707f9c3cf57aeaee7e1f");
-    // return new Promise((resolve) => {
-    //   // .then((res) => {
-    //   //   resolve(res.get("word"));
-    //   // });
-    // });
   }
 
   paste(val) {

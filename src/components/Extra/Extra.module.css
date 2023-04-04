@@ -1,1 +1,29 @@
-.Extra{display:flex;flex-direction:column;flex-wrap:wrap;margin-top:10px;width:250px}.Extra li:hover{color:red}.Extra li{list-style:none;width:100%;cursor:pointer}.Extra li:last-child button{all:unset;width:100%;display:flex;align-items:center;justify-content:center;margin-top:10px;border:1px solid #fff}
+.Extra {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  width: 250px;
+}
+.Extra li:hover {
+  color: red;
+}
+.Extra li {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+  cursor: pointer;
+}
+.Extra li:last-child button {
+  all: unset;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  border: 1px solid #fff;
+}
