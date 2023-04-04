@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./Extra.module.css";
+import { setVal } from "../../components/Toast/Toast";
 
 interface memoItem {
   key: string;
@@ -25,10 +26,13 @@ async function fetchData(): Promise<memoItem[]> {
 async function removeData(val: number) {
   return new Promise<void>((resolve, reject) => {
     setTimeout(() => {
+      setVal("remove successfully!");
       resolve();
     }, 1000);
   });
 }
+
+// async function addData(val: string) {}
 
 async function remove(val: number): Promise<void> {
   confirm("delete " + dataset[val].key + " ?") && (await removeData(val));

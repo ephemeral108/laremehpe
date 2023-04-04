@@ -51,12 +51,12 @@ export function Index() {
       width: window.screen.width * 1.1 + "px", //wallpaper
       height: window.screen.height * 1.1 + "px", //wallpaper
     });
-    localStorage.setItem("searchEngine", "https://www.baidu.com/s?wd=");
+    localStorage.setItem("searchEngine", "baidu");
     const googleLogo =
       "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png";
     ping(googleLogo, false).then(() => {
       setVal("google search");
-      localStorage.setItem("searchEngine", "https://www.google.com/search?q=");
+      localStorage.setItem("searchEngine", "google");
     });
   }, []);
 
@@ -189,7 +189,13 @@ export function Index() {
           />
         </div>
       </div>
-      <Extra show={placeholder === "search"} inputText={inputVal} />
+      <Extra
+        show={
+          placeholder === "search" &&
+          localStorage.getItem("memoStatus") === "true"
+        }
+        inputText={inputVal}
+      />
     </div>
   );
 }
