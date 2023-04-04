@@ -3,7 +3,7 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
     cmd: /(http|https):\/\//,
     handler(val) {
       let url: RegExpExecArray | null = new RegExp(
-        /http:\/\/[a-z\.\/%0-9A-Z#]*/
+        /http:\/\/[a-z\.\/%0-9A-Z#&]*/
       ).exec(val);
       if (url) window.open(url[0]);
       else encryptAndForward("baidu", val);
