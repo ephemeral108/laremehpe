@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { goto } from "../../utils/common/common";
 import { backend } from "../../utils/backend/backend";
 import { ping } from "../../utils/plugins/ping";
-// import axios from "axios";
+import { Extra } from "../../components/Extra/Extra";
 
 let cloud = null;
 
@@ -55,7 +55,6 @@ export function Index() {
     const googleLogo =
       "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png";
     ping(googleLogo, false).then(() => {
-      // document.getElementById("logo").src = googleLogo;
       setVal("google search");
       localStorage.setItem("searchEngine", "https://www.google.com/search?q=");
     });
@@ -190,6 +189,7 @@ export function Index() {
           />
         </div>
       </div>
+      {placeholder === "search" && <Extra />}
     </div>
   );
 }
