@@ -41,4 +41,13 @@ export class backend {
     todo.set("word", val);
     todo.save();
   }
+
+  async fetchMemo() {
+    const query = new AV.Query("memoList");
+    return query.get("6410707f9c3cf57aeaee7e1f");
+    // return (await query.get("6410707f9c3cf57aeaee7e1f")).get("list");
+    // .then((res) => {
+    // res.get("list")
+    // });
+  }
 }

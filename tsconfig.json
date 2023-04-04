@@ -22,6 +22,10 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["./src/**/*.tsx", "./src/**/*.ts"],
+  "include": [
+    "./src/**/*.tsx",
+    "./src/**/*.ts",
+    "src/utils/backend/backend.js"
+  ],
   "exclude": ["node_modules"]
 }

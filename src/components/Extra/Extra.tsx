@@ -9,28 +9,29 @@ interface memoItem {
 type propsType = {
   show: boolean;
   inputText: string;
+  cloud: object;
 };
 
 let dataset: memoItem[] = [];
 
 let init: () => void;
 
-async function fetchData(): Promise<memoItem[]> {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(dataset);
-    }, 500);
-  });
-}
+// async function fetchData(): Promise<memoItem[]> {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       resolve(dataset);
+//     }, 500);
+//   });
+// }
 
-async function removeData(val: number) {
-  return new Promise<void>((resolve, reject) => {
-    setTimeout(() => {
-      setVal("remove successfully!");
-      resolve();
-    }, 1000);
-  });
-}
+// async function removeData(val: number) {
+//   return new Promise<void>((resolve, reject) => {
+//     setTimeout(() => {
+//       setVal("remove successfully!");
+//       resolve();
+//     }, 1000);
+//   });
+// }
 
 // async function addData(val: string) {}
 

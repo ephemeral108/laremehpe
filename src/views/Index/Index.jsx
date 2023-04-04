@@ -195,6 +195,7 @@ export function Index() {
           localStorage.getItem("memoStatus") === "true"
         }
         inputText={inputVal}
+        cloud={cloud}
       />
     </div>
   );
