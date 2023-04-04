@@ -4,10 +4,10 @@ import { Menu } from "../../components/Menu/Menu";
 import { useEffect, useState, useRef } from "react";
 import { goto } from "../../utils/common/common";
 import { backend } from "../../utils/backend/backend";
-import { ping } from "../../utils/plugins/ping";
+import { ping } from "../../utils/common/ping";
 import { Extra } from "../../components/Extra/Extra";
 
-let cloud = null;
+window.cloud = null;
 
 window.onload = function () {
   cloud = new backend();
@@ -92,6 +92,8 @@ export function Index() {
     switch (val.keyCode) {
       case 13:
         goto(inputVal);
+        text = "";
+        blur();
         break;
       case 38: //up
         updateChosen(chosen - 1 > -2 ? chosen - 1 : recArr.length - 1);
@@ -134,12 +136,12 @@ export function Index() {
     try {
       const send = await navigator.clipboard.readText();
       setVal(send);
-      receive = await cloud.copy();
+      receive = (await cloud.copy()).get("word");
       setInputVal(receive);
       await navigator.clipboard.writeText(receive);
       cloud.paste(send);
     } catch (e) {
-      receive = await cloud.copy();
+      receive = (await cloud.copy()).get("word");
       cloud.paste(inputVal);
       setInputVal(receive);
     }

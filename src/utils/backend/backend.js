@@ -11,7 +11,7 @@ export class backend {
   add(val) {
     const todo = new AV.Object("dictionary");
 
-    todo.set("word", val);
+    todo.set("list", val);
     todo.set("date", new Date().valueOf());
 
     todo.save().then(
@@ -24,13 +24,14 @@ export class backend {
     );
   }
 
-  async copy() {
-    return new Promise((resolve) => {
-      const query = new AV.Query("dictionary");
-      query.get("6410707f9c3cf57aeaee7e1f").then((res) => {
-        resolve(res.get("word"));
-      });
-    });
+  copy() {
+    const query = new AV.Query("dictionary");
+    return query.get("6410707f9c3cf57aeaee7e1f");
+    // return new Promise((resolve) => {
+    //   // .then((res) => {
+    //   //   resolve(res.get("word"));
+    //   // });
+    // });
   }
 
   paste(val) {
@@ -43,11 +44,16 @@ export class backend {
   }
 
   async fetchMemo() {
-    const query = new AV.Query("memoList");
-    return query.get("6410707f9c3cf57aeaee7e1f");
-    // return (await query.get("6410707f9c3cf57aeaee7e1f")).get("list");
-    // .then((res) => {
-    // res.get("list")
-    // });
+    const query = new AV.Query("dictionary");
+    return query.get("642c3d161abe031ff722202b");
+  }
+
+  async updateMemo(val) {
+    const todo = AV.Object.createWithoutData(
+      "dictionary",
+      "642c3d161abe031ff722202b"
+    );
+    todo.set("list", val);
+    todo.save();
   }
 }
