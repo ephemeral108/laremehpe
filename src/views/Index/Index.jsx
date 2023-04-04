@@ -189,7 +189,7 @@ export function Index() {
           />
         </div>
       </div>
-      {placeholder === "search" && <Extra />}
+      <Extra show={placeholder === "search"} inputText={inputVal} />
     </div>
   );
 }
