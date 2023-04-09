@@ -17,7 +17,7 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
     cmd: /(http|https):\/\//,
     handler(val) {
       let url: RegExpExecArray | null = new RegExp(
-        /(http|https):\/\/[a-z\.\/%0-9A-Z#&]*/
+        /(http|https):\/\/[a-z\.\/%0-9A-Z#&-]*/
       ).exec(val);
       if (url) window.open(url[0]);
       else encryptAndForward(localStorage.getItem("searchEngine"), val);
@@ -56,12 +56,6 @@ function encryptAndForward(engine: string | null, val: string) {
 
 export function goto(wd: string) {
   //对所有命令检索
-  // for (let i = 0, len = command.length; i < len; i++) {
-  //   if (new RegExp(command[i].cmd).test(wd)) {
-  //     command[i].handler(wd);
-  //     return;
-  //   }
-  // }
   let res = command.find((val) => new RegExp(val.cmd).test(wd));
   res
     ? res.handler(wd)
