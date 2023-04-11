@@ -1,3 +1,4 @@
+import { setVal } from "../../components/Toast/Toast";
 const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
   {
     //以空格开头的将被识别为插件，加载的插件必须提供 install 函数，并接收一个参数，参数值为空格后面的输入内容
@@ -5,11 +6,13 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
     handler(val) {
       val = val.replace(" ", "");
       // import("../plugins/memo.ts");
-      import(`../plugins/plugin_${val}.ts`).then(
-        (res: { install: (val: string) => void }) => {
+      import(`../plugins/plugin_${val}.ts`)
+        .then((res: { install: (val: string) => void }) => {
           res.install(val);
-        }
-      );
+        })
+        .catch((err) => {
+          setVal("cannot find correspond plugin, please check you spell");
+        });
     },
   },
   {

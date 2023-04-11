@@ -51,4 +51,18 @@ export class backend {
     todo.set("list", val);
     todo.save();
   }
+
+  async fetchPlaceholders() {
+    const query = new AV.Query("dictionary");
+    return query.get("642c3d161abe031ff722202b");
+  }
+
+  async setPlaceholders(val) {
+    const todo = AV.Object.createWithoutData(
+      "dictionary",
+      "642c3d161abe031ff722202b"
+    );
+    todo.set("placeholders", val);
+    todo.save();
+  }
 }
