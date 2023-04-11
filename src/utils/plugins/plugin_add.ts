@@ -1,6 +1,9 @@
+import { setVal } from "../../components/Toast/Toast";
 import { backend } from "../backend/backend";
-export function add(val: string): void {
-  //val: 'add baidu http://www.baidu.com'
+import { getKeywordList } from "../common/common";
+
+export async function install(val: string): Promise<void> {
+  //val: ' add baidu http://www.baidu.com'
   //entry: ['baidu','http://www.baidu.com']
   const entry: string[] = val.replace("add ", "").split(" ");
   const urlReg: RegExp = new RegExp(/.*\.{1}.+/);
@@ -8,6 +11,15 @@ export function add(val: string): void {
   const url: string = entry.find((val) => urlReg.test(val)) || "";
   //'baidu'
   const key: string = entry.find((val) => val != url) || "";
-  //   let datas = backend.fetchPlaceholders() || [];
-  //   backend.setPlaceholders([...datas, { key, url }]);
+  if (!key || !url) {
+    setVal("please check your key or url spell");
+    return;
+  }
+  const instance = backend.getInstance();
+
+  if (instance === null) return;
+  let datas = (await instance.fetchPlaceholders()).get("list") || [];
+  instance.setPlaceholders([...datas, { key, url }]);
+  setVal("success");
+  getKeywordList();
 }

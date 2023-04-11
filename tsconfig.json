@@ -20,12 +20,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "declaration": true
   },
   "include": [
     "./src/**/*.tsx",
     "./src/**/*.ts",
-    "src/utils/backend/backend.js"
+    "@types/**/*.d.ts"
+    // "src/utils/backend/backend.js"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "typings": "./main.d.ts"
 }

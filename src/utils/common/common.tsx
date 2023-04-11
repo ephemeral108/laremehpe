@@ -1,4 +1,17 @@
 import { setVal } from "../../components/Toast/Toast";
+import { backend } from "../backend/backend";
+type list = Array<{ key: string; url: string }>;
+let keywordList: list;
+
+export function getKeywordList() {
+  backend
+    .getInstance()
+    ?.fetchPlaceholders()
+    .then((res) => (keywordList = res.get("list")));
+}
+
+getKeywordList();
+
 const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
   {
     //以空格开头的将被识别为插件，加载的插件必须提供 install 函数，并接收一个参数，参数值为空格后面的输入内容
@@ -6,12 +19,14 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
     handler(val) {
       val = val.replace(" ", "");
       // import("../plugins/memo.ts");
-      import(`../plugins/plugin_${val}.ts`)
+      import(`../plugins/plugin_${val.split(" ")[0]}.ts`)
         .then((res: { install: (val: string) => void }) => {
           res.install(val);
         })
         .catch((err) => {
-          setVal("cannot find correspond plugin, please check you spell");
+          setVal(
+            "cannot find correspond plugin, please check you spell or install function"
+          );
         });
     },
   },
@@ -47,6 +62,15 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
       encryptAndForward("baidu", val);
     },
   },
+  {
+    cmd: /.*/,
+    handler(val) {
+      let shortcut = keywordList.find((ele) => ele.key === val)?.url;
+      shortcut
+        ? (location.href = shortcut)
+        : encryptAndForward(localStorage.getItem("searchEngine"), val);
+    },
+  },
 ];
 //将字符通过encodeURIComponent进行转义并使用对应搜索引擎进行搜索
 function encryptAndForward(engine: string | null, val: string) {
@@ -59,8 +83,5 @@ function encryptAndForward(engine: string | null, val: string) {
 
 export function goto(wd: string) {
   //对所有命令检索
-  let res = command.find((val) => new RegExp(val.cmd).test(wd));
-  res
-    ? res.handler(wd)
-    : encryptAndForward(localStorage.getItem("searchEngine"), wd);
+  command.find((val) => new RegExp(val.cmd).test(wd))?.handler(wd);
 }

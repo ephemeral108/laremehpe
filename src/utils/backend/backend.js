@@ -1,4 +1,5 @@
 export class backend {
+  static instance = null;
   constructor() {
     AV.init({
       appId: "7eRpMpAqizLN2Yd9lfV0rFPn-gzGzoHsz",
@@ -8,7 +9,14 @@ export class backend {
     return this;
   }
 
-  add(val) {
+  static getInstance() {
+    if (this.instance === null) this.instance = new backend();
+    return this.instance;
+  }
+
+  //构建对象
+  //cloud.createObj([{ key: 1, key: 2 }]);
+  createObj(val) {
     const todo = new AV.Object("dictionary");
 
     todo.set("list", val);
@@ -17,6 +25,7 @@ export class backend {
     todo.save().then(
       (todo) => {
         console.log(`id:${todo.id}`);
+        navigator.clipboard.writeText(todo.id);
       },
       (error) => {
         console.log(error, "err");
@@ -54,15 +63,15 @@ export class backend {
 
   async fetchPlaceholders() {
     const query = new AV.Query("dictionary");
-    return query.get("642c3d161abe031ff722202b");
+    return query.get("643502153531836e685cb3a9");
   }
 
   async setPlaceholders(val) {
     const todo = AV.Object.createWithoutData(
       "dictionary",
-      "642c3d161abe031ff722202b"
+      "643502153531836e685cb3a9"
     );
-    todo.set("placeholders", val);
+    todo.set("list", val);
     todo.save();
   }
 }

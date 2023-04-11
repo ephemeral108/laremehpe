@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styles from "./Extra.module.css";
+import styles from "./Memo.module.css";
 // import { setVal } from "../../components/Toast/Toast";
 
 interface memoItem {
@@ -17,7 +17,7 @@ type propsType = {
 
 let dataset: memoItem[] = [];
 
-export function Extra(props: propsType): JSX.Element {
+export function Memo(props: propsType): JSX.Element {
   const [memo, setMemo] = useState<Array<memoItem>>([
     {
       key: "loading...",

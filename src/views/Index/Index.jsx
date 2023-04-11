@@ -5,12 +5,12 @@ import { useEffect, useState, useRef } from "react";
 import { goto } from "../../utils/common/common";
 import { backend } from "../../utils/backend/backend";
 import { ping } from "../../utils/common/ping";
-import { Extra } from "../../components/Extra/Extra";
+import { Memo } from "../../components/Memo/Memo";
 
 window.cloud = null;
 
 window.onload = function () {
-  cloud = new backend();
+  cloud = backend.getInstance(); //new backend();
 };
 
 document.addEventListener("visibilitychange", function () {
@@ -191,7 +191,7 @@ export function Index() {
           />
         </div>
       </div>
-      <Extra
+      <Memo
         show={
           placeholder === "search" &&
           localStorage.getItem("memoStatus") === "true"
