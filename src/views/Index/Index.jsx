@@ -120,7 +120,6 @@ export function Index() {
 
   function blur() {
     // setTimeout(() => {
-    alert("blur");
     // false => blur, true => focus
     inputStatus = false;
     setPlaceholder("search");

@@ -2,7 +2,6 @@ import styles from "./Menu.module.css";
 import { goto } from "../../utils/common/common";
 
 function clickHandler(val) {
-  alert("click", val);
   goto(val);
 }
 
@@ -17,7 +16,7 @@ export function Menu(props) {
             props.chosen === seq ? styles.chosen : "",
           ].join(" ")}
           onMouseMove={() => props.updateChosen(seq)}
-          onClick={() => clickHandler(val)}
+          onMouseDown={() => clickHandler(val)}
         >
           {val}
         </li>
