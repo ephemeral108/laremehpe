@@ -9,6 +9,7 @@ interface memoItem {
 type propsType = {
   show: boolean;
   inputText: string;
+  clearText: () => void;
   cloud: {
     fetchMemo: () => Promise<{ get: (val: string) => Array<memoItem> }>;
     updateMemo: (val: Array<memoItem>) => void;
@@ -31,8 +32,9 @@ export function Memo(props: propsType): JSX.Element {
     init();
   }, []);
 
+  type datasetType = Array<{ key: string }>;
   function add(): void {
-    setMemo((dataset) => {
+    setMemo((dataset: datasetType) => {
       const data = [
         ...dataset,
         {
@@ -42,12 +44,13 @@ export function Memo(props: propsType): JSX.Element {
       props.cloud.updateMemo(data);
       return data;
     });
+    props.clearText();
   }
 
   function remove(val: number): void {
     const res = confirm("delete " + memo[val].key + " ?");
     if (!res) return;
-    setMemo((dataset) => {
+    setMemo((dataset: datasetType) => {
       const data = [...dataset].filter((a, b) => b != val);
       props.cloud.updateMemo(data);
       return data;

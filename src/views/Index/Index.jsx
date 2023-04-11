@@ -39,6 +39,7 @@ function getRec(val) {
 let text = "";
 let menuContent = { s: [] };
 let client = window.screen.width > 425; // true computer false mobile
+let inputStatus = false; // false => blur, true => focus
 
 export function Index() {
   const myRef = useRef(null);
@@ -69,10 +70,13 @@ export function Index() {
 
   const changeShadow = (val, backup = true) => {
     backup && (menuContent = val);
-    setMenuHeight(val.s.length * (client ? 44 : 38) + 15);
-    setTimeout(() => {
+    if (inputStatus) {
+      setMenuHeight(val.s.length * (client ? 44 : 38) + 15);
       setRecArr(val.s);
-    }, 200);
+    } else {
+      setMenuHeight(15);
+      setRecArr([]);
+    }
   };
 
   window.callBack = changeShadow;
@@ -115,13 +119,20 @@ export function Index() {
   }
 
   function blur() {
+    // setTimeout(() => {
+    alert("blur");
+    // false => blur, true => focus
+    inputStatus = false;
     setPlaceholder("search");
     setInputVal(text);
     setChosen(-1);
     changeShadow({ s: [] }, false);
+    // }, 500);
   }
 
   function focus() {
+    // false => blur, true => focus
+    inputStatus = true;
     setPlaceholder("Never stop learning...");
     changeShadow(menuContent);
     inputVal.length && myRef.current.setSelectionRange(0, inputVal.length);
@@ -145,6 +156,13 @@ export function Index() {
       cloud.paste(inputVal);
       setInputVal(receive);
     }
+  }
+
+  function clearText() {
+    text = "";
+    menuContent = { s: [] };
+    setInputVal("");
+    setRecArr([]);
   }
 
   return (
@@ -198,6 +216,7 @@ export function Index() {
         }
         inputText={inputVal}
         cloud={cloud}
+        clearText={clearText}
       />
     </div>
   );
