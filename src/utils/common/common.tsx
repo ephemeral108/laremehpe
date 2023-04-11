@@ -4,13 +4,13 @@ type list = Array<{ key: string; url: string }>;
 let keywordList: list;
 
 export function getKeywordList() {
-  backend
-    .getInstance()
-    ?.fetchPlaceholders()
-    .then((res) => (keywordList = res.get("list")));
+  location.reload();
 }
 
-getKeywordList();
+backend
+  .getInstance()
+  ?.fetchPlaceholders()
+  .then((res) => (keywordList = res.get("list")));
 
 const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
   {
