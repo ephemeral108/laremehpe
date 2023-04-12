@@ -119,14 +119,12 @@ export function Index() {
   }
 
   function blur() {
-    // setTimeout(() => {
     // false => blur, true => focus
     inputStatus = false;
     setPlaceholder("search");
     setInputVal(text);
     setChosen(-1);
     changeShadow({ s: [] }, false);
-    // }, 500);
   }
 
   function focus() {
