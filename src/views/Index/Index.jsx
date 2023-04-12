@@ -197,6 +197,7 @@ export function Index() {
           placeholder={placeholder}
           autoFocus
           ref={myRef}
+          autoComplete="off"
         />
         <img src="/search.svg" alt="search logo" onClick={clipboard} />
         <div className={styles.menu} style={{ height: menuHeight + "px" }}>
