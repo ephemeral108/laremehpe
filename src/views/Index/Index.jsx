@@ -96,7 +96,8 @@ export function Index() {
     switch (val.keyCode) {
       case 13:
         goto(inputVal);
-        text = "";
+        // text = "";
+        clearText();
         blur();
         break;
       case 38: //up
