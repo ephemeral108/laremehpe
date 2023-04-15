@@ -1,0 +1,1 @@
+import{b as c,s as l,g as o}from"./index-f40c67a6.js";async function d(a){const e=c.getInstance();if(e===null)return;const r=(await e.fetchPlaceholders()).get("list"),t=a.replace("remove ",""),n=(r||[]).filter(s=>s.key!==t||s.url.indexOf(t)===-1);if(!n){l("cannot find revelant keyword, please check your placeholder again!");return}e.setPlaceholders(n),o()}export{d as install};
