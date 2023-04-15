@@ -21,7 +21,7 @@ export async function install(val: string): Promise<void> {
   let datas = (await instance.fetchPlaceholders()).get("list") || [];
   instance.setPlaceholders([
     ...datas,
-    { key, url: url.startsWith("http://") ? url : "http://" + url },
+    { key, url: url.startsWith("http") ? url : "http://" + url },
   ]);
   setVal("success");
   getKeywordList();
