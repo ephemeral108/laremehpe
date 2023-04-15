@@ -8,7 +8,8 @@ export async function install(val: string): Promise<void> {
   const entry: string[] = val.replace("add ", "").split(" ");
   const urlReg: RegExp = new RegExp(/.*\.{1}.+/);
   //'http://www.baidu.com'
-  const url: string = entry.find((val) => urlReg.test(val)) || "";
+  const url: string =
+    entry.find((val) => urlReg.test(val))?.split("?")[0] || "";
   //'baidu'
   const key: string = entry.find((val) => val != url) || "";
   if (!key || !url) {
