@@ -70,7 +70,7 @@ export function Index() {
 
   const changeShadow = (val, backup = true) => {
     backup && (menuContent = val);
-    if (inputStatus) {
+    if (val.q === inputVal && inputStatus) {
       setMenuHeight(val.s.length * (client ? 44 : 38) + 15);
       setRecArr(val.s);
     } else {
