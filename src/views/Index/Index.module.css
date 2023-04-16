@@ -126,14 +126,7 @@
 .box:focus-within > .wallpaper {
   filter: blur(8px);
 }
-.directive {
-  position: relative;
-}
-.directive::after {
-  position: absolute;
-  content: "directive: ";
-  top: 50%;
-  left: 50px;
-  transform: translateY(-50%);
-  z-index: 99;
+.directive input {
+  font-weight: bold;
+  color: red;
 }

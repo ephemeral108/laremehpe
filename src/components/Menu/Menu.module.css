@@ -5,6 +5,7 @@
 }
 .item {
   line-height: 38px;
+  text-align: center;
   position: relative;
   box-sizing: border-box;
   width: 100%;
