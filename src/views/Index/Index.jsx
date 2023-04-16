@@ -74,7 +74,8 @@ export function Index() {
     if (val.q === inputVal && inputStatus) {
       setMenuHeight(val.s.length * (client ? 44 : 38) + 15);
       setRecArr(val.s);
-    } else if (inputVal === "") {
+    } else {
+      //if (inputVal === "")
       setMenuHeight(15);
       setRecArr([]);
     }
@@ -164,6 +165,13 @@ export function Index() {
     menuContent = { s: [] };
     setInputVal("");
     setRecArr([]);
+    // setMenuHeight(15);
+    changeShadow({ s: [] });
+    setDirective(false);
+    setTimeout(() => {
+      document.getElementById("input").focus();
+      inputStatus = true;
+    }, 0);
   }
 
   return (

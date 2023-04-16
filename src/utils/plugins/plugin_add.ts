@@ -1,6 +1,7 @@
 import { setVal } from "../../components/Toast/Toast";
 import { backend } from "../backend/backend";
 import { getKeywordList } from "../common/common";
+import { updateKeywordList } from "../common/common";
 
 export async function install(val: string): Promise<void> {
   //val: ' add baidu http://www.baidu.com'
@@ -16,14 +17,20 @@ export async function install(val: string): Promise<void> {
     setVal("please check your key or url spell");
     return;
   }
+
+  if (getKeywordList().findIndex((val) => val.key === key) > -1) {
+    setVal("the key already exist!");
+    return;
+  }
   const instance = backend.getInstance();
 
   if (instance === null) return;
   let datas = (await instance.fetchPlaceholders()).get("list") || [];
-  instance.setPlaceholders([
+  const newList = [
     ...datas,
     { key, url: url.startsWith("http") ? url : "http://" + url },
-  ]);
-  setVal("success");
-  getKeywordList();
+  ];
+  instance.setPlaceholders(newList);
+  setVal(url.startsWith("http") ? url : "http://" + url);
+  updateKeywordList(newList);
 }

@@ -1,6 +1,6 @@
 import { setVal } from "../../components/Toast/Toast";
 import { backend } from "../backend/backend";
-import { getKeywordList } from "../common/common";
+import { updateKeywordList } from "../common/common";
 
 export async function install(val: string) {
   const instance = backend.getInstance();
@@ -8,10 +8,11 @@ export async function install(val: string) {
   const list = (await instance.fetchPlaceholders()).get("list");
   const key: string = val.replace("remove ", "");
 
-  const shortcut = (list || []).filter(
-    (ele: { key: string; url: string }) =>
-      ele.key !== key || ele.url.indexOf(key) === -1
-  );
+  const shortcut = (list || []).filter((ele: { key: string; url: string }) => {
+    const bol = ele.key !== key && ele.url.indexOf(key) === -1;
+    !bol && setVal(ele.url);
+    return bol;
+  });
   if (!shortcut) {
     setVal(
       "cannot find revelant keyword, please check your placeholder again!"
@@ -19,5 +20,6 @@ export async function install(val: string) {
     return;
   }
   instance.setPlaceholders(shortcut);
-  getKeywordList();
+  updateKeywordList(shortcut);
+  // getKeywordList();
 }

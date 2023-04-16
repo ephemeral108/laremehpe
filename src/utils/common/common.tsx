@@ -4,7 +4,12 @@ type list = Array<{ key: string; url: string }>;
 let keywordList: list;
 
 export function getKeywordList() {
-  location.reload();
+  // location.reload();
+  return keywordList;
+}
+
+export function updateKeywordList(list: list) {
+  keywordList = list;
 }
 
 backend
@@ -18,7 +23,6 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
     cmd: /^ /,
     handler(val) {
       val = val.replace(" ", "");
-      // import("../plugins/memo.ts");
       import(`../plugins/plugin_${val.split(" ")[0]}.ts`)
         .then((res: { install: (val: string) => void }) => {
           res.install(val);
