@@ -58,14 +58,16 @@ export function Memo(props: propsType): JSX.Element {
   }
 
   return props.show ? (
-    <ul className={styles.Extra}>
-      {memo.map((val, seq) => (
-        <li key={val.key + seq} onClick={() => remove(seq)}>
-          {val.key}
-        </li>
-      ))}
-      <li>{props.inputText !== "" && <button onClick={add}>add</button>}</li>
-    </ul>
+    <div className={styles.box}>
+      <ul className={styles.Extra}>
+        {memo.map((val, seq) => (
+          <li key={val.key + seq} onClick={() => remove(seq)}>
+            {val.key}
+          </li>
+        ))}
+        <li>{props.inputText !== "" && <button onClick={add}>add</button>}</li>
+      </ul>
+    </div>
   ) : (
     <></>
   );

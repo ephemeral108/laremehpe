@@ -49,10 +49,15 @@
     position: relative;
     z-index: 1;
   }
+  .box .logo img {
+    height: 130px;
+    width: 130px;
+  }
 }
 @media (min-width: 768px) {
   .box .frame {
     width: 280px;
+    flex-shrink: 0;
   }
   .box .frame:hover {
     width: 561px;
@@ -70,10 +75,10 @@
     position: relative;
     z-index: 1;
   }
-}
-.box .logo img {
-  height: 130px;
-  width: fit-content;
+  .box .logo img {
+    height: 130px;
+    width: 130px;
+  }
 }
 .box .frame {
   height: 44px;
