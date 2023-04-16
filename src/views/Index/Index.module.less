@@ -135,3 +135,15 @@
 .box:focus-within > .wallpaper {
   filter: blur(8px);
 }
+
+.directive {
+  position: relative;
+  &::after {
+    position: absolute;
+    content: "directive: ";
+    top: 50%;
+    left: 50px;
+    transform: translateY(-50%);
+    z-index: 99;
+  }
+}

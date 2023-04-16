@@ -67,6 +67,7 @@ export function Index() {
   const [config, setConfig] = useState({});
   const [placeholder, setPlaceholder] = useState("search");
   const [menuHeight, setMenuHeight] = useState(0);
+  const [directive, setDirective] = useState(false);
 
   const changeShadow = (val, backup = true) => {
     backup && (menuContent = val);
@@ -83,6 +84,8 @@ export function Index() {
 
   const searchHandler = ({ target: { value } }) => {
     setInputVal(value);
+    setDirective(value.startsWith(" "));
+
     text = value;
 
     if (!value) {
@@ -184,7 +187,9 @@ export function Index() {
           onClick={() => (window.location.href = "#/functions")}
         />
       </div>
-      <div className={styles.frame}>
+      <div
+        className={[styles.frame, directive ? styles.directive : ""].join(" ")}
+      >
         <input
           id="input"
           type="text"
