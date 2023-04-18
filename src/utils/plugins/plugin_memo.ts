@@ -3,4 +3,5 @@ export function install(val: string): void {
     "memoStatus",
     localStorage.getItem("memoStatus") === "true" ? "false" : "true"
   );
+  location.reload();
 }
