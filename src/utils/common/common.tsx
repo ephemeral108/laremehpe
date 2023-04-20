@@ -1,25 +1,32 @@
 import { setVal } from "../../components/Toast/Toast";
 import { backend } from "../backend/backend";
+
+// Define a type for a list of objects with a key and url property
 type list = Array<{ key: string; url: string }>;
+
+// Declare a variable to hold a list of keywords
 let keywordList: list;
 
+// Define a function to return the keyword list
 export function getKeywordList() {
-  // location.reload();
   return keywordList;
 }
 
+// Define a function to update the keyword list
 export function updateKeywordList(list: list) {
   keywordList = list;
 }
 
+// Fetch the list of placeholders from the backend and update the keyword list
 backend
   .getInstance()
   ?.fetchPlaceholders()
   .then((res) => (keywordList = res.get("list")));
 
+// Define an array of command objects with a cmd property and a handler function
 const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
   {
-    //以空格开头的将被识别为插件，加载的插件必须提供 install 函数，并接收一个参数，参数值为空格后面的输入内容
+    // If the input starts with a space, load the corresponding plugin
     cmd: /^ /,
     handler(val) {
       val = val.replace(" ", "");
@@ -35,7 +42,7 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
     },
   },
   {
-    //搜索内容中包含http://或者https://则直接截取跳转相应的网页
+    // If the input contains http:// or https://, open the corresponding URL
     cmd: /(http|https):\/\//,
     handler(val) {
       let url: RegExpExecArray | null = new RegExp(
@@ -46,27 +53,28 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
     },
   },
   {
-    //baidu空格开头的内容将被识别为用百度搜索
+    // If the input starts with "baidu ", search on Baidu
     cmd: /^(baidu )/,
     handler(val) {
       encryptAndForward("baidu", val);
     },
   },
   {
-    //google空格开头的内容将被识别为用Google搜索
+    // If the input starts with "google ", search on Google
     cmd: /^(google )/,
     handler(val) {
       encryptAndForward("google", val);
     },
   },
   {
-    //包含中文字符则直接用百度搜索
+    // If the input contains Chinese characters, search on Baidu
     cmd: /[\u2E80-\uFE4F]/,
     handler(val) {
       encryptAndForward("baidu", val);
     },
   },
   {
+    // If the input matches none of the above commands, search using the default search engine
     cmd: /.*/,
     handler(val) {
       let shortcut = keywordList.find((ele) => ele.key === val)?.url;
@@ -76,7 +84,8 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
     },
   },
 ];
-//将字符通过encodeURIComponent进行转义并使用对应搜索引擎进行搜索
+
+// Encode the input and forward it to the corresponding search engine
 function encryptAndForward(engine: string | null, val: string) {
   window.location.href =
     (engine === "google"
@@ -85,7 +94,8 @@ function encryptAndForward(engine: string | null, val: string) {
     encodeURIComponent(val.replace(engine + " ", ""));
 }
 
+// Define a function to execute the appropriate command based on the input
 export function goto(wd: string) {
-  //对所有命令检索
+  // Find the first command that matches the input and execute its handler function
   command.find((val) => new RegExp(val.cmd).test(wd))?.handler(wd);
 }

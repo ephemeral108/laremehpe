@@ -1,3 +1,4 @@
+// This file contains the backend class and related interfaces
 export declare class backend {
   constructor(): backend;
   static instance: myBack;
@@ -12,3 +13,4 @@ interface myBack {
 interface result {
   get: (val: string) => any;
 }
+
