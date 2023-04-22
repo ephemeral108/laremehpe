@@ -75,9 +75,8 @@ export function Index() {
       setMenuHeight(val.s.length * (client ? 44 : 38) + 15);
       setRecArr(val.s);
     } else {
-      //if (inputVal === "")
-      setMenuHeight(15);
-      setRecArr([]);
+      setMenuHeight(0);
+      //setRecArr([]);
     }
   };
 

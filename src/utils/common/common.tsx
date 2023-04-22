@@ -36,7 +36,7 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
         })
         .catch((err) => {
           setVal(
-            "cannot find correspond plugin, please check you spell or install function"
+            "cannot find corresponding plugin, please check you spell or install function"
           );
         });
     },
