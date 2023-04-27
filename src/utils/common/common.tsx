@@ -67,6 +67,13 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
     },
   },
   {
+    // If the input starts with "bilibili ", search on bilibili
+    cmd: /^(bilibili )/,
+    handler(val) {
+      `https://search.bilibili.com/all?keyword=${encodeURIComponent(val.replace('bilibili ',''))}`
+    },
+  },
+  {
     // If the input contains Chinese characters, search on Baidu
     cmd: /[\u2E80-\uFE4F]/,
     handler(val) {
