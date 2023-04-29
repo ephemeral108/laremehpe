@@ -70,7 +70,9 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
     // If the input starts with "bilibili ", search on bilibili
     cmd: /^(bilibili )/,
     handler(val) {
-      `https://search.bilibili.com/all?keyword=${encodeURIComponent(val.replace('bilibili ',''))}`
+      `https://search.bilibili.com/all?keyword=${encodeURIComponent(
+        val.replace("bilibili ", "")
+      )}`;
     },
   },
   {
@@ -94,6 +96,7 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
 
 // Encode the input and forward it to the corresponding search engine
 function encryptAndForward(engine: string | null, val: string) {
+  localStorage.setItem("lastInputVal", val);
   window.location.href =
     (engine === "google"
       ? "https://www.google.com/search?q="

@@ -4,8 +4,6 @@
   position: relative;
 }
 .item {
-  line-height: 38px;
-  text-align: center;
   position: relative;
   box-sizing: border-box;
   width: 100%;
@@ -15,6 +13,9 @@
   text-overflow: ellipsis;
   overflow: hidden;
   list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   cursor: pointer;
   &::after {
@@ -43,10 +44,12 @@
 @media (max-width: 768px) {
   .item {
     height: 38px;
+    line-height: 38px;
   }
 }
 @media (min-width: 768px) {
   .item {
     height: 44px;
+    line-height: 44px;
   }
 }

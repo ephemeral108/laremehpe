@@ -1,11 +1,10 @@
 import styles from "./Menu.module.css";
 import { goto } from "../../utils/common/common";
-
-function clickHandler(val) {
-  goto(val);
-}
-
 export function Menu(props) {
+  function clickHandler(val) {
+    props.setInputVal(val);
+    goto(val);
+  }
   return (
     <ul className={styles.ul} onMouseLeave={props.onLeave}>
       {props.arr.map((val, seq) => (

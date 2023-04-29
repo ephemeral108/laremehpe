@@ -40,10 +40,11 @@ let text = "";
 let menuContent = { s: [] };
 let client = window.screen.width > 425; // true computer false mobile
 let inputStatus = false; // false => blur, true => focus
+let shouldBlur = true; // determine whether should blur
 
 export function Index() {
   const myRef = useRef(null);
-
+  // console.log("update");
   useEffect(() => {
     setVal("Welcom back!");
     setInputVal("");
@@ -104,6 +105,10 @@ export function Index() {
         blur();
         break;
       case 38: //up
+        if (inputVal === "") {
+          setInputVal(localStorage.getItem("lastInputVal") || "");
+          break;
+        }
         updateChosen(chosen - 1 > -2 ? chosen - 1 : recArr.length - 1);
         myRef.current.setSelectionRange(inputVal.length, inputVal.length);
         break;
@@ -126,7 +131,7 @@ export function Index() {
     // false => blur, true => focus
     inputStatus = false;
     setPlaceholder("search");
-    setInputVal(text);
+    shouldBlur ? setInputVal(text) : "";
     setChosen(-1);
     changeShadow({ s: [] }, false);
   }
@@ -197,6 +202,7 @@ export function Index() {
       <div
         className={[styles.frame, directive ? styles.directive : ""].join(" ")}
       >
+        {/* shouldBlur ? blur : () => {} */}
         <input
           id="input"
           type="text"
@@ -216,7 +222,10 @@ export function Index() {
             arr={recArr}
             chosen={chosen}
             updateChosen={(e) => setChosen(e)}
-            onLeave={() => (setChosen(-1), setInputVal(text))}
+            setInputVal={(e) => ((shouldBlur = false), setInputVal(e))}
+            onLeave={() =>
+              shouldBlur ? (setChosen(-1), setInputVal(text)) : ""
+            }
           />
         </div>
       </div>
