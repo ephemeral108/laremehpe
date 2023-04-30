@@ -101,7 +101,7 @@ export function Index() {
       case 13:
         goto(inputVal);
         // text = "";
-        clearText();
+        //clearText();
         blur();
         break;
       case 38: //up
