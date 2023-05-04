@@ -14,7 +14,8 @@ export function getKeywordList() {
 
 // Define a function to update the keyword list
 export function updateKeywordList(list: list) {
-  keywordList = list;
+  // keywordList = list;
+  location.reload();
 }
 
 // Fetch the list of placeholders from the backend and update the keyword list
