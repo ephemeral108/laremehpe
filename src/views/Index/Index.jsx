@@ -130,7 +130,10 @@ export function Index() {
   function blur() {
     // false => blur, true => focus
     inputStatus = false;
-    setPlaceholder("search");
+    setTimeout(()=>{
+      //wait for animation to be finished
+      setPlaceholder("search");
+    },400)
     shouldBlur ? setInputVal(text) : "";
     setChosen(-1);
     changeShadow({ s: [] }, false);
