@@ -8,9 +8,10 @@ export declare class backend {
 interface myBack {
   fetchPlaceholders: () => Promise<result>;
   setPlaceholders: (val: Array<{ key: string; url: string }>) => void;
+  fetchMemo: () => Promise<{ get: (val: string) => Array<memoItem> }>;
+  updateMemo: (val: Array<memoItem>) => void;
 }
 
 interface result {
   get: (val: string) => any;
 }
-

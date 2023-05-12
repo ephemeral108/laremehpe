@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Memo.module.css";
 // import { setVal } from "../../components/Toast/Toast";
+import { useBackendContext } from "../../context/Backend";
 
 interface memoItem {
   key: string;
@@ -10,15 +11,12 @@ type propsType = {
   show: boolean;
   inputText: string;
   clearText: () => void;
-  cloud: {
-    fetchMemo: () => Promise<{ get: (val: string) => Array<memoItem> }>;
-    updateMemo: (val: Array<memoItem>) => void;
-  };
 };
 
 let dataset: memoItem[] = [];
 
 export function Memo(props: propsType): JSX.Element {
+  const { cloud } = useBackendContext();
   const [memo, setMemo] = useState<Array<memoItem>>([
     {
       key: "loading...",
@@ -27,10 +25,10 @@ export function Memo(props: propsType): JSX.Element {
 
   useEffect(() => {
     const init = async () => {
-      setMemo((await props.cloud.fetchMemo()).get("list"));
+      setMemo((await cloud.fetchMemo()).get("list"));
     };
     init();
-  }, []);
+  }, [cloud]);
 
   type datasetType = Array<{ key: string }>;
   function add(): void {
@@ -41,7 +39,7 @@ export function Memo(props: propsType): JSX.Element {
           key: props.inputText,
         },
       ];
-      props.cloud.updateMemo(data);
+      cloud.updateMemo(data);
       return data;
     });
     props.clearText();
@@ -52,7 +50,7 @@ export function Memo(props: propsType): JSX.Element {
     if (!res) return;
     setMemo((dataset: datasetType) => {
       const data = [...dataset].filter((a, b) => b != val);
-      props.cloud.updateMemo(data);
+      cloud.updateMemo(data);
       return data;
     });
   }

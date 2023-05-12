@@ -1,0 +1,9 @@
+.bu {
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 70px;
+  width: 150px;
+  z-index: 65535;
+}
