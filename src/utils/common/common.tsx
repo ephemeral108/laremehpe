@@ -108,7 +108,7 @@ function encryptAndForward(engine: string | null, val: string) {
 // Define a function to execute the appropriate command based on the input
 export function goto(wd: string) {
   //add debug break point
-  // console.log('debug');
+  // console.log("debug");
   // return;
   // Find the first command that matches the input and execute its handler function
   command.find((val) => new RegExp(val.cmd).test(wd))?.handler(wd);

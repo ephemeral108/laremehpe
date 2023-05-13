@@ -3,7 +3,6 @@ import { setVal } from "../../components/Toast/Toast";
 import { Menu } from "../../components/Menu/Menu";
 import { useEffect, useState, useRef } from "react";
 import { goto } from "../../utils/common/common";
-// import { backend } from "../../utils/backend/backend";
 import { ping } from "../../utils/common/ping";
 import { Memo } from "../../components/Memo/Memo";
 import { useBackendContext } from "../../context/Backend";
@@ -34,7 +33,6 @@ function getRec(val) {
 let text = "";
 let menuContent = { s: [] };
 let client = window.screen.width > 425; // true computer false mobile
-let inputStatus = false; // false => blur, true => focus
 let shouldBlur = true; // determine whether should blur
 
 export function Index() {
@@ -42,12 +40,6 @@ export function Index() {
   // console.log("update");
   useEffect(() => {
     setVal("Welcom back!");
-    setInputVal("");
-    setConfig({
-      wallpaper: localStorage.getItem("wallpaper") || "./wallpaper.jpg",
-      width: window.screen.width * 1.1 + "px", //wallpaper
-      height: window.screen.height * 1.1 + "px", //wallpaper
-    });
     localStorage.setItem("searchEngine", "baidu");
     const googleLogo =
       "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png";
@@ -60,7 +52,11 @@ export function Index() {
   const [recArr, setRecArr] = useState([]);
   const [inputVal, setInputVal] = useState("");
   const [chosen, setChosen] = useState(-1);
-  const [config, setConfig] = useState({});
+  const [config, setConfig] = useState({
+    wallpaper: localStorage.getItem("wallpaper") || "./wallpaper.jpg",
+    width: window.screen.width * 1.1 + "px", //wallpaper
+    height: window.screen.height * 1.1 + "px", //wallpaper
+  });
   const [placeholder, setPlaceholder] = useState("search");
   const [menuHeight, setMenuHeight] = useState(0);
   const [directive, setDirective] = useState(false);
@@ -68,12 +64,11 @@ export function Index() {
 
   const changeShadow = (val, backup = true) => {
     backup && (menuContent = val);
-    if (val.q === inputVal && inputStatus) {
+    if (val.q === inputVal /*&& inputStatus*/) {
       setMenuHeight(val.s.length * (client ? 44 : 38) + 15);
       setRecArr(val.s);
     } else {
-      setMenuHeight(0);
-      //setRecArr([]);
+      inputVal && getRec(inputVal);
     }
   };
 
@@ -84,9 +79,9 @@ export function Index() {
     setDirective(value.startsWith(" "));
 
     text = value;
-
     if (!value) {
-      changeShadow({ s: [] });
+      setRecArr([]);
+      setMenuHeight(0);
       return;
     }
     getRec(value);
@@ -96,8 +91,7 @@ export function Index() {
     switch (val.keyCode) {
       case 13:
         goto(inputVal);
-        // text = "";
-        //clearText();
+        shouldBlur = false;
         blur();
         break;
       case 38: //up
@@ -124,28 +118,20 @@ export function Index() {
   }
 
   function blur() {
-    // false => blur, true => focus
-    inputStatus = false;
     setTimeout(() => {
       //wait for animation to be finished
       setPlaceholder("search");
     }, 400);
     shouldBlur ? setInputVal(text) : "";
     setChosen(-1);
-    changeShadow({ s: [] }, false);
+    setMenuHeight(0);
   }
 
   function focus() {
-    // false => blur, true => focus
-    inputStatus = true;
     setPlaceholder("Never stop learning...");
-    changeShadow(menuContent);
+    changeShadow(menuContent, false);
     inputVal.length && myRef.current.setSelectionRange(0, inputVal.length);
   }
-
-  // function inputSelect() {
-  //   myRef.current.setSelectionRange(0, inputVal.length);
-  // }
 
   async function clipboard() {
     let receive;
@@ -168,12 +154,10 @@ export function Index() {
     menuContent = { s: [] };
     setInputVal("");
     setRecArr([]);
-    // setMenuHeight(15);
     changeShadow({ s: [] });
     setDirective(false);
     setTimeout(() => {
       document.getElementById("input").focus();
-      inputStatus = true;
     }, 0);
   }
 
@@ -214,6 +198,7 @@ export function Index() {
           autoFocus
           ref={myRef}
           autoComplete="off"
+          onClick={() => changeShadow(menuContent)}
         />
         <img src="/search.svg" alt="search logo" onClick={clipboard} />
         <div className={styles.menu} style={{ height: menuHeight + "px" }}>
