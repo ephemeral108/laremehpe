@@ -11,6 +11,7 @@ window.cloud = null;
 
 window.onload = function () {
   cloud = backend.getInstance(); //new backend();
+  console.log(cloud, "getInstance");
 };
 
 document.addEventListener("visibilitychange", function () {
