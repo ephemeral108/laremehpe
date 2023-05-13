@@ -9,8 +9,8 @@
   box-sizing: border-box;
   border: 20px solid #6b778d;
   border-radius: 20px;
-  white-space: wrap;
-  overflow: scroll;
+  // overflow: scroll;
+  overflow-y: auto;
   z-index: 99;
   opacity: 1;
   transition: opacity 1s;
@@ -20,4 +20,23 @@
 }
 .vanish {
   opacity: 0;
+}
+
+.anotherAnnoyingMessage {
+  animation: goBack 2s linear forwards;
+}
+
+@keyframes goBack {
+  0% {
+    left: 5%;
+  }
+  20% {
+    left: -7%;
+  }
+  70% {
+    left: -7%;
+  }
+  100% {
+    left: 5%;
+  }
 }
