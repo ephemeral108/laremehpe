@@ -1,0 +1,23 @@
+.box {
+  position: fixed;
+  bottom: 6vh;
+  left: 5%;
+  max-width: 300px;
+  max-height: 30vh;
+  color: #fff;
+  background-color: #6b778d;
+  box-sizing: border-box;
+  border: 20px solid #6b778d;
+  border-radius: 20px;
+  white-space: wrap;
+  overflow: scroll;
+  z-index: 99;
+  opacity: 1;
+  transition: opacity 1s;
+}
+.show {
+  opacity: 1;
+}
+.vanish {
+  opacity: 0;
+}

@@ -3,16 +3,10 @@ import { setVal } from "../../components/Toast/Toast";
 import { Menu } from "../../components/Menu/Menu";
 import { useEffect, useState, useRef } from "react";
 import { goto } from "../../utils/common/common";
-import { backend } from "../../utils/backend/backend";
+// import { backend } from "../../utils/backend/backend";
 import { ping } from "../../utils/common/ping";
 import { Memo } from "../../components/Memo/Memo";
-
-window.cloud = null;
-
-window.onload = function () {
-  cloud = backend.getInstance(); //new backend();
-  console.log(cloud, "getInstance");
-};
+import { useBackendContext } from "../../context/Backend";
 
 document.addEventListener("visibilitychange", function () {
   if (document.visibilityState === "visible") {
@@ -70,6 +64,7 @@ export function Index() {
   const [placeholder, setPlaceholder] = useState("search");
   const [menuHeight, setMenuHeight] = useState(0);
   const [directive, setDirective] = useState(false);
+  const { cloud } = useBackendContext();
 
   const changeShadow = (val, backup = true) => {
     backup && (menuContent = val);
@@ -131,7 +126,10 @@ export function Index() {
   function blur() {
     // false => blur, true => focus
     inputStatus = false;
-    setPlaceholder("search");
+    setTimeout(() => {
+      //wait for animation to be finished
+      setPlaceholder("search");
+    }, 400);
     shouldBlur ? setInputVal(text) : "";
     setChosen(-1);
     changeShadow({ s: [] }, false);
@@ -236,7 +234,6 @@ export function Index() {
           localStorage.getItem("memoStatus") === "true"
         }
         inputText={inputVal}
-        cloud={cloud}
         clearText={clearText}
       />
     </div>
