@@ -13,9 +13,11 @@
   text-overflow: ellipsis;
   overflow: hidden;
   list-style: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  // will cause text-overflow: ellipsis; not working
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  text-align: center;
 
   cursor: pointer;
   &::after {
