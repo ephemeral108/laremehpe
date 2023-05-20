@@ -100,11 +100,11 @@ export function Index() {
           break;
         }
         updateChosen(chosen - 1 > -2 ? chosen - 1 : recArr.length - 1);
-        myRef.current.setSelectionRange(inputVal.length, inputVal.length);
+        // myRef.current.setSelectionRange(inputVal.length, inputVal.length);
         break;
       case 40: //down
         updateChosen(chosen + 1 > recArr.length ? 0 : chosen + 1);
-        myRef.current.setSelectionRange(inputVal.length, inputVal.length);
+        // myRef.current.setSelectionRange(inputVal.length, inputVal.length);
         break;
       default:
         setChosen(-1);
@@ -130,7 +130,7 @@ export function Index() {
   function focus() {
     setPlaceholder("Never stop learning...");
     changeShadow(menuContent, false);
-    inputVal.length && myRef.current.setSelectionRange(0, inputVal.length);
+    // inputVal.length && myRef.current.setSelectionRange(0, inputVal.length);
   }
 
   async function clipboard() {
