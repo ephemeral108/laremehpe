@@ -95,11 +95,9 @@ export function Index() {
         blur();
         break;
       case 38: //up
-        if (inputVal === "") {
+        if (inputVal === "")
           setInputVal(localStorage.getItem("lastInputVal") || "");
-          break;
-        }
-        updateChosen(chosen - 1 > -2 ? chosen - 1 : recArr.length - 1);
+        else updateChosen(chosen - 1 > -2 ? chosen - 1 : recArr.length - 1);
         // myRef.current.setSelectionRange(inputVal.length, inputVal.length);
         break;
       case 40: //down
