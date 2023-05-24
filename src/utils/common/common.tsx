@@ -71,7 +71,7 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
     // If the input starts with "bilibili ", search on bilibili
     cmd: /^(bilibili )/,
     handler(val) {
-      `https://search.bilibili.com/all?keyword=${encodeURIComponent(
+      location.href = `https://search.bilibili.com/all?keyword=${encodeURIComponent(
         val.replace("bilibili ", "")
       )}`;
     },
