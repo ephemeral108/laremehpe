@@ -68,7 +68,7 @@ export function Index() {
       setMenuHeight(val.s.length * (client ? 44 : 38) + 15);
       setRecArr(val.s);
     } else {
-      inputVal && getRec(inputVal);
+      inputVal && !inputVal.startsWith(" ") && getRec(inputVal);
     }
   };
 
