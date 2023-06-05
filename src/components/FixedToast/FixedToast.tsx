@@ -4,7 +4,6 @@ const messageQueue: string[] = [];
 let isDisplaying = false;
 let alterMes: (firstTime?: boolean) => void;
 export const addMes: (val: string) => void = (val) => {
-  console.log(val, "addMes");
   messageQueue.push(val);
   !isDisplaying && alterMes();
 };
