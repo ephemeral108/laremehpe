@@ -9,6 +9,7 @@ import { Experiment } from "./views/Experiment/Experiment";
 import { Functions } from "./views/Functions/Functions";
 import { Note } from "./views/Note/Note";
 import { FixedToast } from "./components/FixedToast/FixedToast";
+import { Base64Converter } from "./views/Functions/children/Base64Converter/Base64Converter";
 // import { TestButton } from "./components/TestButton/TestButton";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path="/experiment" element={<Experiment />} />
             <Route path="/functions" element={<Functions />} />
             <Route path="/Notes" element={<Note />} />
+            <Route path="/base64" element={<Base64Converter />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </HashRouter>
