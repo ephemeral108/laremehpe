@@ -11,6 +11,7 @@ import { Note } from "./views/Note/Note";
 import { FixedToast } from "./components/FixedToast/FixedToast";
 import { Base64Converter } from "./views/Functions/children/Base64Converter/Base64Converter";
 // import { TestButton } from "./components/TestButton/TestButton";
+import { Inputs } from "./views/Functions/children/Inputs/Inputs";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/functions" element={<Functions />} />
             <Route path="/Notes" element={<Note />} />
             <Route path="/base64" element={<Base64Converter />} />
+            <Route path="/inputs" element={<Inputs />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </HashRouter>

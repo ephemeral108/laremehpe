@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./Functions.module.css";
+import { Button, Space } from "antd";
 const funList: Array<{
   name: string;
   page: string;
@@ -8,10 +9,10 @@ const funList: Array<{
     name: "base64 converter",
     page: "/base64",
   },
-  // {
-  //   name: "js Lab",
-  //   event() {},
-  // },
+  {
+    name: "inputs",
+    page: "/inputs",
+  },
   // {
   //   name: "data sync textarea",
   //   event() {},
@@ -27,12 +28,12 @@ const funList: Array<{
 export function Functions() {
   const to = useNavigate();
   return (
-    <div className={styles.box}>
+    <Space className={styles.box}>
       {funList.map((val) => (
-        <div key={val.name} onClick={() => to(val.page)}>
+        <Button key={val.name} onClick={() => to(val.page)}>
           {val.name}
-        </div>
+        </Button>
       ))}
-    </div>
+    </Space>
   );
 }
