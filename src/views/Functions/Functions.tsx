@@ -13,16 +13,10 @@ const funList: Array<{
     name: "inputs",
     page: "/inputs",
   },
-  // {
-  //   name: "data sync textarea",
-  //   event() {},
-  // },
-  // {
-  //   name: "Note",
-  //   event() {
-  //     location.href = "notes";
-  //   },
-  // },
+  {
+    name: "eval js",
+    page: "/eval",
+  },
 ];
 
 export function Functions() {
