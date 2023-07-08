@@ -10,6 +10,8 @@ interface myBack {
   setPlaceholders: (val: Array<{ key: string; url: string }>) => void;
   fetchMemo: () => Promise<{ get: (val: string) => Array<memoItem> }>;
   updateMemo: (val: Array<memoItem>) => void;
+  copy: () => Promise<object>;
+  paste: (val: string) => void;
 }
 
 interface result {

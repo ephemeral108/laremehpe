@@ -1,16 +1,59 @@
-import { Input } from "antd";
+import { Button, Input, Space } from "antd";
 import styles from "./Inputs.module.css";
+import { useBackendContext } from "../../../../context/Backend";
+import { useState } from "react";
+import { setVal } from "../../../../components/Toast/Toast";
 
 export const Inputs = (): JSX.Element => {
   const { TextArea } = Input;
+  const { cloud } = useBackendContext();
+  const [text, setText] = useState<string>("");
+
   return (
     <div className={styles.box}>
       <TextArea
         showCount
-        maxLength={2000}
         style={{ height: "90vh", width: "90vw", resize: "none" }}
-        placeholder="disable resize"
+        placeholder="never stop learning..."
+        value={text}
+        onChange={(e) => setText(e.target.value)}
       />
+      <Space className={styles.buts}>
+        <Button
+          type="primary"
+          onClick={() => {
+            cloud.paste(text);
+            setVal("success!");
+          }}
+        >
+          save
+        </Button>
+        <Button
+          type="primary"
+          onClick={() => {
+            cloud.copy().then((res) => {
+              setText((res as any).get("word"));
+            });
+          }}
+        >
+          restore
+        </Button>
+
+        <Button
+          onClick={() => {
+            setText("");
+          }}
+        >
+          clear
+        </Button>
+        <Button
+          onClick={() => {
+            history.back();
+          }}
+        >
+          back
+        </Button>
+      </Space>
     </div>
   );
 };

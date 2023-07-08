@@ -6,7 +6,7 @@ export const useBackendContext = (): { cloud: myBack } => {
   return useContext<{ cloud: myBack }>(BackendConfig);
 };
 
-export const BackendConfigProvider = (props) => {
+export const BackendConfigProvider = (props: { children: JSX.Element }) => {
   const [cloud, setCloud] = useState(backend.getInstance());
   useEffect(() => {
     setCloud(backend.getInstance());
