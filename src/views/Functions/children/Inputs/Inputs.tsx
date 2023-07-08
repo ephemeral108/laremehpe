@@ -13,7 +13,7 @@ export const Inputs = (): JSX.Element => {
     <div className={styles.box}>
       <TextArea
         showCount
-        style={{ height: "90vh", width: "90vw", resize: "none" }}
+        style={{ height: "90vh", width: "90vw" }}
         placeholder="never stop learning..."
         value={text}
         onChange={(e) => setText(e.target.value)}
