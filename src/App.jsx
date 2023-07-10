@@ -13,6 +13,7 @@ import { Base64Converter } from "./views/Functions/children/Base64Converter/Base
 // import { TestButton } from "./components/TestButton/TestButton";
 import { Inputs } from "./views/Functions/children/Inputs/Inputs";
 import { Eval } from "./views/Functions/children/Eval/Eval";
+import { useEffect } from "react";
 
 function App() {
   return (

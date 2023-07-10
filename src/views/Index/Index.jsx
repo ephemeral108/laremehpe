@@ -7,21 +7,6 @@ import { ping } from "../../utils/common/ping";
 import { Memo } from "../../components/Memo/Memo";
 import { useBackendContext } from "../../context/Backend";
 
-document.addEventListener("visibilitychange", function () {
-  if (document.visibilityState === "visible") {
-    document.getElementById("input").focus();
-    const oldNode = document.getElementsByTagName("title")[0];
-    const newNode = document.createElement("title");
-    newNode.innerText = "laremehpe";
-    oldNode.parentNode.replaceChild(newNode, oldNode);
-  } else if (document.visibilityState === "hidden") {
-    const oldNode = document.getElementsByTagName("title")[0];
-    const newNode = document.createElement("title");
-    newNode.innerText = "waiting...";
-    oldNode.parentNode.replaceChild(newNode, oldNode);
-  }
-});
-
 function getRec(val) {
   let o = document.getElementById("script");
   let s = document.createElement("script");
@@ -47,6 +32,27 @@ export function Index() {
       setVal("google search");
       localStorage.setItem("searchEngine", "google");
     });
+
+    function changeEvent() {
+      if (document.visibilityState === "visible") {
+        document.getElementById("input").focus();
+        const oldNode = document.getElementsByTagName("title")[0];
+        const newNode = document.createElement("title");
+        newNode.innerText = "laremehpe";
+        oldNode.parentNode.replaceChild(newNode, oldNode);
+      } else if (document.visibilityState === "hidden") {
+        const oldNode = document.getElementsByTagName("title")[0];
+        const newNode = document.createElement("title");
+        newNode.innerText = "waiting...";
+        oldNode.parentNode.replaceChild(newNode, oldNode);
+      }
+    }
+
+    document.addEventListener("visibilitychange", changeEvent);
+
+    return () => {
+      document.removeEventListener("visibilitychange", changeEvent);
+    };
   }, []);
 
   const [recArr, setRecArr] = useState([]);

@@ -3,7 +3,11 @@ export function NotFound() {
   return (
     <div className={styles.box}>
       <h1>
-        You seems lost, maybe you could <a href="#/loading">To my homepage</a> !
+        You seems lost, maybe you could
+        <button autoFocus>
+          <a href="#/loading">To my homepage</a>
+        </button>
+        !
       </h1>
       <h2>
         Or you could try our new feature:
