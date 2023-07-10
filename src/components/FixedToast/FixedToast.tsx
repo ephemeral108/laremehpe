@@ -8,7 +8,7 @@ export const addMes: (val: string) => void = (val) => {
   !isDisplaying && alterMes();
 };
 
-export function FixedToast() {
+export const FixedToast = () => {
   const [text, setText] = useState<string>("");
   const [clazz, setClazz] = useState<string>(
     [styles.box, styles.vanish].join(" ")
@@ -43,4 +43,4 @@ export function FixedToast() {
       {text}
     </div>
   );
-}
+};
