@@ -1,3 +1,4 @@
+import { addMes } from "../../components/FixedToast/FixedToast";
 import { setVal } from "../../components/Toast/Toast";
 import { backend } from "../backend/backend";
 import { getKeywordList } from "../common/common";
@@ -20,7 +21,8 @@ export async function install(val: string): Promise<void> {
 
   if (getKeywordList().findIndex((val) => val.key === key) > -1) {
     setVal("the key already exist!");
-    return;
+    let shortcut = getKeywordList().find((ele) => ele.key === val)?.url;
+    addMes("url is: " + shortcut);
   }
   const instance = backend.getInstance();
 
