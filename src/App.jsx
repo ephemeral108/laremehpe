@@ -8,7 +8,7 @@ import { Index } from "./views/Index/Index";
 import { Experiment } from "./views/Experiment/Experiment";
 import { Functions } from "./views/Functions/Functions";
 import { Note } from "./views/Note/Note";
-import { FixedToast } from "./components/FixedToast/FixedToast";
+import { FixedToast, addMes } from "./components/FixedToast/FixedToast";
 import { Base64Converter } from "./views/Functions/children/Base64Converter/Base64Converter";
 // import { TestButton } from "./components/TestButton/TestButton";
 import { Inputs } from "./views/Functions/children/Inputs/Inputs";
@@ -16,6 +16,12 @@ import { Eval } from "./views/Functions/children/Eval/Eval";
 import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    const last = localStorage.getItem("lastMes");
+    if (!last) return;
+    addMes(last);
+    localStorage.setItem("lastMes", "");
+  }, []);
   return (
     <ToastConfigProvider>
       <BackendConfigProvider>

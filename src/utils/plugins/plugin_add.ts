@@ -20,9 +20,12 @@ export async function install(val: string): Promise<void> {
   }
 
   if (getKeywordList().findIndex((val) => val.key === key) > -1) {
-    setVal("the key already exist!");
-    let shortcut = getKeywordList().find((ele) => ele.key === val)?.url;
-    addMes("url is: " + shortcut);
+    // setVal("the key already exist!");
+    let shortcut = getKeywordList().find((ele) => ele.key === key)?.url;
+    localStorage.setItem(
+      "lastMes",
+      "the key already exist! url is: " + shortcut
+    );
   }
   const instance = backend.getInstance();
 
