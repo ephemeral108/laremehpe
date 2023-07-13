@@ -19,15 +19,19 @@ let text = "";
 let menuContent = { s: [] };
 let client = window.screen.width > 425; // true computer false mobile
 let shouldBlur = true; // determine whether should blur
+const googleLogo =
+  "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png";
+const config = {
+  wallpaper: localStorage.getItem("wallpaper") || "./wallpaper.jpg",
+  width: window.screen.width * 1.1 + "px", //wallpaper
+  height: window.screen.height * 1.1 + "px", //wallpaper
+};
 
 export function Index() {
   const myRef = useRef(null);
   // console.log("update");
   useEffect(() => {
-    setVal("Welcom back!");
     localStorage.setItem("searchEngine", "baidu");
-    const googleLogo =
-      "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png";
     ping(googleLogo, false).then(() => {
       setVal("google search");
       localStorage.setItem("searchEngine", "google");
@@ -58,11 +62,6 @@ export function Index() {
   const [recArr, setRecArr] = useState([]);
   const [inputVal, setInputVal] = useState("");
   const [chosen, setChosen] = useState(-1);
-  const [config, setConfig] = useState({
-    wallpaper: localStorage.getItem("wallpaper") || "./wallpaper.jpg",
-    width: window.screen.width * 1.1 + "px", //wallpaper
-    height: window.screen.height * 1.1 + "px", //wallpaper
-  });
   const [placeholder, setPlaceholder] = useState("search");
   const [menuHeight, setMenuHeight] = useState(0);
   const [directive, setDirective] = useState(false);
