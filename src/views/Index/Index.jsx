@@ -69,16 +69,6 @@ export function Index() {
   const [directive, setDirective] = useState(false);
   const { cloud } = useBackendContext();
 
-  // const changeShadow = (val, backup = true) => {
-  //   backup && (menuContent = val);
-  //   if (val.q === inputVal /*&& inputStatus*/) {
-  //     setMenuHeight(val.s.length * (client ? 44 : 38) + 15);
-  //     setRecArr(val.s);
-  //   } else {
-  //     inputVal && !inputVal.startsWith(" ") && getRec(inputVal);
-  //   }
-  // };
-
   window.callBack = (val) => {
     if (val.q !== inputVal) return; // return if request call back is not correspond with input value
     computedMenuHeight = val.s.length * (client ? 44 : 38) + 15;
@@ -108,14 +98,10 @@ export function Index() {
         blur();
         break;
       case 38: //up
-        if (inputVal === "")
-          setInputVal(localStorage.getItem("lastInputVal") || "");
-        else updateChosen(chosen - 1 > -2 ? chosen - 1 : recArr.length - 1);
-        // myRef.current.setSelectionRange(inputVal.length, inputVal.length);
+        updateChosen(chosen - 1 > -2 ? chosen - 1 : recArr.length - 1);
         break;
       case 40: //down
         updateChosen(chosen + 1 > recArr.length ? 0 : chosen + 1);
-        // myRef.current.setSelectionRange(inputVal.length, inputVal.length);
         break;
       default:
         setChosen(-1);
@@ -141,9 +127,6 @@ export function Index() {
   function focus() {
     setPlaceholder("Never stop learning...");
     setMenuHeight(computedMenuHeight);
-
-    // changeShadow(menuContent, false);
-    // inputVal.length && myRef.current.setSelectionRange(0, inputVal.length);
   }
 
   async function clipboard() {
@@ -167,7 +150,6 @@ export function Index() {
     menuContent = { s: [] };
     setInputVal("");
     setRecArr([]);
-    // changeShadow({ s: [] });
     setDirective(false);
     setTimeout(() => {
       document.getElementById("input").focus();
@@ -218,7 +200,10 @@ export function Index() {
           <Menu
             arr={recArr}
             chosen={chosen}
-            updateChosen={(e) => setChosen(e)}
+            updateChosen={(e) => {
+              setChosen(e);
+              setInputVal(recArr[e]);
+            }}
             setInputVal={(e) => ((shouldBlur = false), setInputVal(e))}
             onLeave={() => {
               console.log("leave");
