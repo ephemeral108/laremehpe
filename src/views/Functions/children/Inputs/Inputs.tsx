@@ -46,13 +46,6 @@ export const Inputs = (): JSX.Element => {
         >
           clear
         </Button>
-        <Button
-          onClick={() => {
-            history.back();
-          }}
-        >
-          back
-        </Button>
       </Space>
     </div>
   );

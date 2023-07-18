@@ -29,7 +29,6 @@ const config = {
 
 export function Index() {
   const myRef = useRef(null);
-  // console.log("update");
   useEffect(() => {
     localStorage.setItem("searchEngine", "baidu");
     ping(googleLogo, false).then(() => {
