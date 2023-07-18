@@ -220,9 +220,10 @@ export function Index() {
             chosen={chosen}
             updateChosen={(e) => setChosen(e)}
             setInputVal={(e) => ((shouldBlur = false), setInputVal(e))}
-            onLeave={() =>
-              shouldBlur ? (setChosen(-1), setInputVal(text)) : ""
-            }
+            onLeave={() => {
+              console.log("leave");
+              shouldBlur ? (setChosen(-1), setInputVal(text)) : "";
+            }}
           />
         </div>
       </div>
