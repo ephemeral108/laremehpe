@@ -11,12 +11,15 @@ function getRec(val) {
   let o = document.getElementById("script");
   let s = document.createElement("script");
   s.setAttribute("id", "script");
-  s.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${val}&cb=callBack`;
+  s.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${encodeURIComponent(
+    val
+  )}&cb=callBack`;
   o.parentNode.replaceChild(s, o);
 }
 
+let computedMenuHeight = 0; // calculated menu height ...
 let text = "";
-let menuContent = { s: [] };
+// let menuContent = { s: [] };
 let client = window.screen.width > 425; // true computer false mobile
 let shouldBlur = true; // determine whether should blur
 const googleLogo =
@@ -66,17 +69,22 @@ export function Index() {
   const [directive, setDirective] = useState(false);
   const { cloud } = useBackendContext();
 
-  const changeShadow = (val, backup = true) => {
-    backup && (menuContent = val);
-    if (val.q === inputVal /*&& inputStatus*/) {
-      setMenuHeight(val.s.length * (client ? 44 : 38) + 15);
-      setRecArr(val.s);
-    } else {
-      inputVal && !inputVal.startsWith(" ") && getRec(inputVal);
-    }
-  };
+  // const changeShadow = (val, backup = true) => {
+  //   backup && (menuContent = val);
+  //   if (val.q === inputVal /*&& inputStatus*/) {
+  //     setMenuHeight(val.s.length * (client ? 44 : 38) + 15);
+  //     setRecArr(val.s);
+  //   } else {
+  //     inputVal && !inputVal.startsWith(" ") && getRec(inputVal);
+  //   }
+  // };
 
-  window.callBack = changeShadow;
+  window.callBack = (val) => {
+    if (val.q !== inputVal) return; // return if request call back is not correspond with input value
+    computedMenuHeight = val.s.length * (client ? 44 : 38) + 15;
+    setMenuHeight(computedMenuHeight);
+    setRecArr(val.s);
+  };
 
   const searchHandler = ({ target: { value } }) => {
     setInputVal(value);
@@ -85,7 +93,8 @@ export function Index() {
     text = value;
     if (!value) {
       setRecArr([]);
-      setMenuHeight(0);
+      computedMenuHeight = 0;
+      setMenuHeight(computedMenuHeight);
       return;
     }
     getRec(value);
@@ -131,7 +140,9 @@ export function Index() {
 
   function focus() {
     setPlaceholder("Never stop learning...");
-    changeShadow(menuContent, false);
+    setMenuHeight(computedMenuHeight);
+
+    // changeShadow(menuContent, false);
     // inputVal.length && myRef.current.setSelectionRange(0, inputVal.length);
   }
 
@@ -156,7 +167,7 @@ export function Index() {
     menuContent = { s: [] };
     setInputVal("");
     setRecArr([]);
-    changeShadow({ s: [] });
+    // changeShadow({ s: [] });
     setDirective(false);
     setTimeout(() => {
       document.getElementById("input").focus();
@@ -200,7 +211,7 @@ export function Index() {
           autoFocus
           ref={myRef}
           autoComplete="off"
-          onClick={() => changeShadow(menuContent)}
+          // onClick={() => changeShadow(menuContent)}
         />
         <img src="/search.svg" alt="search logo" onClick={clipboard} />
         <div className={styles.menu} style={{ height: menuHeight + "px" }}>
