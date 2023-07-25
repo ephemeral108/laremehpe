@@ -87,7 +87,8 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
     // If the input matches none of the above commands, search using the default search engine
     cmd: /.+/,
     handler(val) {
-      let shortcut = keywordList.find((ele) => ele.key === val)?.url;
+      let shortcut =
+        keywordList && keywordList.find((ele) => ele.key === val)?.url;
       shortcut
         ? (location.href = shortcut)
         : encryptAndForward(localStorage.getItem("searchEngine"), val);
