@@ -70,7 +70,7 @@ export function Index() {
   const { cloud } = useBackendContext();
 
   window.callBack = (val) => {
-    if (val.q !== inputVal) return; // return if request call back is not correspond with input value
+    if (String(val.q).toUpperCase() !== String(inputVal).toUpperCase()) return; // return if request call back is not correspond with input value
     computedMenuHeight = val.s.length * (client ? 44 : 38) + 15;
     setMenuHeight(computedMenuHeight);
     setRecArr(val.s);
