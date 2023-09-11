@@ -206,14 +206,10 @@ export function Index() {
             }}
             setInputVal={(e) => ((shouldBlur = false), setInputVal(e))}
             onLeave={() => {
-<<<<<<< HEAD
               // console.log("leave");
               setChosen(-1);
               setInputVal(text);
               // shouldBlur ? (setChosen(-1), setInputVal(text)) : "";
-=======
-              shouldBlur ? (setChosen(-1), setInputVal(text)) : "";
->>>>>>> 079b947bde39a368598eb24dc97ddaae1279a09e
             }}
           />
         </div>
