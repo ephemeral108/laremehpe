@@ -1,6 +1,6 @@
 import { Button, Input } from "antd";
 import styles from "./Database.module.css";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useBackendContext } from "../../../../context/Backend";
 
 export const Database = (): JSX.Element => {
@@ -14,9 +14,18 @@ export const Database = (): JSX.Element => {
   const [input6, setInput6] = useState<string>("");
   const [input7, setInput7] = useState<string>("");
   const [input8, setInput8] = useState<string>("");
+  const [history, setHistory] = useState<Array<string>>([]);
 
-  let key = "",
-    val = "";
+  useEffect(() => {
+    const his = localStorage.getItem("check_history");
+    if (his) {
+      setHistory(his.split("|"));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("check_history", history.join("|"));
+  }, [history]);
 
   return (
     <div className={styles.box}>
@@ -63,8 +72,14 @@ export const Database = (): JSX.Element => {
             cloud
               .getObj(input2)
               .then((res) => {
-                console.log(res);
                 setResult(JSON.stringify(res));
+                setHistory((his) => {
+                  let arr = [...his, input2];
+                  if (arr.length > 10) {
+                    arr = arr.slice(arr.length - 11, arr.length - 1);
+                  }
+                  return arr;
+                });
               })
               .catch((err) => {
                 setResult(JSON.stringify(err));
@@ -187,6 +202,14 @@ export const Database = (): JSX.Element => {
         ---------------------------------------------------------
         <p>{result}</p>
         ---------------------------------------------------------
+      </div>
+      <div>
+        history:
+        <ul>
+          {history.map((val, seq) => (
+            <li key={seq}>{val}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );
