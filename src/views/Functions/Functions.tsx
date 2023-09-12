@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Eval } from "./children/Eval/Eval";
 import { Base64Converter } from "./children/Base64Converter/Base64Converter";
 import { Inputs } from "./children/Inputs/Inputs";
+import { Database } from "./children/Database/Database";
 type funs = {
   name: string;
   page: React.ReactNode;
@@ -21,6 +22,10 @@ const funList: Array<funs> = [
   {
     name: "eval js",
     page: <Eval />,
+  },
+  {
+    name: "database management",
+    page: <Database />,
   },
 ];
 export function Functions() {

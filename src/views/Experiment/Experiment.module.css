@@ -5,8 +5,11 @@
   align-items: center;
   height: 100vh;
 }
-.box button {
-  height: 80px;
-  width: 80px;
-  margin-bottom: 10px;
+.box div {
+  margin-bottom: 20px;
+}
+.back {
+  position: fixed;
+  top: 30px;
+  left: 30px;
 }

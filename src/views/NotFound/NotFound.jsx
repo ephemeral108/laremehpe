@@ -4,8 +4,13 @@ export function NotFound() {
     <div className={styles.box}>
       <h1>
         You seems lost, maybe you could
-        <button autoFocus>
-          <a href="#/loading">To my homepage</a>
+        <button
+          autoFocus
+          onClick={() => {
+            window.location.href = "#/index";
+          }}
+        >
+          <a href="#/index">To my homepage</a>
         </button>
         !
       </h1>

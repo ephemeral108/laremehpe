@@ -12,6 +12,11 @@ interface myBack {
   updateMemo: (val: Array<memoItem>) => void;
   copy: () => Promise<object>;
   paste: (val: string) => void;
+  createObj: (val: Array<any>) => Promise<{ id: string }>;
+  getObj: (val: string) => Promise<object>;
+  setObj: (tableName: string, obj: object) => Promise<object>;
+  delKey: (tableName: string, key: string) => Promise<object>;
+  delTable: (tableName: string) => Promise<object>;
 }
 
 interface result {
