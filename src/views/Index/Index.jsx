@@ -169,13 +169,9 @@ export function Index() {
       />
       <div className={styles.headBox}></div>
       <div className={styles.logo}>
-        <img
-          src="/icon.png"
-          alt="logo"
-          title="stop and stare"
-          id="logo"
-          onClick={() => (window.location.href = "#/functions")}
-        />
+        <button onClick={() => (window.location.href = "#/functions")}>
+          <img src="/icon.png" alt="logo" title="stop and stare" id="logo" />
+        </button>
       </div>
       <div
         className={[styles.frame, directive ? styles.directive : ""].join(" ")}
