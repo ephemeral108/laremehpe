@@ -92,7 +92,7 @@ export const Database = (): JSX.Element => {
       </div>
 
       <div className={styles.gap}>
-        databaseId:
+        table name:
         <Input
           defaultValue=""
           value={input5}
