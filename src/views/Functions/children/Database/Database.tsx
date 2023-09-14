@@ -74,7 +74,8 @@ export const Database = (): JSX.Element => {
               .then((res) => {
                 setResult(JSON.stringify(res));
                 setHistory((his) => {
-                  let arr = [...his, input2];
+                  if (his.includes(input2)) return his;
+                  let arr = [input2, ...his];
                   if (arr.length > 10) {
                     arr = arr.slice(arr.length - 11, arr.length - 1);
                   }
