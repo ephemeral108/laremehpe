@@ -21,8 +21,11 @@ export function Experiment() {
         <Button
           onClick={() => {
             // cloud.createObj({});
-            cloud.createObj([{ ip: "127.0.0.1" }]).then((ip) => {
-              setContent(ip);
+            cloud.paste("test" + new Date().valueOf()).then((sus) => {
+              console.log("success");
+              cloud.copy().then((txt) => {
+                console.log("copy", txt.get("content"));
+              });
             });
           }}
           type="primary"

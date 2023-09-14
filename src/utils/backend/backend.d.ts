@@ -11,7 +11,7 @@ interface myBack {
   fetchMemo: () => Promise<{ get: (val: string) => Array<memoItem> }>;
   updateMemo: (val: Array<memoItem>) => void;
   copy: () => Promise<object>;
-  paste: (val: string) => void;
+  paste: (val: string) => Promise<object>;
   createObj: (val: Array<any>) => Promise<{ id: string }>;
   getObj: (val: string) => Promise<object>;
   setObj: (tableName: string, obj: object) => Promise<object>;

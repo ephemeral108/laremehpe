@@ -32,7 +32,7 @@ export const Inputs = (): JSX.Element => {
           type="primary"
           onClick={() => {
             cloud.copy().then((res) => {
-              setText((res as any).get("word"));
+              setText((res as any).get("content"));
             });
           }}
         >

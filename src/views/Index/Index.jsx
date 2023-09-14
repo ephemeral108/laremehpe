@@ -134,12 +134,12 @@ export function Index() {
     try {
       const send = await navigator.clipboard.readText();
       setVal(send);
-      receive = (await cloud.copy()).get("word");
+      receive = (await cloud.copy()).get("content");
       setInputVal(receive);
       await navigator.clipboard.writeText(receive);
       cloud.paste(send);
     } catch (e) {
-      receive = (await cloud.copy()).get("word");
+      receive = (await cloud.copy()).get("content");
       cloud.paste(inputVal);
       setInputVal(receive);
     }

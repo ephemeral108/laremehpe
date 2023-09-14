@@ -68,18 +68,18 @@ export class backend {
     return todo.destroy();
   }
 
-  copy() {
-    const query = new AV.Query("dictionary");
-    return query.get("6410707f9c3cf57aeaee7e1f");
+  async copy() {
+    const query = new AV.Query("miscellaneous");
+    return query.get("650264a4156a2610d0a81367");
   }
 
-  paste(val) {
+  async paste(val) {
     const todo = AV.Object.createWithoutData(
-      "dictionary",
-      "6410707f9c3cf57aeaee7e1f"
+      "miscellaneous",
+      "650264a4156a2610d0a81367"
     );
-    todo.set("word", val);
-    todo.save();
+    todo.set("content", val);
+    return todo.save();
   }
 
   async fetchMemo() {
