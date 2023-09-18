@@ -6,7 +6,7 @@ import { useBackendContext } from "../../../../context/Backend";
 export const Database = (): JSX.Element => {
   const { cloud } = useBackendContext();
   const [result, setResult] = useState<string>("");
-  const [input1, setInput1] = useState<string>("");
+  /*  const [input1, setInput1] = useState<string>("");
   const [input2, setInput2] = useState<string>("");
   const [input3, setInput3] = useState<string>("");
   const [input4, setInput4] = useState<string>("");
@@ -14,33 +14,48 @@ export const Database = (): JSX.Element => {
   const [input6, setInput6] = useState<string>("");
   const [input7, setInput7] = useState<string>("");
   const [input8, setInput8] = useState<string>("");
+*/
+  const [form, setForm] = useState({
+    input1: "",
+    input2: "",
+    input3: "",
+    input4: "",
+    input5: "",
+    input6: "",
+    input7: "",
+    input8: "",
+  });
+  const formHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
   const [history, setHistory] = useState<Array<string>>([]);
 
   useEffect(() => {
-    const his = localStorage.getItem("check_history");
-    if (his) {
-      setHistory(his.split("|"));
-    }
+    (async () => {
+      const his: string[] = (
+        await cloud.getObj("6507aba663372b4e216bf1b8")
+      ).get("list");
+      if (his) {
+        console.log(his);
+
+        setHistory(his);
+      }
+    })();
   }, []);
 
-  useEffect(() => {
+  /*useEffect(() => {
     localStorage.setItem("check_history", history.join("|"));
-  }, [history]);
+  }, [history]);*/
 
   return (
     <div className={styles.box}>
       <div>
-        <Input
-          value={input1}
-          onChange={(e) => {
-            setInput1(e.target.value);
-          }}
-        />
+        <Input name="input1" value={form.input1} onChange={formHandler} />
         <Button
           onClick={() => {
             let obj;
             try {
-              obj = JSON.parse(input1);
+              obj = JSON.parse(form.input1);
             } catch (e) {
               setResult("error: cannot parse the object");
             }
@@ -60,25 +75,18 @@ export const Database = (): JSX.Element => {
         </Button>
       </div>
       <div className={styles.gap}>
-        <Input
-          value={input2}
-          onChange={(e) => {
-            setInput2(e.target.value);
-          }}
-        />
+        <Input name="input2" value={form.input2} onChange={formHandler} />
         <Button
           onClick={() => {
-            if (input2.length === 0) return;
+            if (form.input2.length === 0) return;
             cloud
-              .getObj(input2)
+              .getObj(form.input2)
               .then((res) => {
                 setResult(JSON.stringify(res));
-                setHistory((his) => {
-                  if (his.includes(input2)) return his;
-                  let arr = [input2, ...his];
-                  if (arr.length > 10) {
-                    arr = arr.slice(arr.length - 11, arr.length - 1);
-                  }
+                if (history.includes(form.input2)) return;
+                setHistory((prev) => {
+                  let arr = [...prev, form.input2];
+                  cloud.setObj("6507aba663372b4e216bf1b8", { list: arr });
                   return arr;
                 });
               })
@@ -96,45 +104,42 @@ export const Database = (): JSX.Element => {
         table name:
         <Input
           defaultValue=""
-          value={input5}
-          onChange={(e) => {
-            setInput5(e.target.value);
-          }}
+          name="input5"
+          value={form.input5}
+          onChange={formHandler}
         />
         key:
         <Input
           defaultValue=""
-          value={input3}
-          onChange={(e) => {
-            setInput3(e.target.value);
-          }}
+          name="input3"
+          value={form.input3}
+          onChange={formHandler}
         />
         val:
         <Input
           defaultValue="{}"
-          value={input4}
-          onChange={(e) => {
-            setInput4(e.target.value);
-          }}
+          name="input4"
+          value={form.input4}
+          onChange={formHandler}
         />
         <Button
           onClick={() => {
             if (
-              input3.length <= 1 ||
-              input4.length <= 1 ||
-              input5.length <= 1
+              form.input3.length <= 1 ||
+              form.input4.length <= 1 ||
+              form.input5.length <= 1
             ) {
               setResult("please check form");
               return;
             }
             const obj = {};
             try {
-              obj[input3] = JSON.parse(input4);
+              obj[form.input3] = JSON.parse(form.input4);
             } catch (err) {
-              obj[input3] = input4;
+              obj[form.input3] = form.input4;
             }
             cloud
-              .setObj(input5, obj)
+              .setObj(form.input5, obj)
               .then(() => {
                 setResult("success!");
               })
@@ -150,24 +155,14 @@ export const Database = (): JSX.Element => {
 
       <div className={styles.gap}>
         table name:
-        <Input
-          value={input6}
-          onChange={(e) => {
-            setInput6(e.target.value);
-          }}
-        />
+        <Input name="input6" value={form.input6} onChange={formHandler} />
         key name:
-        <Input
-          value={input7}
-          onChange={(e) => {
-            setInput7(e.target.value);
-          }}
-        />
+        <Input name="input7" value={form.input7} onChange={formHandler} />
         <Button
           type="primary"
           onClick={() => {
             cloud
-              .delKey(input6, input7)
+              .delKey(form.input6, form.input7)
               .then(() => {
                 setResult("success");
               })
@@ -181,16 +176,11 @@ export const Database = (): JSX.Element => {
       </div>
       <div className={styles.gap}>
         table name:
-        <Input
-          value={input8}
-          onChange={(e) => {
-            setInput8(e.target.value);
-          }}
-        />
+        <Input name="input8" value={form.input8} onChange={formHandler} />
         <Button
           type="primary"
           onClick={() => {
-            cloud.delTable(input8).then(() => {
+            cloud.delTable(form.input8).then(() => {
               setResult("success");
             });
           }}

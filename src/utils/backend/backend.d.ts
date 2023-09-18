@@ -13,7 +13,7 @@ interface myBack {
   copy: () => Promise<object>;
   paste: (val: string) => Promise<object>;
   createObj: (val: Array<any>) => Promise<{ id: string }>;
-  getObj: (val: string) => Promise<object>;
+  getObj: (val: string) => Promise<any>;
   setObj: (tableName: string, obj: object) => Promise<object>;
   delKey: (tableName: string, key: string) => Promise<object>;
   delTable: (tableName: string) => Promise<object>;
