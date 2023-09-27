@@ -11,14 +11,12 @@ body,
 #root {
   height: 100%;
 }
-body{
-  min-width: 300px;
-}
 
 body,
 button {
   cursor: url(https://cdn.jsdelivr.net/npm/kang-static/Hexo/img/default.cur),
     default;
+  min-width: 300px;
 }
 
 a,
