@@ -13,5 +13,12 @@ body,
 }
 
 body {
+  cursor: url(https://cdn.jsdelivr.net/npm/kang-static/Hexo/img/default.cur),
+    default;
   min-width: 300px;
+}
+
+a {
+  cursor: url(https://cdn.jsdelivr.net/npm/kang-static/Hexo/img/pointer.cur),
+    default;
 }
