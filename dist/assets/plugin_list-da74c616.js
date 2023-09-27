@@ -1,1 +1,0 @@
-import{s as e,g as c}from"./index-4a05b40b.js";function r(l){const s=c(),t=s.map(a=>a.key),o=s.map(a=>a.url);switch(l.replace(/list /,"")){case"val":e(o.join(","));break;case"key":e(t.join(","));break;default:e("add space and val show all the url, add space and key show all the keys!");break}}export{r as install};
