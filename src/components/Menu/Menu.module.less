@@ -1,0 +1,57 @@
+.ul {
+  width: 100%;
+  padding-top: 5px;
+  position: relative;
+}
+.item {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: 50px;
+  padding-right: 50px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  list-style: none;
+  // will cause text-overflow: ellipsis; not working
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  text-align: center;
+
+  cursor: pointer;
+  &::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 12px;
+    height: 20px;
+    width: 20px;
+    transform: translateY(-50%);
+    background: url(/search.svg) 0 0 / 100% 100% no-repeat;
+    filter: drop-shadow(2px 4px 6px black);
+    z-index: 2;
+  }
+}
+.item:first-child {
+  margin-top: 15px;
+}
+.item:last-child {
+  border-radius: 0 0 15px 15px;
+}
+.chosen {
+  background-color: #f0f0f0;
+  color: #315efb;
+}
+@media (max-width: 768px) {
+  .item {
+    height: 38px;
+    line-height: 38px;
+  }
+}
+@media (min-width: 768px) {
+  .item {
+    height: 44px;
+    line-height: 44px;
+  }
+}

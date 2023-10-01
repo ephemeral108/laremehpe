@@ -1,0 +1,28 @@
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  letter-spacing: 1rem;
+  background-color: #000000f0;
+  .loop(11);
+}
+@keyframes leap {
+  0% {
+    transform: translateY(-30px);
+    color: red;
+  }
+  100% {
+    transform: translateY(0px);
+    color: blue;
+  }
+}
+
+.loop(@count) when (@count > 0) {
+  .loop(@count - 1); 
+  span:nth-child(@{count}) {
+    @sec: @count * 0.3s;
+    animation: leap 1s @sec infinite linear alternate-reverse;
+    display: inline-block;
+  }
+}
