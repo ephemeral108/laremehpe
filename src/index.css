@@ -16,14 +16,14 @@ body {
 }
 
 body {
-  cursor: url(select.cur), default;
+  cursor: url(/select.cur), default;
 }
 
 a,
 button {
-  cursor: url(target.cur), default !important;
+  cursor: url(/target.cur), default !important;
 }
 
 input {
-  cursor: url(text.cur), default;
+  cursor: url(/text.cur), default;
 }
