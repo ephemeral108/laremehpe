@@ -1,0 +1,40 @@
+.toast {
+  padding: 20px;
+  border-radius: 20px;
+  position: fixed;
+  top: 6vh;
+  right: -100%;
+  background-color: #6b778d;
+  color: #fff;
+  max-width: 70vw;
+  z-index: 999;
+}
+
+.showToast {
+  animation-name: disappear;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+@keyframes disappear {
+  0% {
+    right: -100%;
+  }
+
+  25% {
+    right: 30px;
+  }
+
+  50% {
+    right: 30px;
+  }
+
+  75% {
+    right: 30px;
+  }
+
+  100% {
+    right: -100%;
+  }
+}

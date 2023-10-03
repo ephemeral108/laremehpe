@@ -1,0 +1,20 @@
+.box {
+  width: 100vw;
+  margin: 20px 0;
+  white-space: nowrap;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.outer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .rest {
+    flex: 1;
+    overflow-y: scroll;
+  }
+}
