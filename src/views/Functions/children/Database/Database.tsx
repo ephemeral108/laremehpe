@@ -37,7 +37,6 @@ export const Database = (): JSX.Element => {
       ).get("list");
       if (his) {
         console.log(his);
-
         setHistory(his);
       }
     })();
