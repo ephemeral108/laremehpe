@@ -6,7 +6,7 @@ import { goto } from "../../utils/common/common";
 import { ping } from "../../utils/common/ping";
 import { Memo } from "../../components/Memo/Memo";
 import { useBackendContext } from "../../context/Backend";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 function getRec(val) {
   let o = document.getElementById("script");
@@ -20,7 +20,6 @@ function getRec(val) {
 
 let computedMenuHeight = 0; // calculated menu height ...
 let text = "";
-// let menuContent = { s: [] };
 let client = window.screen.width > 425; // true computer false mobile
 const googleLogo =
   "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png";
@@ -32,6 +31,19 @@ const config = {
 
 export function Index() {
   const myRef = useRef(null);
+  const [recArr, setRecArr] = useState([]);
+  const [inputVal, setInputVal] = useState("");
+  const [chosen, setChosen] = useState(-1);
+  const [menuHeight, setMenuHeight] = useState(0);
+  const [directive, setDirective] = useState(false);
+  const { cloud } = useBackendContext();
+  const [placeholder, setPlaceholder] = useState("never stop learning...");
+  // const [state, setState] = useState({
+  //   focus: 0,
+  //   blur: 0,
+  //   come: 0,
+  //   leave: 0,
+  // });
   // const { path } = useLocation();
 
   // useEffect(() => {
@@ -48,16 +60,33 @@ export function Index() {
 
     function changeEvent() {
       if (document.visibilityState === "visible") {
+        myRef.current.focus();
+        //mobile wont trigger focus event when go back from another tab please be aware!!!
         focus();
+        //
         const oldNode = document.getElementsByTagName("title")[0];
         const newNode = document.createElement("title");
         newNode.innerText = "laremehpe";
         oldNode.parentNode.replaceChild(newNode, oldNode);
+
+        // setState((state) => ({
+        //   ...state,
+        //   come: state.come + 1,
+        // }));
       } else if (document.visibilityState === "hidden") {
+        myRef.current.blur();
+        //mobile wont trigger blur event either!!!
+        blur();
+        //
         const oldNode = document.getElementsByTagName("title")[0];
         const newNode = document.createElement("title");
         newNode.innerText = "waiting...";
         oldNode.parentNode.replaceChild(newNode, oldNode);
+
+        // setState((state) => ({
+        //   ...state,
+        //   leave: state.leave + 1,
+        // }));
       }
     }
 
@@ -66,14 +95,6 @@ export function Index() {
       document.removeEventListener("visibilitychange", changeEvent);
     };
   }, []);
-
-  const [recArr, setRecArr] = useState([]);
-  const [inputVal, setInputVal] = useState("");
-  const [chosen, setChosen] = useState(-1);
-  const [placeholder, setPlaceholder] = useState("Never stop learning...");
-  const [menuHeight, setMenuHeight] = useState(0);
-  const [directive, setDirective] = useState(false);
-  const { cloud } = useBackendContext();
 
   window.callBack = (val) => {
     if (String(val.q).toUpperCase() !== String(inputVal).toUpperCase()) return; // return if request call back is not correspond with input value
@@ -120,18 +141,25 @@ export function Index() {
   }
 
   function blur() {
-    setTimeout(() => {
-      //wait for animation to be finished
-      setPlaceholder("search");
-    }, 400);
     setChosen(-1);
     setMenuHeight(0);
+    setPlaceholder("search");
+
+    // setState((state) => ({
+    //   ...state,
+    //   blur: state.blur + 1,
+    // }));
   }
 
   function focus() {
-    setPlaceholder("Never stop learning...");
     computedMenuHeight = recArr.length * (client ? 44 : 38) + 15;
     setMenuHeight(computedMenuHeight);
+    setPlaceholder("never stop learning...");
+
+    // setState((state) => ({
+    //   ...state,
+    //   focus: state.focus + 1,
+    // }));
   }
 
   async function clipboard() {
@@ -163,6 +191,13 @@ export function Index() {
 
   return (
     <div className={styles.box}>
+      {/* for debug only please do not use in production environment */}
+      {/* <div className={styles.stateBox}>
+        {Object.keys(state).map((val) => {
+          return <div key={val}>{val + "==>" + state[val]}</div>;
+        })}
+      </div> */}
+      {/* for debug only please do not use in production environment */}
       <div
         style={{
           backgroundImage: `url(${config.wallpaper})`,
@@ -192,10 +227,10 @@ export function Index() {
           type="text"
           value={inputVal}
           onChange={searchHandler}
+          placeholder={placeholder}
           onKeyDown={keyUp}
           onBlur={blur}
           onFocus={focus}
-          placeholder={placeholder}
           autoFocus
           ref={myRef}
           autoComplete="off"
@@ -226,10 +261,7 @@ export function Index() {
         </div>
       </div>
       <Memo
-        show={
-          placeholder === "search" &&
-          localStorage.getItem("memoStatus") === "true"
-        }
+        show={localStorage.getItem("memoStatus") === "true"}
         inputText={inputVal}
         clearText={clearText}
       />
