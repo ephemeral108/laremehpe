@@ -143,7 +143,10 @@ export function Index() {
   function blur() {
     setChosen(-1);
     setMenuHeight(0);
-    setPlaceholder("search");
+    //wait until animation finish
+    setTimeout(() => {
+      setPlaceholder("search");
+    }, 500);
 
     // setState((state) => ({
     //   ...state,
@@ -261,7 +264,10 @@ export function Index() {
         </div>
       </div>
       <Memo
-        show={localStorage.getItem("memoStatus") === "true"}
+        show={
+          localStorage.getItem("memoStatus") === "true" &&
+          placeholder === "search"
+        }
         inputText={inputVal}
         clearText={clearText}
       />
