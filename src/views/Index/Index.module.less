@@ -40,6 +40,16 @@
   @media (max-width: 768px) {
     .frame {
       width: 50%;
+      .clearIcon {
+        position: absolute;
+        top: 50%;
+        right: 12px;
+        transform: translateY(-50%);
+        @imgSize: 24px;
+        height: @imgSize;
+        width: @imgSize;
+        z-index: 2;
+      }
     }
     .frame:focus-within {
       width: 80%;
@@ -102,7 +112,17 @@
     position: relative;
     z-index: 9;
     opacity: 0.5;
-    img {
+    // .clearIcon {
+    //   position: absolute;
+    //   top: 50%;
+    //   right: 12px;
+    //   transform: translateY(-50%);
+    //   @imgSize: 24px;
+    //   height: @imgSize;
+    //   width: @imgSize;
+    //   z-index: 2;
+    // }
+    .searchIcon {
       position: absolute;
       top: 50%;
       left: 12px;

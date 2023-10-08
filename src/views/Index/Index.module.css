@@ -40,6 +40,15 @@
   .box .frame {
     width: 50%;
   }
+  .box .frame .clearIcon {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    height: 24px;
+    width: 24px;
+    z-index: 2;
+  }
   .box .frame:focus-within {
     width: 80%;
     opacity: 0.7;
@@ -96,7 +105,7 @@
   z-index: 9;
   opacity: 0.5;
 }
-.box .frame img {
+.box .frame .searchIcon {
   position: absolute;
   top: 50%;
   left: 12px;

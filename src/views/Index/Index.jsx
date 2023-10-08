@@ -6,6 +6,7 @@ import { goto } from "../../utils/common/common";
 import { ping } from "../../utils/common/ping";
 import { Memo } from "../../components/Memo/Memo";
 import { useBackendContext } from "../../context/Backend";
+import { useSelector } from "react-redux";
 // import { useLocation } from "react-router-dom";
 
 function getRec(val) {
@@ -27,7 +28,10 @@ const config = {
   wallpaper: localStorage.getItem("wallpaper") || "./wallpaper.jpg",
   width: window.screen.width * 1.1 + "px", //wallpaper
   height: window.screen.height * 1.1 + "px", //wallpaper
+  isMobile: false,
 };
+
+let inputFocusing = true;
 
 export function Index() {
   const myRef = useRef(null);
@@ -38,6 +42,8 @@ export function Index() {
   const [directive, setDirective] = useState(false);
   const { cloud } = useBackendContext();
   const [placeholder, setPlaceholder] = useState("never stop learning...");
+  const store = useSelector((state) => state);
+
   // const [state, setState] = useState({
   //   focus: 0,
   //   blur: 0,
@@ -52,12 +58,17 @@ export function Index() {
   // }, [path]);
 
   useEffect(() => {
+    config.isMobile = store.device === "mobile";
+  }, [store.device]);
+
+  useEffect(() => {
     localStorage.setItem("searchEngine", "baidu");
     ping(googleLogo, false).then(() => {
       setVal("google search");
       localStorage.setItem("searchEngine", "google");
     });
 
+    // console.log(store.device, "store.device ");
     function changeEvent() {
       if (document.visibilityState === "visible") {
         myRef.current.focus();
@@ -140,12 +151,13 @@ export function Index() {
     setChosen(e);
   }
 
-  function blur() {
+  function blur(e) {
+    inputFocusing = false;
     setChosen(-1);
     setMenuHeight(0);
     //wait until animation finish
     setTimeout(() => {
-      setPlaceholder("search");
+      if (!inputFocusing) setPlaceholder("search");
     }, 500);
 
     // setState((state) => ({
@@ -155,6 +167,7 @@ export function Index() {
   }
 
   function focus() {
+    inputFocusing = true;
     computedMenuHeight = recArr.length * (client ? 44 : 38) + 15;
     setMenuHeight(computedMenuHeight);
     setPlaceholder("never stop learning...");
@@ -238,7 +251,29 @@ export function Index() {
           ref={myRef}
           autoComplete="off"
         />
-        <img src="/search.svg" alt="search logo" onClick={clipboard} />
+        <img
+          src="/search.svg"
+          alt="search logo"
+          onClick={clipboard}
+          className={styles.searchIcon}
+        />
+        {config.isMobile && inputVal.length > 0 && placeholder !== "search" ? (
+          <img
+            src="/clear.png"
+            alt="clear icon"
+            onClick={(e) => {
+              setInputVal("");
+              setRecArr([]);
+              myRef.current?.focus();
+              setMenuHeight(0);
+              // setPlaceholder("never stop learning..");
+              //
+            }}
+            className={styles.clearIcon}
+          />
+        ) : (
+          ""
+        )}
         <div className={styles.menu} style={{ height: menuHeight + "px" }}>
           <Menu
             arr={recArr}
