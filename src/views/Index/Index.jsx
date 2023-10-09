@@ -217,8 +217,8 @@ export function Index() {
       <div
         style={{
           backgroundImage: `url(${config.wallpaper})`,
-          width: config.width,
-          height: config.height,
+          // width: config.width,
+          // height: config.height,
         }}
         alt="wallpaper"
         className={styles.wallpaper}

@@ -6,15 +6,7 @@ import { useBackendContext } from "../../../../context/Backend";
 export const Database = (): JSX.Element => {
   const { cloud } = useBackendContext();
   const [result, setResult] = useState<string>("");
-  /*  const [input1, setInput1] = useState<string>("");
-  const [input2, setInput2] = useState<string>("");
-  const [input3, setInput3] = useState<string>("");
-  const [input4, setInput4] = useState<string>("");
-  const [input5, setInput5] = useState<string>("");
-  const [input6, setInput6] = useState<string>("");
-  const [input7, setInput7] = useState<string>("");
-  const [input8, setInput8] = useState<string>("");
-*/
+
   const [form, setForm] = useState({
     input1: "",
     input2: "",
@@ -36,7 +28,6 @@ export const Database = (): JSX.Element => {
         await cloud.getObj("6507aba663372b4e216bf1b8")
       ).get("list");
       if (his) {
-        console.log(his);
         setHistory(his);
       }
     })();

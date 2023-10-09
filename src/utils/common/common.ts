@@ -1,3 +1,4 @@
+import { addMes } from "../../components/FixedToast/FixedToast";
 import { setVal } from "../../components/Toast/Toast";
 import { backend } from "../backend/backend";
 
@@ -18,11 +19,35 @@ export function updateKeywordList(list: list) {
   location.reload();
 }
 
+/**
+ *  strip the first cmd + space that met.
+ * @param cmd eg. baidu dick
+ * @returns dick
+ */
+export const stripCmdHead = (cmd: string) => {
+  return cmd.substring(cmd.indexOf(" ") + 1);
+};
+
 // Fetch the list of placeholders from the backend and update the keyword list
+//read keyword list from cache
+const cachedKeywordList = localStorage.getItem("keywordList");
+if (cachedKeywordList) {
+  try {
+    keywordList = JSON.parse(cachedKeywordList);
+  } catch (e) {
+    addMes(
+      "error: try to parse keyword list from local cache, reason: unresolved string!"
+    );
+  }
+}
+//update cache keyword list
 backend
   .getInstance()
   ?.fetchPlaceholders()
-  .then((res) => (keywordList = res.get("list")));
+  .then((res) => {
+    keywordList = res.get("list");
+    localStorage.setItem("keywordList", JSON.stringify(keywordList));
+  });
 
 // Define an array of command objects with a cmd property and a handler function
 const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
@@ -62,24 +87,26 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
   },
   {
     // If the input starts with "sougou ", search on sougou
-    cmd: /^(sougou )/,
+    cmd: /^(sougou |s )/,
     handler(val) {
       encryptAndForward("sougou", val);
     },
   },
   {
     // If the input starts with "google ", search on Google
-    cmd: /^(google )/,
+    cmd: /^(google |g )/,
     handler(val) {
       encryptAndForward("google", val);
     },
   },
   {
     // If the input starts with "bilibili ", search on bilibili
-    cmd: /^(bilibili )/,
+    cmd: /^(bilibili |b )/,
     handler(val) {
       location.href = `https://search.bilibili.com/all?keyword=${encodeURIComponent(
-        val.replace("bilibili ", "")
+        //val.replace("bilibili ", "")
+        // val.substring(val.indexOf(" ") + 1)
+        stripCmdHead(val)
       )}`;
     },
   },
@@ -102,6 +129,7 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
     },
   },
   {
+    // if you press enter directly with no input, it will return clipboard for you.
     cmd: /.*/,
     handler(val) {
       navigator.clipboard.readText().then((val) => {
@@ -123,8 +151,7 @@ function encryptAndForward(engine: string | null, val: string) {
       ? "https://www.google.com/search?q="
       : engine === "sougou"
       ? "https://www.sogou.com/web?query="
-      : "https://www.baidu.com/s?wd=") +
-    encodeURIComponent(val.replace(engine + " ", ""));
+      : "https://www.baidu.com/s?wd=") + encodeURIComponent(stripCmdHead(val)); //val.replace(engine + " ", "")
 }
 
 // Define a function to execute the appropriate command based on the input
