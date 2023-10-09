@@ -6,7 +6,7 @@ https://laremehpe.gitee.io/#/index
 
 ### features:
 
-1. press enter at input when input value is empty you may get clipboard text
+1. press enter at input when input value is empty you may get clipboard text from cloud
 2. use specific search engine by command like "baidu dick", meaning you are useing baidu engine to search dick, just like you like it! currently support engine: google baidu sougou
 3. you can add search shortcut to boost you search experience by "add bilibili https://www.bilibili.com", next time you enter bilibili it will jump to https://... without using
    search engine. also you can remove the shortcut by "remove bilibili".
