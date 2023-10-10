@@ -178,6 +178,12 @@ export function Index() {
     // }));
   }
 
+  const openUrl = (url) => {
+    if (url.startsWith("http")) {
+      setVal("try to open url for ya!");
+      window.open(url);
+    }
+  };
   async function clipboard() {
     let receive;
     try {
@@ -186,11 +192,13 @@ export function Index() {
       receive = (await cloud.copy()).get("content");
       setInputVal(receive);
       await navigator.clipboard.writeText(receive);
-      cloud.paste(send);
+      await cloud.paste(send);
+      openUrl(receive);
     } catch (e) {
       receive = (await cloud.copy()).get("content");
-      cloud.paste(inputVal);
+      await cloud.paste(inputVal);
       setInputVal(receive);
+      openUrl(receive);
     }
   }
 
