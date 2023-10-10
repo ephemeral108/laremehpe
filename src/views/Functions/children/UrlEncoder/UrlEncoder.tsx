@@ -43,10 +43,20 @@ export const UrlEncoder = () => {
 
   return (
     <div className={styles.box}>
-      <Input name="text" value={form.text} onChange={changeInputs} />
+      <Input
+        name="text"
+        value={form.text}
+        onChange={changeInputs}
+        autoComplete="off"
+      />
       <div className={styles.flex}>
         <label htmlFor="encode">encode:</label>
-        <Input name="encode" value={form.encode} onChange={changeInputs} />
+        <Input
+          name="encode"
+          value={form.encode}
+          onChange={changeInputs}
+          autoComplete="off"
+        />
         <Button
           type="primary"
           onClick={() => {
@@ -60,7 +70,12 @@ export const UrlEncoder = () => {
       </div>
       <div className={styles.flex}>
         <label htmlFor="decode">decode:</label>
-        <Input name="decode" value={form.decode} onChange={changeInputs} />
+        <Input
+          name="decode"
+          value={form.decode}
+          onChange={changeInputs}
+          autoComplete="off"
+        />
         <Button
           type="primary"
           onClick={() => {
