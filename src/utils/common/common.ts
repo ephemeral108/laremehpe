@@ -151,7 +151,8 @@ function encryptAndForward(engine: string | null, val: string) {
       ? "https://www.google.com/search?q="
       : engine === "sougou"
       ? "https://www.sogou.com/web?query="
-      : "https://www.baidu.com/s?wd=") + encodeURIComponent(stripCmdHead(val)); //val.replace(engine + " ", "")
+      : "https://www.baidu.com/s?wd=") +
+    encodeURIComponent(val.replace(engine + " ", "")); //val.replace(engine + " ", "")
 }
 
 // Define a function to execute the appropriate command based on the input
