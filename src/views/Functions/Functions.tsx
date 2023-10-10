@@ -6,26 +6,31 @@ import { Eval } from "./children/Eval/Eval";
 import { Base64Converter } from "./children/Base64Converter/Base64Converter";
 import { Inputs } from "./children/Inputs/Inputs";
 import { Database } from "./children/Database/Database";
+import { UrlEncoder } from "./children/UrlEncoder/UrlEncoder";
 type funs = {
   name: string;
-  page: React.ReactNode;
+  address: React.ReactNode;
 };
 const funList: Array<funs> = [
   {
+    name: "url encoder",
+    address: <UrlEncoder />,
+  },
+  {
     name: "base64 converter",
-    page: <Base64Converter />,
+    address: <Base64Converter />,
   },
   {
     name: "inputs",
-    page: <Inputs />,
+    address: <Inputs />,
   },
   {
     name: "eval js",
-    page: <Eval />,
+    address: <Eval />,
   },
   {
     name: "database management",
-    page: <Database />,
+    address: <Database />,
   },
 ];
 export function Functions() {
@@ -49,7 +54,7 @@ export function Functions() {
           </Button>
         ))}
       </Space>
-      <div className={styles.rest}>{page && page.page}</div>
+      <div className={styles.rest}>{page && page.address}</div>
     </div>
   );
 }
