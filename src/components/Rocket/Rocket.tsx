@@ -49,7 +49,8 @@ export const Rocket = () => {
       id="rocket"
       style={{ display: rocket ? "flex" : "none" }}
       ref={(rocketRef) => {
-        if (!(localStorage.getItem("rocket") === "true")) return;
+        if (!(localStorage.getItem("rocket") === "true") || rocketRef !== null)
+          return;
         setRocket(rocketRef);
       }}
       className={styles.rocket}
