@@ -12,6 +12,7 @@ export const Inputs = (): JSX.Element => {
   return (
     <div className={styles.box}>
       <TextArea
+        autoFocus
         showCount
         style={{ height: "90vh", width: "90vw" }}
         placeholder="never stop learning..."

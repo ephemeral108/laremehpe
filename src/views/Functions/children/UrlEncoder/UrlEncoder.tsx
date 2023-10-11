@@ -44,6 +44,7 @@ export const UrlEncoder = () => {
   return (
     <div className={styles.box}>
       <Input
+        autoFocus
         name="text"
         value={form.text}
         onChange={changeInputs}

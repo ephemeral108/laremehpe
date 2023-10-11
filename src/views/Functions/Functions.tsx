@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./Functions.module.css";
 import { Button, Space } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Eval } from "./children/Eval/Eval";
 import { Base64Converter } from "./children/Base64Converter/Base64Converter";
 import { Inputs } from "./children/Inputs/Inputs";
@@ -36,6 +36,10 @@ const funList: Array<funs> = [
 export function Functions() {
   const to = useNavigate();
   const [page, setPage] = useState<funs>();
+
+  useEffect(() => {
+    setPage(funList[2]);
+  }, []);
 
   return (
     <div className={styles.outer}>

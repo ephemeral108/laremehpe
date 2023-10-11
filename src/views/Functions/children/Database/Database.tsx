@@ -65,7 +65,12 @@ export const Database = (): JSX.Element => {
         </Button>
       </div>
       <div className={styles.gap}>
-        <Input name="input2" value={form.input2} onChange={formHandler} />
+        <Input
+          autoFocus
+          name="input2"
+          value={form.input2}
+          onChange={formHandler}
+        />
         <Button
           onClick={() => {
             if (form.input2.length === 0) return;

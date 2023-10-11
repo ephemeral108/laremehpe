@@ -17,6 +17,7 @@ export const Base64Converter = () => {
     <div className={styles.box}>
       <TextArea
         showCount
+        autoFocus
         style={{ height: 120, resize: "none" }}
         onChange={_.debounce(function (e) {
           // setOutput(Base64.decode(e.target.value));
