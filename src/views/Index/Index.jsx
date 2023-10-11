@@ -7,6 +7,7 @@ import { ping } from "../../utils/common/ping";
 import { Memo } from "../../components/Memo/Memo";
 import { useBackendContext } from "../../context/Backend";
 import { useSelector } from "react-redux";
+import { Rocket } from "../../components/Rocket/Rocket";
 // import { useLocation } from "react-router-dom";
 
 function getRec(val) {
@@ -313,6 +314,7 @@ export function Index() {
         inputText={inputVal}
         clearText={clearText}
       />
+      {store.device === "computer" ? <Rocket /> : ""}
     </div>
   );
 }
