@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./Rocket.module.css";
 
 export const Rocket = () => {
-  const rocketRef = useRef<HTMLImageElement>(null);
-  useEffect(() => {
-    const rocket = rocketRef.current;
-    if (!(localStorage.getItem("rocket") === "true") || rocket === null) return;
+  // const rocketRef = useRef<HTMLImageElement>(null);
+  // const [show, setShow] = useState(false);
+  const [rocket, setRocket] = useState<HTMLImageElement | null>(null);
 
-    //let rocket = document.querySelector("#rocket") as HTMLElement;
+  useEffect(() => {
+    if (rocket === null) return;
     let deg = 0,
       ex = 0,
       ey = 0,
@@ -40,14 +40,18 @@ export const Rocket = () => {
       clearInterval(timer);
       window.removeEventListener("mousemove", mouseMoveEvent);
     };
-  }, []);
+  }, [rocket]);
 
   return (
     <img
       src="meteor.png"
       alt="rocket"
       id="rocket"
-      ref={rocketRef}
+      style={{ display: rocket ? "flex" : "none" }}
+      ref={(rocketRef) => {
+        if (!(localStorage.getItem("rocket") === "true")) return;
+        setRocket(rocketRef);
+      }}
       className={styles.rocket}
     />
   );

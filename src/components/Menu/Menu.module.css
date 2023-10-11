@@ -14,7 +14,6 @@
   overflow: hidden;
   list-style: none;
   text-align: center;
-  transition: all 0.5s;
   cursor: pointer;
 }
 .item::after {
@@ -40,7 +39,7 @@
   color: #315efb;
 }
 .chosen span {
-  padding-left: 5px;
+  padding-left: 20px;
 }
 @media (max-width: 768px) {
   .item {
