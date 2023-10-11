@@ -287,7 +287,6 @@ export function Index() {
             arr={recArr}
             chosen={chosen}
             updateChosen={(e) => {
-              console.log("update chosen");
               setChosen(e);
               setInputVal(recArr[e]);
             }}

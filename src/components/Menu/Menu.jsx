@@ -17,14 +17,15 @@ export function Menu(props) {
             props.chosen === seq ? styles.chosen : "",
           ].join(" ")}
           onMouseMove={() =>
-            chosen != seq ? ((chosen = seq), props.updateChosen(seq)) : ""
+            // chosen != seq ? ((chosen = seq), props.updateChosen(seq)) : ""
+            props.updateChosen(seq)
           }
           // onMouseEnter={() =>
           //   chosen != seq ? ((chosen = seq), props.updateChosen(seq)) : ""
           // }
           onMouseDown={() => props.clickItem(val)}
         >
-          {val}
+          <span>{val}</span>
         </li>
       ))}
     </ul>
