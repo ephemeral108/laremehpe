@@ -8,16 +8,23 @@ import { Memo } from "../../components/Memo/Memo";
 import { useBackendContext } from "../../context/Backend";
 import { useSelector } from "react-redux";
 import { Rocket } from "../../components/Rocket/Rocket";
+import { storeType } from "../../utils/common/store";
 // import { useLocation } from "react-router-dom";
 
-function getRec(val) {
+type recType = {
+  q: string;
+  p: boolean;
+  s: string[];
+};
+
+function getRec(val: string) {
   let o = document.getElementById("script");
   let s = document.createElement("script");
   s.setAttribute("id", "script");
   s.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${encodeURIComponent(
     val
   )}&cb=callBack`;
-  o.parentNode.replaceChild(s, o);
+  o?.parentNode && o.parentNode.replaceChild(s, o);
 }
 
 let computedMenuHeight = 0; // calculated menu height ...
@@ -35,15 +42,16 @@ const config = {
 let inputFocusing = true;
 
 export function Index() {
-  const myRef = useRef(null);
-  const [recArr, setRecArr] = useState([]);
+  const myRef = useRef<HTMLInputElement>(null);
+  const [recArr, setRecArr] = useState<string[]>([]);
   const [inputVal, setInputVal] = useState("");
   const [chosen, setChosen] = useState(-1);
   const [menuHeight, setMenuHeight] = useState(0);
   const [directive, setDirective] = useState(false);
   const { cloud } = useBackendContext();
   const [placeholder, setPlaceholder] = useState("never stop learning...");
-  const store = useSelector((state) => state);
+  const store = useSelector<storeType>((state) => state) as storeType;
+  // const [node, setNode] = useState<React.ReactNode | []>([]);
 
   // const [state, setState] = useState({
   //   focus: 0,
@@ -72,28 +80,28 @@ export function Index() {
     // console.log(store.device, "store.device ");
     function changeEvent() {
       if (document.visibilityState === "visible") {
-        myRef.current.focus();
+        myRef?.current?.focus();
         //mobile wont trigger focus event when go back from another tab please be aware!!!
         focus();
         //
         const oldNode = document.getElementsByTagName("title")[0];
         const newNode = document.createElement("title");
         newNode.innerText = "laremehpe";
-        oldNode.parentNode.replaceChild(newNode, oldNode);
+        oldNode?.parentNode?.replaceChild(newNode, oldNode);
 
         // setState((state) => ({
         //   ...state,
         //   come: state.come + 1,
         // }));
       } else if (document.visibilityState === "hidden") {
-        myRef.current.blur();
+        myRef?.current?.blur();
         //mobile wont trigger blur event either!!!
         blur();
         //
         const oldNode = document.getElementsByTagName("title")[0];
         const newNode = document.createElement("title");
         newNode.innerText = "waiting...";
-        oldNode.parentNode.replaceChild(newNode, oldNode);
+        oldNode?.parentNode?.replaceChild(newNode, oldNode);
 
         // setState((state) => ({
         //   ...state,
@@ -108,14 +116,17 @@ export function Index() {
     };
   }, []);
 
-  window.callBack = (val) => {
+  const callBack = (val: recType) => {
     if (String(val.q).toUpperCase() !== String(inputVal).toUpperCase()) return; // return if request call back is not correspond with input value
     computedMenuHeight = val.s.length * (client ? 44 : 38) + 15;
     setMenuHeight(computedMenuHeight);
     setRecArr(val.s);
   };
+  Object.assign(window, callBack);
 
-  const searchHandler = ({ target: { value } }) => {
+  const searchHandler: (val: { target: { value: string } }) => void = ({
+    target: { value },
+  }) => {
     setInputVal(value);
     setDirective(value.startsWith(" "));
 
@@ -129,7 +140,7 @@ export function Index() {
     getRec(value);
   };
 
-  function keyUp(val) {
+  function keyUp(val: { keyCode: number }) {
     switch (val.keyCode) {
       case 13:
         goto(inputVal);
@@ -152,7 +163,7 @@ export function Index() {
     setChosen(e);
   }
 
-  function blur(e) {
+  function blur() {
     inputFocusing = false;
     setChosen(-1);
     setMenuHeight(0);
@@ -179,7 +190,7 @@ export function Index() {
     // }));
   }
 
-  const openUrl = (url) => {
+  const openUrl = (url: string) => {
     if (url.startsWith("http")) {
       setVal("try to open url for ya!");
       window.open(url);
@@ -205,12 +216,12 @@ export function Index() {
 
   function clearText() {
     text = "";
-    menuContent = { s: [] };
+    // menuContent = { s: [] };
     setInputVal("");
     setRecArr([]);
     setDirective(false);
     setTimeout(() => {
-      document.getElementById("input").focus();
+      document.getElementById("input")?.focus();
     }, 0);
   }
 
@@ -229,7 +240,7 @@ export function Index() {
           // width: config.width,
           // height: config.height,
         }}
-        alt="wallpaper"
+        // alt="wallpaper"
         className={styles.wallpaper}
       />
       <div className={styles.headBox}></div>

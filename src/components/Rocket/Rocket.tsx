@@ -1,9 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Rocket.module.css";
 
 export const Rocket = () => {
-  // const rocketRef = useRef<HTMLImageElement>(null);
-  // const [show, setShow] = useState(false);
   const [rocket, setRocket] = useState<HTMLImageElement | null>(null);
 
   useEffect(() => {
@@ -49,7 +47,7 @@ export const Rocket = () => {
       id="rocket"
       style={{ display: rocket ? "flex" : "none" }}
       ref={(rocketRef) => {
-        if (!(localStorage.getItem("rocket") === "true") || rocketRef !== null)
+        if (!(localStorage.getItem("rocket") === "true") || rocketRef === null)
           return;
         setRocket(rocketRef);
       }}
