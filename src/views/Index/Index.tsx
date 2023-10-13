@@ -111,18 +111,25 @@ export function Index() {
     }
 
     document.addEventListener("visibilitychange", changeEvent);
+
+    // const callBack = ;
+    Object.assign(window, {
+      callBack: (val: recType) => {
+        setInputVal((input) => {
+          if (String(val.q).toUpperCase() !== String(input).toUpperCase())
+            return input; // return if request call back is not correspond with input value
+          computedMenuHeight = val.s.length * (client ? 44 : 38) + 15;
+          setMenuHeight(computedMenuHeight);
+          setRecArr(val.s);
+          return input;
+        });
+      },
+    });
+
     return () => {
       document.removeEventListener("visibilitychange", changeEvent);
     };
   }, []);
-
-  const callBack = (val: recType) => {
-    if (String(val.q).toUpperCase() !== String(inputVal).toUpperCase()) return; // return if request call back is not correspond with input value
-    computedMenuHeight = val.s.length * (client ? 44 : 38) + 15;
-    setMenuHeight(computedMenuHeight);
-    setRecArr(val.s);
-  };
-  Object.assign(window, callBack);
 
   const searchHandler: (val: { target: { value: string } }) => void = ({
     target: { value },
