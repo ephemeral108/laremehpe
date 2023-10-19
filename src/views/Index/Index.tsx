@@ -36,7 +36,7 @@ const config = {
   wallpaper: localStorage.getItem("wallpaper") || "./wallpaper.jpg",
   width: window.screen.width * 1.1 + "px", //wallpaper
   height: window.screen.height * 1.1 + "px", //wallpaper
-  isMobile: false,
+  // isMobile: false,
 };
 
 let inputFocusing = true;
@@ -66,9 +66,18 @@ export function Index() {
   //   document.getElementById("input").focus();
   // }, [path]);
 
-  useEffect(() => {
-    config.isMobile = store.device === "mobile";
-  }, [store.device]);
+  // useEffect(() => {
+  //   config.isMobile = store.device === "mobile";
+  // }, [store.device]);
+
+  // useEffect(() => {
+  //   console.log(
+  //     config.isMobile,
+  //     inputVal.length > 0,
+  //     placeholder !== "search",
+  //     "isMobile"
+  //   );
+  // }, [inputVal]);
 
   useEffect(() => {
     localStorage.setItem("searchEngine", "baidu");
@@ -284,11 +293,12 @@ export function Index() {
           onClick={clipboard}
           className={styles.searchIcon}
         />
-        {config.isMobile && inputVal.length > 0 && placeholder !== "search" ? (
+        {/*  */}
+        {inputVal.length > 0 && placeholder !== "search" ? (
           <img
             src="/clear.png"
             alt="clear icon"
-            onClick={(e) => {
+            onClick={(_) => {
               setInputVal("");
               setRecArr([]);
               myRef.current?.focus();
