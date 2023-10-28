@@ -16,6 +16,8 @@ export const Database = (): JSX.Element => {
     input6: "",
     input7: "",
     input8: "",
+    input9: "",
+    input10: "",
   });
   const formHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -96,7 +98,7 @@ export const Database = (): JSX.Element => {
       </div>
 
       <div className={styles.gap}>
-        table name:
+        table name: (alter value)
         <Input
           defaultValue=""
           name="input5"
@@ -149,7 +151,28 @@ export const Database = (): JSX.Element => {
       </div>
 
       <div className={styles.gap}>
-        table name:
+        table name:(add key)
+        <Input name="input9" value={form.input9} onChange={formHandler} />
+        key name:
+        <Input name="input10" value={form.input10} onChange={formHandler} />
+        <Button
+          type="primary"
+          onClick={() => {
+            cloud
+              .addKey(form.input9, form.input10)
+              .then(() => {
+                setResult("success");
+              })
+              .catch((err) => {
+                setResult(JSON.stringify(err));
+              });
+          }}
+        >
+          add key
+        </Button>
+      </div>
+      <div className={styles.gap}>
+        table name:(remove key)
         <Input name="input6" value={form.input6} onChange={formHandler} />
         key name:
         <Input name="input7" value={form.input7} onChange={formHandler} />

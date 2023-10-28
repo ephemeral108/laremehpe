@@ -57,6 +57,12 @@ export class backend {
     return todo.save();
   }
 
+  addKey(tableName, key) {
+    const todo = AV.Object.createWithoutData("miscellaneous", tableName);
+    todo.set(key, key === "list" ? [] : "random");
+    return todo.save();
+  }
+
   delKey(tableName, key) {
     const todo = AV.Object.createWithoutData("miscellaneous", tableName);
     todo.unset(key);

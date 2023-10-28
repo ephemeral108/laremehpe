@@ -43,7 +43,7 @@ export function Index() {
   const [directive, setDirective] = useState(false);
   const { cloud } = useBackendContext();
   const [placeholder, setPlaceholder] = useState("never stop learning...");
-  const store = useSelector((state) => state);
+  const device = useSelector((state) => state.device);
 
   // const [state, setState] = useState({
   //   focus: 0,
@@ -59,8 +59,8 @@ export function Index() {
   // }, [path]);
 
   useEffect(() => {
-    config.isMobile = store.device === "mobile";
-  }, [store.device]);
+    config.isMobile = device === "mobile";
+  }, [device]);
 
   useEffect(() => {
     localStorage.setItem("searchEngine", "baidu");
@@ -69,7 +69,6 @@ export function Index() {
       localStorage.setItem("searchEngine", "google");
     });
 
-    // console.log(store.device, "store.device ");
     function changeEvent() {
       if (document.visibilityState === "visible") {
         myRef.current.focus();
@@ -314,7 +313,7 @@ export function Index() {
         inputText={inputVal}
         clearText={clearText}
       />
-      {store.device === "computer" ? <Rocket /> : ""}
+      {device === "computer" ? <Rocket /> : ""}
     </div>
   );
 }

@@ -15,6 +15,7 @@ interface myBack {
   createObj: (val: Array<any>) => Promise<{ id: string }>;
   getObj: (val: string) => Promise<any>;
   setObj: (tableName: string, obj: object) => Promise<object>;
+  addKey: (tableName: string, key: string) => Promise<object>;
   delKey: (tableName: string, key: string) => Promise<object>;
   delTable: (tableName: string) => Promise<object>;
 }

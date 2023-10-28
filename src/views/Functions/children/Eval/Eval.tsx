@@ -1,15 +1,31 @@
 import { Button, Input, Space } from "antd";
 import styles from "./Eval.module.css";
 import { useEffect, useRef, useState } from "react";
+import { useBackendContext } from "../../../../context/Backend";
+
+let table = "650269df63372b4e2163c86f";
+const template = `
+
+
+return e;`;
 
 export const Eval = (): JSX.Element => {
-  const [items, setItems] = useState<Array<{ time: string }>>([]);
+  const [items, setItems] = useState<Array<{ time: string; text: string }>>([]);
   const [res, setRes] = useState<string>("");
-
+  const { cloud } = useBackendContext();
   const [clipboardText, setClipboardText] = useState("");
 
   useEffect(() => {
-    setItems([{ time: new Date().valueOf().toString() }]);
+    //
+    cloud.getObj(table).then((res) => {
+      let arr = res.get("list");
+      console.log("get", arr);
+      if (arr.length === 0) {
+        setItems([{ time: new Date().valueOf().toString(), text: template }]);
+        return;
+      }
+      setItems(arr);
+    });
 
     const handleFocus = () => {
       navigator.clipboard.readText().then((res) => {
@@ -30,12 +46,37 @@ export const Eval = (): JSX.Element => {
         <div key={val.time}>
           <EvalItem
             mark={val.time}
-            remove={(e) => setItems(items.filter((val) => val.time !== e))}
+            defaultText={val.text}
+            remove={(e) => {
+              cloud
+                .getObj(table)
+                .then((res) => {
+                  let arr = res.get("list");
+                  let result = arr.filter((el) => el.time != val.time);
+                  console.log("remove:", result);
+                  cloud.setObj(table, { list: result });
+                })
+                .then((res) => {
+                  setItems(items.filter((val) => val.time !== e));
+                });
+            }}
             setResult={(e) => {
               setRes(e);
               navigator.clipboard.writeText(e);
             }}
             update={(e) => setClipboardText(e)}
+            save={(text) => {
+              cloud.getObj(table).then((res) => {
+                let arr = res.get("list");
+                let result = arr.filter((el) => el.time != val.time);
+                result.push({
+                  time: val.time,
+                  text,
+                });
+                console.log("push:", result);
+                cloud.setObj(table, { list: result });
+              });
+            }}
           />
         </div>
       ))}
@@ -43,7 +84,10 @@ export const Eval = (): JSX.Element => {
       <Button
         type="primary"
         onClick={() => {
-          setItems((e) => [...e, { time: new Date().valueOf().toString() }]);
+          setItems((e) => [
+            ...e,
+            { time: new Date().valueOf().toString(), text: template },
+          ]);
         }}
       >
         add
@@ -65,23 +109,21 @@ export const Eval = (): JSX.Element => {
   );
 };
 
-const template = `e=>{
-
-    return e
-  }`;
-
 const EvalItem = (props: {
   mark: string;
+  save: (val: string) => void;
   remove: (val: string) => void;
   setResult: (val: string) => void;
   update: (val: string) => void;
+  defaultText: string;
 }): JSX.Element => {
   const { TextArea } = Input;
-  const [text, setText] = useState(template);
+  const [text, setText] = useState(props.defaultText);
   const textRef = useRef(null);
   return (
     <div className={styles.evalItem}>
       <Space.Compact block direction="vertical">
+        e =&gt;
         <TextArea
           rows={8}
           value={text}
@@ -93,7 +135,11 @@ const EvalItem = (props: {
             type="primary"
             onClick={() => {
               navigator.clipboard.readText().then((res) => {
-                props.setResult(eval(text)(res));
+                props.setResult(
+                  eval(`let foo = (e) =>{${text}}; foo('${res}')`)
+                );
+
+                // props.setResult(eval(`let foo = (e) =>{${text}}; foo(${res})`));
                 props.update(res);
               });
             }}
@@ -109,6 +155,7 @@ const EvalItem = (props: {
             clear
           </Button>
           <Button onClick={() => props.remove(props.mark)}>remove</Button>
+          <Button onClick={() => props.save(text)}>save</Button>
         </Space>
       </Space.Compact>
     </div>
