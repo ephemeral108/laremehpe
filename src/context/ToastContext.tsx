@@ -4,7 +4,7 @@ const config: {
   infoList: string[];
   innerText: string | null;
   toastProp: {
-    className: null | string;
+    className: string;
   };
   setInnerText: any;
   setToastProp: any;
@@ -12,7 +12,7 @@ const config: {
   infoList: [],
   innerText: "",
   toastProp: {
-    className: null,
+    className: "",
   },
   setInnerText: null,
   setToastProp: null,
@@ -29,7 +29,7 @@ export const ToastConfigProvider = (props: { children: JSX.Element }) => {
   let infoList: string[] = [];
   const [innerText, setInnerText] = useState(null);
   const [toastProp, setToastProp] = useState({
-    className: null,
+    className: "",
   });
   //Toast.jsx
 
