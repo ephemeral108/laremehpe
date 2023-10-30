@@ -1,6 +1,6 @@
 import { Button, Input } from "antd";
 import styles from "./Database.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useBackendContext } from "../../../../context/Backend";
 
 export const Database = (): JSX.Element => {
@@ -129,7 +129,9 @@ export const Database = (): JSX.Element => {
               setResult("please check form");
               return;
             }
-            const obj = {};
+            const obj: {
+              [key: string]: any;
+            } = {};
             try {
               obj[form.input3] = JSON.parse(form.input4);
             } catch (err) {

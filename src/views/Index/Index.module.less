@@ -40,20 +40,31 @@
     width: 100%;
   }
 
+  .frame .clearIcon {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    @imgSize: 24px;
+    height: @imgSize;
+    width: @imgSize;
+    z-index: 2;
+  }
+
   //mobile
   @media (max-width: 768px) {
     .frame {
       width: 50%;
-      .clearIcon {
-        position: absolute;
-        top: 50%;
-        right: 12px;
-        transform: translateY(-50%);
-        @imgSize: 24px;
-        height: @imgSize;
-        width: @imgSize;
-        z-index: 2;
-      }
+      //   .clearIcon {
+      //     position: absolute;
+      //     top: 50%;
+      //     right: 12px;
+      //     transform: translateY(-50%);
+      //     @imgSize: 24px;
+      //     height: @imgSize;
+      //     width: @imgSize;
+      //     z-index: 2;
+      //   }
     }
     .frame:focus-within {
       width: 80%;

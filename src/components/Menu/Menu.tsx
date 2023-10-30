@@ -1,6 +1,12 @@
 import styles from "./Menu.module.css";
-let chosen = -1;
-export function Menu(props) {
+// let chosen = -1;
+export function Menu(props: {
+  arr: string[];
+  onLeave: () => void;
+  updateChosen: (val: number) => void;
+  clickItem: (val: string) => void;
+  chosen: number;
+}) {
   // function clickHandler(val) {
   //   props.setInputVal(val);
   //   setTimeout(() => {

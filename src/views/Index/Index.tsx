@@ -8,16 +8,23 @@ import { Memo } from "../../components/Memo/Memo";
 import { useBackendContext } from "../../context/Backend";
 import { useSelector } from "react-redux";
 import { Rocket } from "../../components/Rocket/Rocket";
+import { storeType } from "../../utils/common/store";
 // import { useLocation } from "react-router-dom";
 
-function getRec(val) {
+type recType = {
+  q: string;
+  p: boolean;
+  s: string[];
+};
+
+function getRec(val: string) {
   let o = document.getElementById("script");
   let s = document.createElement("script");
   s.setAttribute("id", "script");
   s.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${encodeURIComponent(
     val
   )}&cb=callBack`;
-  o.parentNode.replaceChild(s, o);
+  o?.parentNode && o.parentNode.replaceChild(s, o);
 }
 
 let computedMenuHeight = 0; // calculated menu height ...
@@ -29,21 +36,22 @@ const config = {
   wallpaper: localStorage.getItem("wallpaper") || "./wallpaper.jpg",
   width: window.screen.width * 1.1 + "px", //wallpaper
   height: window.screen.height * 1.1 + "px", //wallpaper
-  isMobile: false,
+  // isMobile: false,
 };
 
 let inputFocusing = true;
 
 export function Index() {
-  const myRef = useRef(null);
-  const [recArr, setRecArr] = useState([]);
+  const myRef = useRef<HTMLInputElement>(null);
+  const [recArr, setRecArr] = useState<string[]>([]);
   const [inputVal, setInputVal] = useState("");
   const [chosen, setChosen] = useState(-1);
   const [menuHeight, setMenuHeight] = useState(0);
   const [directive, setDirective] = useState(false);
   const { cloud } = useBackendContext();
   const [placeholder, setPlaceholder] = useState("never stop learning...");
-  const device = useSelector((state) => state.device);
+  const store = useSelector<storeType>((state) => state) as storeType;
+  // const [node, setNode] = useState<React.ReactNode | []>([]);
 
   // const [state, setState] = useState({
   //   focus: 0,
@@ -58,41 +66,51 @@ export function Index() {
   //   document.getElementById("input").focus();
   // }, [path]);
 
-  useEffect(() => {
-    config.isMobile = device === "mobile";
-  }, [device]);
+  // useEffect(() => {
+  //   config.isMobile = store.device === "mobile";
+  // }, [store.device]);
+
+  // useEffect(() => {
+  //   console.log(
+  //     config.isMobile,
+  //     inputVal.length > 0,
+  //     placeholder !== "search",
+  //     "isMobile"
+  //   );
+  // }, [inputVal]);
 
   useEffect(() => {
     localStorage.setItem("searchEngine", "baidu");
     ping(googleLogo, false).then(() => {
-      setVal("google search");
+      setVal && setVal("google search");
       localStorage.setItem("searchEngine", "google");
     });
 
+    // console.log(store.device, "store.device ");
     function changeEvent() {
       if (document.visibilityState === "visible") {
-        myRef.current.focus();
+        myRef?.current?.focus();
         //mobile wont trigger focus event when go back from another tab please be aware!!!
         focus();
         //
         const oldNode = document.getElementsByTagName("title")[0];
         const newNode = document.createElement("title");
         newNode.innerText = "laremehpe";
-        oldNode.parentNode.replaceChild(newNode, oldNode);
+        oldNode?.parentNode?.replaceChild(newNode, oldNode);
 
         // setState((state) => ({
         //   ...state,
         //   come: state.come + 1,
         // }));
       } else if (document.visibilityState === "hidden") {
-        myRef.current.blur();
+        myRef?.current?.blur();
         //mobile wont trigger blur event either!!!
         blur();
         //
         const oldNode = document.getElementsByTagName("title")[0];
         const newNode = document.createElement("title");
         newNode.innerText = "waiting...";
-        oldNode.parentNode.replaceChild(newNode, oldNode);
+        oldNode?.parentNode?.replaceChild(newNode, oldNode);
 
         // setState((state) => ({
         //   ...state,
@@ -102,19 +120,29 @@ export function Index() {
     }
 
     document.addEventListener("visibilitychange", changeEvent);
+
+    // const callBack = ;
+    Object.assign(window, {
+      callBack: (val: recType) => {
+        setInputVal((input) => {
+          if (String(val.q).toUpperCase() !== String(input).toUpperCase())
+            return input; // return if request call back is not correspond with input value
+          computedMenuHeight = val.s.length * (client ? 44 : 38) + 15;
+          setMenuHeight(computedMenuHeight);
+          setRecArr(val.s);
+          return input;
+        });
+      },
+    });
+
     return () => {
       document.removeEventListener("visibilitychange", changeEvent);
     };
   }, []);
 
-  window.callBack = (val) => {
-    if (String(val.q).toUpperCase() !== String(inputVal).toUpperCase()) return; // return if request call back is not correspond with input value
-    computedMenuHeight = val.s.length * (client ? 44 : 38) + 15;
-    setMenuHeight(computedMenuHeight);
-    setRecArr(val.s);
-  };
-
-  const searchHandler = ({ target: { value } }) => {
+  const searchHandler: (val: { target: { value: string } }) => void = ({
+    target: { value },
+  }) => {
     setInputVal(value);
     setDirective(value.startsWith(" "));
 
@@ -128,7 +156,7 @@ export function Index() {
     getRec(value);
   };
 
-  function keyUp(val) {
+  function keyUp(val: { keyCode: number }) {
     switch (val.keyCode) {
       case 13:
         goto(inputVal);
@@ -146,12 +174,12 @@ export function Index() {
     }
   }
 
-  function updateChosen(e) {
+  function updateChosen(e: number) {
     setInputVal(recArr[e] || text);
     setChosen(e);
   }
 
-  function blur(e) {
+  function blur() {
     inputFocusing = false;
     setChosen(-1);
     setMenuHeight(0);
@@ -178,9 +206,9 @@ export function Index() {
     // }));
   }
 
-  const openUrl = (url) => {
+  const openUrl = (url: string) => {
     if (url.startsWith("http")) {
-      setVal("try to open url for ya!");
+      setVal && setVal("try to open url for ya!");
       window.open(url);
     }
   };
@@ -188,7 +216,7 @@ export function Index() {
     let receive;
     try {
       const send = await navigator.clipboard.readText();
-      setVal(send);
+      setVal && setVal(send);
       receive = (await cloud.copy()).get("content");
       setInputVal(receive);
       await navigator.clipboard.writeText(receive);
@@ -204,12 +232,12 @@ export function Index() {
 
   function clearText() {
     text = "";
-    menuContent = { s: [] };
+    // menuContent = { s: [] };
     setInputVal("");
     setRecArr([]);
     setDirective(false);
     setTimeout(() => {
-      document.getElementById("input").focus();
+      document.getElementById("input")?.focus();
     }, 0);
   }
 
@@ -228,7 +256,7 @@ export function Index() {
           // width: config.width,
           // height: config.height,
         }}
-        alt="wallpaper"
+        // alt="wallpaper"
         className={styles.wallpaper}
       />
       <div className={styles.headBox}></div>
@@ -265,11 +293,12 @@ export function Index() {
           onClick={clipboard}
           className={styles.searchIcon}
         />
-        {config.isMobile && inputVal.length > 0 && placeholder !== "search" ? (
+        {/*  */}
+        {inputVal.length > 0 && placeholder !== "search" ? (
           <img
             src="/clear.png"
             alt="clear icon"
-            onClick={(e) => {
+            onClick={(_) => {
               setInputVal("");
               setRecArr([]);
               myRef.current?.focus();
@@ -291,7 +320,7 @@ export function Index() {
               setInputVal(recArr[e]);
             }}
             // setInputVal={(e) => setInputVal(e)}
-            clickItem={(e) => {
+            clickItem={(e: string) => {
               setInputVal(e);
               text = e;
               setTimeout(() => {
@@ -313,7 +342,7 @@ export function Index() {
         inputText={inputVal}
         clearText={clearText}
       />
-      {device === "computer" ? <Rocket /> : ""}
+      {store.device === "computer" ? <Rocket /> : ""}
     </div>
   );
 }

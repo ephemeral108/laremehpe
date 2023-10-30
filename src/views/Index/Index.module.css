@@ -40,18 +40,18 @@
   height: 56px;
   width: 100%;
 }
+.box .frame .clearIcon {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  height: 24px;
+  width: 24px;
+  z-index: 2;
+}
 @media (max-width: 768px) {
   .box .frame {
     width: 50%;
-  }
-  .box .frame .clearIcon {
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    transform: translateY(-50%);
-    height: 24px;
-    width: 24px;
-    z-index: 2;
   }
   .box .frame:focus-within {
     width: 80%;
