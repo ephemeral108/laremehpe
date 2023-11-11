@@ -36,7 +36,6 @@ const config = {
   wallpaper: localStorage.getItem("wallpaper") || "./wallpaper.jpg",
   width: window.screen.width * 1.1 + "px", //wallpaper
   height: window.screen.height * 1.1 + "px", //wallpaper
-  // isMobile: false,
 };
 
 let inputFocusing = true;
@@ -50,7 +49,7 @@ export function Index() {
   const [directive, setDirective] = useState(false);
   const { cloud } = useBackendContext();
   const [placeholder, setPlaceholder] = useState("never stop learning...");
-  const store = useSelector<storeType>((state) => state) as storeType;
+  const store = useSelector<storeType>((state) => state.device);
   // const [node, setNode] = useState<React.ReactNode | []>([]);
 
   // const [state, setState] = useState({
@@ -342,7 +341,7 @@ export function Index() {
         inputText={inputVal}
         clearText={clearText}
       />
-      {store.device === "computer" ? <Rocket /> : ""}
+      {store === "computer" ? <Rocket /> : ""}
     </div>
   );
 }
