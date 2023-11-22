@@ -53,7 +53,11 @@ export function Functions() {
           返回
         </Button>
         {funList.map((val) => (
-          <Button key={val.name} onClick={() => setPage(val)}>
+          <Button
+            type={page?.name === val.name ? "primary" : "default"}
+            key={val.name}
+            onClick={() => setPage(val)}
+          >
             {val.name}
           </Button>
         ))}

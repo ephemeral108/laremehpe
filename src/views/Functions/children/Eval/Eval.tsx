@@ -53,11 +53,11 @@ export const Eval = (): JSX.Element => {
                 .getObj(table)
                 .then((res) => {
                   let arr = res.get("list");
-                  let result = arr.filter((el) => el.time != val.time);
+                  let result = arr.filter((el: any) => el.time != val.time);
                   console.log("remove:", result);
                   cloud.setObj(table, { list: result });
                 })
-                .then((res) => {
+                .then((_) => {
                   setItems(items.filter((val) => val.time !== e));
                 });
             }}
@@ -69,7 +69,7 @@ export const Eval = (): JSX.Element => {
             save={(text) => {
               cloud.getObj(table).then((res) => {
                 let arr = res.get("list");
-                let result = arr.filter((el) => el.time != val.time);
+                let result = arr.filter((el: any) => el.time != val.time);
                 result.push({
                   time: val.time,
                   text,
