@@ -2,6 +2,7 @@ import { Button, Input, Space } from "antd";
 import styles from "./Eval.module.css";
 import { useEffect, useRef, useState } from "react";
 import { useBackendContext } from "../../../../context/Backend";
+import { copyText } from "../../../../utils/common/copy";
 
 let table = "650269df63372b4e2163c86f";
 const template = `
@@ -102,7 +103,7 @@ export const Eval = (): JSX.Element => {
         </span>
       </div>
       <div style={{ marginTop: "20px" }}>
-        <h3>Result:</h3>
+        <h3 onClick={() => copyText(clipboardText)}>Result:</h3>
         <p>{clipboardText}</p>
         <p>-----------------------------------------------</p>
         <p>{res}</p>
