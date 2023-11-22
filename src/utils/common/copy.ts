@@ -1,7 +1,6 @@
 export function copyText(text: string): Promise<void> {
-  if (window.Clipboard) {
-    const clip = new Clipboard();
-    return clip.writeText(text);
+  if (window.navigator.clipboard) {
+    return navigator.clipboard.writeText(text);
   }
 
   var element = createElement(text);
