@@ -14,12 +14,12 @@ export const Eval = (): JSX.Element => {
   const [res, setRes] = useState<string>("");
   const { cloud } = useBackendContext();
   const [clipboardText, setClipboardText] = useState("");
+  const [visibilitychange, setVisibilitychange] = useState<boolean>(false);
 
   useEffect(() => {
     //
     cloud.getObj(table).then((res) => {
       let arr = res.get("list");
-      console.log("get", arr);
       if (arr.length === 0) {
         setItems([{ time: new Date().valueOf().toString(), text: template }]);
         return;
@@ -31,12 +31,13 @@ export const Eval = (): JSX.Element => {
       navigator.clipboard.readText().then((res) => {
         setClipboardText(res);
       });
+      setVisibilitychange((val) => !val);
     };
 
-    window.addEventListener("focus", handleFocus);
+    window.addEventListener("visibilitychange", handleFocus);
 
     return () => {
-      window.removeEventListener("focus", handleFocus);
+      window.removeEventListener("visibilitychange", handleFocus);
     };
   }, []);
 
@@ -77,6 +78,7 @@ export const Eval = (): JSX.Element => {
                 cloud.setObj(table, { list: result });
               });
             }}
+            visibilitychange={visibilitychange}
           />
         </div>
       ))}
@@ -116,14 +118,32 @@ const EvalItem = (props: {
   setResult: (val: string) => void;
   update: (val: string) => void;
   defaultText: string;
+  visibilitychange: boolean;
 }): JSX.Element => {
   const { TextArea } = Input;
+  const [customInput, setCustomInput] = useState<string>("");
   const [text, setText] = useState(props.defaultText);
   const textRef = useRef(null);
+
+  const evalJs = (res: string) => {
+    props.setResult(eval(`let foo = (e) =>{${text}}; foo('${res}')`));
+    props.update(res);
+  };
+
+  useEffect(() => {
+    setCustomInput("");
+  }, [props.visibilitychange]);
+
   return (
     <div className={styles.evalItem}>
       <Space.Compact block direction="vertical">
-        e =&gt;
+        <Space>
+          <Input
+            value={customInput}
+            onChange={(e) => setCustomInput(e.target.value)}
+          />
+          &nbsp; e =&gt;
+        </Space>
         <TextArea
           rows={8}
           value={text}
@@ -134,14 +154,11 @@ const EvalItem = (props: {
           <Button
             type="primary"
             onClick={() => {
-              navigator.clipboard.readText().then((res) => {
-                props.setResult(
-                  eval(`let foo = (e) =>{${text}}; foo('${res}')`)
-                );
-
-                // props.setResult(eval(`let foo = (e) =>{${text}}; foo(${res})`));
-                props.update(res);
-              });
+              if ("" !== customInput) {
+                evalJs(customInput);
+                return;
+              }
+              navigator.clipboard.readText().then(evalJs);
             }}
           >
             execute
