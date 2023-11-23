@@ -127,7 +127,7 @@ const EvalItem = (props: {
   const textRef = useRef(null);
 
   const evalJs = (res: string) => {
-    props.setResult(eval(`let foo = (e) =>{${text}}; foo('${res}')`));
+    props.setResult(eval("let foo = (e) =>{" + text + "}; foo(`" + res + "`)"));
     props.update(res);
   };
 
