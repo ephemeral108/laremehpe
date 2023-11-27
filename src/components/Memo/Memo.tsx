@@ -13,7 +13,7 @@ type propsType = {
   clearText: () => void;
 };
 
-let dataset: memoItem[] = [];
+// let dataset: memoItem[] = [];
 
 export function Memo(props: propsType): JSX.Element {
   const { cloud } = useBackendContext();
@@ -25,7 +25,8 @@ export function Memo(props: propsType): JSX.Element {
 
   useEffect(() => {
     const init = async () => {
-      setMemo((await cloud.fetchMemo()).get("list"));
+      localStorage.getItem("memoStatus") &&
+        setMemo((await cloud.fetchMemo()).get("list"));
     };
     init();
   }, [cloud]);
@@ -49,7 +50,7 @@ export function Memo(props: propsType): JSX.Element {
     const res = confirm("delete " + memo[val].key + " ?");
     if (!res) return;
     setMemo((dataset: datasetType) => {
-      const data = [...dataset].filter((a, b) => b != val);
+      const data = [...dataset].filter((_, b) => b != val);
       cloud.updateMemo(data);
       return data;
     });
