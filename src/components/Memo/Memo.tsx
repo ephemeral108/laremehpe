@@ -25,7 +25,7 @@ export function Memo(props: propsType): JSX.Element {
 
   useEffect(() => {
     const init = async () => {
-      localStorage.getItem("memoStatus") &&
+      localStorage.getItem("memoStatus") === "true" &&
         setMemo((await cloud.fetchMemo()).get("list"));
     };
     init();
