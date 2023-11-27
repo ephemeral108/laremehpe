@@ -1,3 +1,3 @@
-export function install(val: string) {
-  window.location.reload(true);
+export function install(_: string) {
+  window.location.reload();
 }
