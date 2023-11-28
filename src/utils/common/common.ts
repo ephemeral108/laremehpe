@@ -14,7 +14,7 @@ export function getKeywordList() {
 }
 
 // Define a function to update the keyword list
-export function updateKeywordList(list: list) {
+export function updateKeywordList(_: list) {
   // keywordList = list;
   location.reload();
 }
@@ -62,10 +62,11 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
         })
         .catch((err) => {
           console.log(err);
-          setVal(
-            "cannot find corresponding plugin, please check you spell or install function" +
-              err
-          );
+          setVal &&
+            setVal(
+              "cannot find corresponding plugin, please check you spell or install function" +
+                err
+            );
         });
     },
   },
@@ -133,7 +134,7 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
   {
     // if you press enter directly with no input, it will return clipboard for you.
     cmd: /.*/,
-    handler(val) {
+    handler(_) {
       navigator.clipboard.readText().then((val) => {
         if (val.startsWith("http")) {
           window.location.href = val;
