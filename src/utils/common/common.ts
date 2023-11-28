@@ -61,8 +61,10 @@ const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
           res.install(val);
         })
         .catch((err) => {
+          console.log(err);
           setVal(
-            "cannot find corresponding plugin, please check you spell or install function"
+            "cannot find corresponding plugin, please check you spell or install function" +
+              err
           );
         });
     },

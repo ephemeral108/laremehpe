@@ -1,8 +1,8 @@
 import { setVal } from "../../components/Toast/Toast";
-import { useBackendContext } from "../../context/Backend";
+import { backend } from "../backend/backend";
 
 export function install(val: string): void {
-  const { cloud } = useBackendContext();
+  const cloud = backend.getInstance();
   if (val.replace(" memo ", "").startsWith("add")) {
     cloud.fetchMemo().then((res) => {
       const data = [
