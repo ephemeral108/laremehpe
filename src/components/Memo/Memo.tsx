@@ -11,6 +11,7 @@ type propsType = {
   show: boolean;
   inputText: string;
   clearText: () => void;
+  // refresh: (cb: () => Promise<void>) => void;
 };
 
 // let dataset: memoItem[] = [];
@@ -23,11 +24,13 @@ export function Memo(props: propsType): JSX.Element {
     },
   ]);
 
+  const init = async () => {
+    localStorage.getItem("memoStatus") === "true" &&
+      setMemo((await cloud.fetchMemo()).get("list"));
+  };
+
+  // props.refresh(init);
   useEffect(() => {
-    const init = async () => {
-      localStorage.getItem("memoStatus") === "true" &&
-        setMemo((await cloud.fetchMemo()).get("list"));
-    };
     init();
   }, [cloud]);
 

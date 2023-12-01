@@ -50,16 +50,23 @@ backend
   });
 
 // Define an array of command objects with a cmd property and a handler function
-const command: Array<{ cmd: RegExp; handler: (val: string) => void }> = [
+const command: Array<{
+  cmd: RegExp;
+  handler: (val: string, clearInputCallBack?: () => void) => void;
+}> = [
   {
     // If the input starts with a space, load the corresponding plugin
     cmd: /^ /,
-    handler(val) {
+    handler(val, clearInputCallBack) {
       val = val.replace(" ", "");
       import(`../plugins/plugin_${val.split(" ")[0]}.ts`)
-        .then((res: { install: (val: string) => void }) => {
-          res.install(val);
-        })
+        .then(
+          (res: {
+            install: (val: string, clearInputCallBack?: () => void) => void;
+          }) => {
+            res.install(val, clearInputCallBack);
+          }
+        )
         .catch((err) => {
           console.log(err);
           setVal &&
@@ -159,10 +166,12 @@ function encryptAndForward(engine: string | null, val: string) {
 }
 
 // Define a function to execute the appropriate command based on the input
-export function goto(wd: string) {
+export function goto(wd: string, clearInputCallBack?: () => void): void {
   //add debug break point
   // console.log("debug");
   // return;
   // Find the first command that matches the input and execute its handler function
-  command.find((val) => new RegExp(val.cmd).test(wd))?.handler(wd);
+  const cmd = command.find((val) => new RegExp(val.cmd).test(wd));
+  if (!cmd) return;
+  cmd.handler(wd, clearInputCallBack);
 }

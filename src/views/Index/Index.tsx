@@ -39,7 +39,7 @@ const config = {
 };
 
 let inputFocusing = true;
-
+// let memoRefresh: null | (() => Promise<void>) = null;
 export function Index() {
   const myRef = useRef<HTMLInputElement>(null);
   const [recArr, setRecArr] = useState<string[]>([]);
@@ -50,42 +50,17 @@ export function Index() {
   const { cloud } = useBackendContext();
   const [placeholder, setPlaceholder] = useState("never stop learning...");
   const store = useSelector<storeType>((state) => state.device);
-  // const [node, setNode] = useState<React.ReactNode | []>([]);
-
-  // const [state, setState] = useState({
-  //   focus: 0,
-  //   blur: 0,
-  //   come: 0,
-  //   leave: 0,
-  // });
-  // const { path } = useLocation();
-
-  // useEffect(() => {
-  //   // console.log("back", recArr, inputVal);
-  //   document.getElementById("input").focus();
-  // }, [path]);
-
-  // useEffect(() => {
-  //   config.isMobile = store.device === "mobile";
-  // }, [store.device]);
-
-  // useEffect(() => {
-  //   console.log(
-  //     config.isMobile,
-  //     inputVal.length > 0,
-  //     placeholder !== "search",
-  //     "isMobile"
-  //   );
-  // }, [inputVal]);
+  // const [memoRefresh,setMemoRefresh] = useState(undefined)
 
   useEffect(() => {
     localStorage.setItem("searchEngine", "baidu");
-    ping(googleLogo, false).then(() => {
-      setVal && setVal("google search");
-      localStorage.setItem("searchEngine", "google");
-    });
+    ping(googleLogo, false)
+      .then(() => {
+        setVal && setVal("google search");
+        localStorage.setItem("searchEngine", "google");
+      })
+      .catch(() => {});
 
-    // console.log(store.device, "store.device ");
     function changeEvent() {
       if (document.visibilityState === "visible") {
         myRef?.current?.focus();
@@ -96,11 +71,6 @@ export function Index() {
         const newNode = document.createElement("title");
         newNode.innerText = "laremehpe";
         oldNode?.parentNode?.replaceChild(newNode, oldNode);
-
-        // setState((state) => ({
-        //   ...state,
-        //   come: state.come + 1,
-        // }));
       } else if (document.visibilityState === "hidden") {
         myRef?.current?.blur();
         //mobile wont trigger blur event either!!!
@@ -110,17 +80,11 @@ export function Index() {
         const newNode = document.createElement("title");
         newNode.innerText = "waiting...";
         oldNode?.parentNode?.replaceChild(newNode, oldNode);
-
-        // setState((state) => ({
-        //   ...state,
-        //   leave: state.leave + 1,
-        // }));
       }
     }
 
     document.addEventListener("visibilitychange", changeEvent);
 
-    // const callBack = ;
     Object.assign(window, {
       callBack: (val: recType) => {
         setInputVal((input) => {
@@ -158,8 +122,12 @@ export function Index() {
   function keyUp(val: { keyCode: number }) {
     switch (val.keyCode) {
       case 13:
-        goto(inputVal);
-        blur();
+        goto(inputVal, () => {
+          setInputVal("");
+          setDirective(false); // set command font weight to normal
+          // memoRefresh && memoRefresh();
+        });
+        // blur();
         break;
       case 38: //up
         updateChosen(chosen - 1 > -2 ? chosen - 1 : recArr.length - 1);
@@ -292,7 +260,6 @@ export function Index() {
           onClick={clipboard}
           className={styles.searchIcon}
         />
-        {/*  */}
         {inputVal.length > 0 && placeholder !== "search" ? (
           <img
             src="/clear.png"
@@ -340,6 +307,9 @@ export function Index() {
         }
         inputText={inputVal}
         clearText={clearText}
+        // refresh={(cb) => {
+        //   memoRefresh = cb;
+        // }}
       />
       {store === "computer" ? <Rocket /> : ""}
     </div>
