@@ -1,8 +1,6 @@
 import { Routes, Route, HashRouter } from "react-router-dom";
-import { ToastConfigProvider } from "./context/ToastContext";
-import { BackendConfigProvider } from "./context/Backend";
 import { NotFound } from "./views/NotFound/NotFound";
-import { Toast, setVal } from "./components/Toast/Toast";
+import { setVal } from "./components/Toast/Toast";
 import { Loading } from "./views/Loading/Loading";
 import { Index } from "./views/Index/Index";
 import { Experiment } from "./views/Experiment/Experiment";

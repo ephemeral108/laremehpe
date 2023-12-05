@@ -1,0 +1,1 @@
+System.register([],(function(e,t){"use strict";return{execute:function(){e("install",(function(){localStorage.getItem("bg")?localStorage.removeItem("bg"):localStorage.setItem("bg","true"),window.location.reload()}))}}}));

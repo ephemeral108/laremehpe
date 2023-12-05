@@ -230,7 +230,7 @@ export function Index() {
       <div className={styles.logo}>
         <button>
           <img
-            src="/icon.png"
+            src="./icon.png"
             alt="logo"
             title="stop and stare"
             id="logo"
@@ -255,7 +255,7 @@ export function Index() {
           autoComplete="off"
         />
         <img
-          src="/search.svg"
+          src="./search.svg"
           alt="search logo"
           onClick={clipboard}
           className={styles.searchIcon}
