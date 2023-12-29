@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import legacyPlugin from "@vitejs/plugin-legacy";
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/dist/",
+  base: "./",
   plugins: [
     react(),
     legacyPlugin({
