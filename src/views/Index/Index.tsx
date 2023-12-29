@@ -267,6 +267,7 @@ export function Index() {
             onClick={(_) => {
               setInputVal("");
               setRecArr([]);
+              setDirective(false);
               myRef.current?.focus();
               setMenuHeight(0);
               // setPlaceholder("never stop learning..");

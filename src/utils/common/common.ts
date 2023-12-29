@@ -69,25 +69,39 @@ const command: Array<{
         )
         .catch((err) => {
           console.log(err);
-          setVal &&
-            setVal(
-              "cannot find corresponding plugin, please check you spell or install function" +
-                err
-            );
+          // try to resolve it as windows command
+          location.href = "cmd://" + val;
+          // setVal &&
+          //   setVal(
+          //     "cannot find corresponding plugin, please check you spell or install function" +
+          //       err
+          //   );
         });
     },
   },
   {
-    // If the input contains http:// or https://, open the corresponding URL
-    cmd: /(http|https):\/\//,
+    // match custom protocol including http:// or https://
+    cmd: /.*?:\/\/.+/,
     handler(val) {
+      // extract url from input
       let url: RegExpExecArray | null = new RegExp(
         /(http|https):\/\/.*/ //[a-z\.\/%0-9A-Z#&-]*
       ).exec(val);
-      if (url) window.open(url[0]);
-      else encryptAndForward(localStorage.getItem("searchEngine"), val);
+      if (url) location.href = url[0];
+      else location.href = val;
     },
   },
+  // {
+  //   // If the input contains http:// or https://, open the corresponding URL
+  //   cmd: /(http|https):\/\//,
+  //   handler(val) {
+  //     let url: RegExpExecArray | null = new RegExp(
+  //       /(http|https):\/\/.*/ //[a-z\.\/%0-9A-Z#&-]*
+  //     ).exec(val);
+  //     if (url) window.open(url[0]);
+  //     else encryptAndForward(localStorage.getItem("searchEngine"), val);
+  //   },
+  // },
   {
     // If the input starts with "baidu ", search on Baidu
     cmd: /^(baidu )/,
