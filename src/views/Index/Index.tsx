@@ -29,7 +29,8 @@ function getRec(val: string) {
 
 let computedMenuHeight = 0; // calculated menu height ...
 let text = "";
-let client = window.screen.width > 425; // true computer false mobile
+// let client = window.screen.width > 425 && !/Mobile/i.test(navigator.userAgent); // true computer false mobile
+
 const googleLogo =
   "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png";
 const config = {
@@ -45,7 +46,7 @@ export function Index() {
   const [recArr, setRecArr] = useState<string[]>([]);
   const [inputVal, setInputVal] = useState("");
   const [chosen, setChosen] = useState(-1);
-  const [menuHeight, setMenuHeight] = useState(0);
+  const [menuHeight, setMenuHeight] = useState<object>({});
   const [directive, setDirective] = useState(false);
   const { cloud } = useBackendContext();
   const [placeholder, setPlaceholder] = useState("never stop learning...");
@@ -90,8 +91,12 @@ export function Index() {
         setInputVal((input) => {
           if (String(val.q).toUpperCase() !== String(input).toUpperCase())
             return input; // return if request call back is not correspond with input value
-          computedMenuHeight = val.s.length * (client ? 44 : 38) + 15;
-          setMenuHeight(computedMenuHeight);
+          // computedMenuHeight =
+          //   val.s.length * (window.screen.width > 425 ? 44 : 38) + 15;
+          // setMenuHeight(computedMenuHeight);
+          setMenuHeight({
+            maxHeight: "561px",
+          });
           setRecArr(val.s);
           return input;
         });
@@ -113,7 +118,10 @@ export function Index() {
     if (!value) {
       setRecArr([]);
       computedMenuHeight = 0;
-      setMenuHeight(computedMenuHeight);
+      // setMenuHeight(computedMenuHeight);
+      setMenuHeight({
+        maxHeight: "0px",
+      });
       return;
     }
     getRec(value);
@@ -149,7 +157,10 @@ export function Index() {
   function blur() {
     inputFocusing = false;
     setChosen(-1);
-    setMenuHeight(0);
+    // setMenuHeight(0);
+    setMenuHeight({
+      maxHeight: "0px",
+    });
     //wait until animation finish
     setTimeout(() => {
       if (!inputFocusing) setPlaceholder("search");
@@ -163,8 +174,13 @@ export function Index() {
 
   function focus() {
     inputFocusing = true;
-    computedMenuHeight = recArr.length * (client ? 44 : 38) + 15;
-    setMenuHeight(computedMenuHeight);
+    // computedMenuHeight =
+    //   recArr.length * (window.screen.width > 425 ? 44 : 38) + 15;
+    // setMenuHeight(computedMenuHeight);
+    // setMenuHeight("auto");
+    setMenuHeight({
+      maxHeight: "561px",
+    });
     setPlaceholder("never stop learning...");
 
     // setState((state) => ({
@@ -269,7 +285,7 @@ export function Index() {
               setRecArr([]);
               setDirective(false);
               myRef.current?.focus();
-              setMenuHeight(0);
+              setMenuHeight({ maxHeight: "0px" });
               // setPlaceholder("never stop learning..");
               //
             }}
@@ -278,7 +294,8 @@ export function Index() {
         ) : (
           ""
         )}
-        <div className={styles.menu} style={{ height: menuHeight + "px" }}>
+        {/* style={{ height: menuHeight + "px" }} */}
+        <div className={styles.menu} style={menuHeight}>
           <Menu
             arr={recArr}
             chosen={chosen}
