@@ -87,7 +87,9 @@ export function Index() {
 
     function inputFocus(val: KeyboardEvent) {
       if (val.keyCode !== 27) return;
-      myRef.current?.focus();
+
+      if (inputFocusing) myRef.current?.blur();
+      else myRef.current?.focus();
     }
     document.addEventListener("visibilitychange", changeEvent);
     document.addEventListener("keydown", inputFocus);
@@ -108,6 +110,8 @@ export function Index() {
         });
       },
     });
+
+    // console.log(inputFocusing, "inputFocusing");
 
     return () => {
       document.removeEventListener("visibilitychange", changeEvent);
@@ -162,6 +166,8 @@ export function Index() {
   }
 
   function blur() {
+    console.log("invoke blur");
+
     inputFocusing = false;
     setChosen(-1);
     // setMenuHeight(0);
@@ -180,6 +186,8 @@ export function Index() {
   }
 
   function focus() {
+    console.log("invoke focus");
+
     inputFocusing = true;
     // computedMenuHeight =
     //   recArr.length * (window.screen.width > 425 ? 44 : 38) + 15;
@@ -293,7 +301,6 @@ export function Index() {
               setDirective(false);
               myRef.current?.focus();
               setMenuHeight({ maxHeight: "0px" });
-              // setPlaceholder("never stop learning..");
               //
             }}
             className={styles.clearIcon}
