@@ -85,7 +85,12 @@ export function Index() {
       }
     }
 
+    function inputFocus(val: KeyboardEvent) {
+      if (val.keyCode !== 27) return;
+      myRef.current?.focus();
+    }
     document.addEventListener("visibilitychange", changeEvent);
+    document.addEventListener("keydown", inputFocus);
 
     Object.assign(window, {
       callBack: (val: recType) => {
@@ -106,6 +111,7 @@ export function Index() {
 
     return () => {
       document.removeEventListener("visibilitychange", changeEvent);
+      document.removeEventListener("keydown", inputFocus);
     };
   }, []);
 
