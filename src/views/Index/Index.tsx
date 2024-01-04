@@ -27,7 +27,7 @@ function getRec(val: string) {
   o?.parentNode && o.parentNode.replaceChild(s, o);
 }
 
-let computedMenuHeight = 0; // calculated menu height ...
+// let computedMenuHeight = 0; // calculated menu height ...
 let text = "";
 // let client = window.screen.width > 425 && !/Mobile/i.test(navigator.userAgent); // true computer false mobile
 
@@ -40,6 +40,7 @@ const config = {
 };
 
 let inputFocusing = true;
+
 // let memoRefresh: null | (() => Promise<void>) = null;
 export function Index() {
   const myRef = useRef<HTMLInputElement>(null);
@@ -117,7 +118,7 @@ export function Index() {
     text = value;
     if (!value) {
       setRecArr([]);
-      computedMenuHeight = 0;
+      // computedMenuHeight = 0;
       // setMenuHeight(computedMenuHeight);
       setMenuHeight({
         maxHeight: "0px",
@@ -179,7 +180,7 @@ export function Index() {
     // setMenuHeight(computedMenuHeight);
     // setMenuHeight("auto");
     setMenuHeight({
-      maxHeight: "561px",
+      maxHeight: recArr.length ? "561px" : "0px",
     });
     setPlaceholder("never stop learning...");
 

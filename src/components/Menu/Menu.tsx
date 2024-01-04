@@ -17,7 +17,7 @@ export function Menu(props: {
     <ul className={styles.ul} onMouseLeave={props.onLeave}>
       {props.arr.map((val, seq) => (
         <li
-          key={val}
+          key={val + seq}
           className={[
             styles.item,
             props.chosen === seq ? styles.chosen : "",
