@@ -24,7 +24,7 @@ export const Inputs = (): JSX.Element => {
           type="primary"
           onClick={() => {
             cloud.paste(text);
-            setVal("success!");
+            setVal && setVal("success!");
           }}
         >
           save

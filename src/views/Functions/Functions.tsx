@@ -7,6 +7,7 @@ import { Base64Converter } from "./children/Base64Converter/Base64Converter";
 import { Inputs } from "./children/Inputs/Inputs";
 import { Database } from "./children/Database/Database";
 import { UrlEncoder } from "./children/UrlEncoder/UrlEncoder";
+import { Timer } from "./children/Timer/Timer";
 type funs = {
   name: string;
   address: React.ReactNode;
@@ -31,6 +32,10 @@ const funList: Array<funs> = [
   {
     name: "database management",
     address: <Database />,
+  },
+  {
+    name: "timer",
+    address: <Timer />,
   },
 ];
 export function Functions() {
