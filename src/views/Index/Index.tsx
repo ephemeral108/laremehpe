@@ -166,8 +166,6 @@ export function Index() {
   }
 
   function blur() {
-    console.log("invoke blur");
-
     inputFocusing = false;
     setChosen(-1);
     // setMenuHeight(0);
@@ -186,8 +184,6 @@ export function Index() {
   }
 
   function focus() {
-    console.log("invoke focus");
-
     inputFocusing = true;
     // computedMenuHeight =
     //   recArr.length * (window.screen.width > 425 ? 44 : 38) + 15;

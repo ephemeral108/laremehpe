@@ -9,7 +9,7 @@ export const Timer = () => {
   const { cloud } = useBackendContext();
   useEffect(() => {
     cloud.getObj(table).then((val) => {
-      setTime(new Date(val.get("time")).valueOf());
+      setTime(new Date(Number(val.get("time"))).valueOf());
     });
     // api callback
   }, []);
