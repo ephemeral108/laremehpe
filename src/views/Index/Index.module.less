@@ -91,9 +91,16 @@
     .frame {
       width: 280px;
       flex-shrink: 0;
+
+      input {
+        box-shadow: #5a5a5a 1px 1px 20px;
+      }
     }
     .frame:hover {
       width: 561px;
+      input {
+        box-shadow: #5a5a5a 1px 1px 10px;
+      }
     }
     .frame:focus-within {
       width: 561px;
@@ -158,6 +165,7 @@
       box-sizing: border-box;
       text-align: center;
       position: relative;
+      transition: box-shadow 0.5s;
       z-index: 2;
     }
 

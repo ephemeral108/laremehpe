@@ -248,7 +248,7 @@ export function Index() {
         style={{
           backgroundImage: `url(${config.wallpaper})`,
           // width: config.width,
-          // height: config.height,
+          height: config.height,
         }}
         // alt="wallpaper"
         className={styles.wallpaper}
