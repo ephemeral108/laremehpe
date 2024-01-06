@@ -1,1 +1,0 @@
-System.register(["./index-legacy-04c1eda6.js"],(function(e,t){"use strict";var n;return{setters:[function(e){n=e.b}],execute:function(){e("install",(function(){n.getInstance().setPlaceholders([]),setTimeout((function(){}),0)}))}}}));

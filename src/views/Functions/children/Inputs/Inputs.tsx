@@ -14,7 +14,7 @@ export const Inputs = (): JSX.Element => {
       <TextArea
         autoFocus
         showCount
-        style={{ height: "90vh", width: "90vw" }}
+        style={{ height: "85%", width: "90vw", minHeight: "80%" }}
         placeholder="never stop learning..."
         value={text}
         onChange={(e) => setText(e.target.value)}

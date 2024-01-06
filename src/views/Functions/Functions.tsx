@@ -48,7 +48,7 @@ export function Functions() {
 
   return (
     <div className={styles.outer}>
-      <Space className={styles.box}>
+      <div className={styles.box}>
         <Button
           type="primary"
           onClick={() => {
@@ -66,7 +66,7 @@ export function Functions() {
             {val.name}
           </Button>
         ))}
-      </Space>
+      </div>
       <div className={styles.rest}>{page && page.address}</div>
     </div>
   );
