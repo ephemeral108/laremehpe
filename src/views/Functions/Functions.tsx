@@ -48,7 +48,7 @@ export function Functions() {
   const [page, setPage] = useState<funs>();
 
   useEffect(() => {
-    setPage(funList[2]);
+    setPage(funList[0]);
   }, []);
 
   return (
