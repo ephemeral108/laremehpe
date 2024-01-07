@@ -28,6 +28,7 @@ function App() {
   return (
     <HashRouter>
       <Routes>
+        <Route path="/" element={<Index />} />
         <Route path="/index" element={<Index />} />
         <Route path="/loading" element={<Loading />} />
         <Route path="/experiment" element={<Experiment />} />

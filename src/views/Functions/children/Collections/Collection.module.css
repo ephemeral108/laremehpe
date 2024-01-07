@@ -1,0 +1,40 @@
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0;
+  box-sizing: border-box;
+  padding: 0 30px;
+}
+.entry:nth-last-child(1) {
+  flex-grow: 10;
+}
+.entry {
+  width: 12.5%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+  color: #000;
+  text-decoration: none;
+}
+.entry .top:hover {
+  background: #000;
+  color: #fff;
+}
+.entry .top {
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  transition: all 0.5s;
+  background-color: beige;
+}
+.entry .bottom {
+  width: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}

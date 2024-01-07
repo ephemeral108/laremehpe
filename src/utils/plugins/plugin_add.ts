@@ -15,7 +15,7 @@ export async function install(val: string): Promise<void> {
   //'baidu'
   const key: string = entry.find((val) => val != url) || "";
   if (!key || !url) {
-    setVal("please check your key or url spell");
+    setVal && setVal("please check your key or url spell");
     return;
   }
 
@@ -36,6 +36,6 @@ export async function install(val: string): Promise<void> {
     { key, url: url.startsWith("http") ? url : "http://" + url },
   ];
   instance.setPlaceholders(newList);
-  setVal(url.startsWith("http") ? url : "http://" + url);
+  setVal && setVal(url.startsWith("http") ? url : "http://" + url);
   updateKeywordList(newList);
 }
