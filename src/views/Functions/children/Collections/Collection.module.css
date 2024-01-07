@@ -8,8 +8,17 @@
 .entry:nth-last-child(1) {
   flex-grow: 10;
 }
+@media (max-width: 768px) {
+  .entry {
+    width: 20%;
+  }
+}
+@media (min-width: 768px) {
+  .entry {
+    width: 6.25%;
+  }
+}
 .entry {
-  width: 12.5%;
   overflow: hidden;
   display: flex;
   flex-direction: column;

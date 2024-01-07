@@ -15,6 +15,10 @@ type funs = {
 };
 const funList: Array<funs> = [
   {
+    name: "collections",
+    address: <Collections />,
+  },
+  {
     name: "url encoder",
     address: <UrlEncoder />,
   },
@@ -37,10 +41,6 @@ const funList: Array<funs> = [
   {
     name: "timer",
     address: <Timer />,
-  },
-  {
-    name: "collections",
-    address: <Collections />,
   },
 ];
 export function Functions() {

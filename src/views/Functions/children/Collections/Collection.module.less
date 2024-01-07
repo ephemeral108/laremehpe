@@ -13,8 +13,20 @@
   flex-grow: 10;
   // visibility: hidden;
 }
+
+//mobile
+@media (max-width: 768px) {
+  .entry {
+    width: 20%;
+  }
+}
+//computer
+@media (min-width: 768px) {
+  .entry {
+    width: 6.25%;
+  }
+}
 .entry {
-  width: 12.5%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
