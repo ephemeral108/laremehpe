@@ -1,1 +1,0 @@
-System.register(["./index-legacy-43ba80a5.js"],(function(e,t){"use strict";var n;return{setters:[function(e){n=e.b}],execute:function(){e("install",(function(){n.getInstance().setPlaceholders([]),setTimeout((function(){}),0)}))}}}));
