@@ -15,6 +15,6 @@ export default defineConfig({
   // base: "https://laremehpe.gitee.io/",
   server: {
     host: true,
-    port: 80,
+    port: 5173,
   },
 });

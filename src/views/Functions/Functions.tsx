@@ -9,6 +9,7 @@ import { Database } from "./children/Database/Database";
 import { UrlEncoder } from "./children/UrlEncoder/UrlEncoder";
 import { Timer } from "./children/Timer/Timer";
 import { Collections } from "./children/Collections/Collections";
+import { Commands } from "./children/Commands/Commands"
 type funs = {
   name: string;
   address: React.ReactNode;
@@ -41,6 +42,9 @@ const funList: Array<funs> = [
   {
     name: "timer",
     address: <Timer />,
+  }, {
+    name: "commands",
+    address: <Commands />,
   },
 ];
 export function Functions() {
