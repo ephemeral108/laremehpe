@@ -1,0 +1,1 @@
+System.register(["./index-legacy-ee822d23.js"],(function(e,t){"use strict";var n;return{setters:[function(e){n=e.b}],execute:function(){e("install",(function(){n.getInstance().setPlaceholders([]),setTimeout((function(){}),0)}))}}}));
