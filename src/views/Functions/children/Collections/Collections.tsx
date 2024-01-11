@@ -10,9 +10,7 @@ const Item = (props: { entry: { key: string; url: string } }) => {
       title={props.entry.url}
       key={props.entry.key}
     >
-      <div className={styles.top}>
-        {props.entry.name}
-      </div>
+      <div className={styles.top}>{props.entry.name}</div>
       <div className={styles.bottom}>{props.entry.key}</div>
     </a>
   );
@@ -21,14 +19,16 @@ const Item = (props: { entry: { key: string; url: string } }) => {
 export const Collections = () => {
   const [list, setList] = useState<{ key: string; url: string }[]>([]);
   useEffect(() => {
-    // console.log(getKeywordList());
-//    setList(getKeywordList());
-	const arr = getKeywordList()
-.map(val=>({...val,name: val.url.replace(/(http:\/\/|https:\/\/|www)\.{0,1}/g,"").substring(0,5)})
-.sort(function(a,b){
-		return a.name[0] > b.name[0]
-	});
-	setList(arr)
+    const arr = getKeywordList()
+      .map((val) => ({
+        ...val,
+        name: val.url
+          .replace(/(http:\/\/|https:\/\/|www)\.{0,1}/g, "")
+          .substring(0, 5),
+      }))
+      .sort((a, b) => a.name.charCodeAt(0) - b.name.charCodeAt(0));
+
+    setList(arr);
   }, []);
   return (
     <div className={styles.box}>

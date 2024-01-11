@@ -1,11 +1,8 @@
 .box {
-  display: flex;
-  flex-wrap: wrap;
-  // column-gap: 20px;
-  column-gap: 0;
-  // justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 100px);
+  justify-content: center;
   box-sizing: border-box;
-  padding: 0 30px;
 }
 
 .entry:nth-last-child(1) {
@@ -14,18 +11,18 @@
   // visibility: hidden;
 }
 
-//mobile
-@media (max-width: 768px) {
-  .entry {
-    width: 20%;
-  }
-}
-//computer
-@media (min-width: 768px) {
-  .entry {
-    width: 6.25%;
-  }
-}
+// //mobile
+// @media (max-width: 768px) {
+//   .entry {
+//     width: 20%;
+//   }
+// }
+// //computer
+// @media (min-width: 768px) {
+//   .entry {
+//     width: 6.25%;
+//   }
+// }
 .entry {
   overflow: hidden;
   display: flex;
