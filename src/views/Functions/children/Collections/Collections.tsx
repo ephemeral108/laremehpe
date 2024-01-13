@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./Collection.module.css";
 import { getKeywordList } from "../../../../utils/common/common";
 
-const Item = (props: { entry: { key: string; url: string } }) => {
+const Item = (props: { entry: { key: string; url: string; name: string } }) => {
   return (
     <a
       className={styles.entry}
@@ -17,7 +17,9 @@ const Item = (props: { entry: { key: string; url: string } }) => {
 };
 
 export const Collections = () => {
-  const [list, setList] = useState<{ key: string; url: string }[]>([]);
+  const [list, setList] = useState<
+    { key: string; url: string; name: string }[]
+  >([]);
   useEffect(() => {
     const arr = getKeywordList()
       .map((val) => ({
