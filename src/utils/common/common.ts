@@ -134,13 +134,13 @@ const command: Array<{
       )}`;
     },
   },
-  {
-    // If the input contains Chinese characters, search on Baidu
-    cmd: /[\u2E80-\uFE4F]/,
-    handler(val) {
-      encryptAndForward("baidu", val);
-    },
-  },
+  // {
+  //   // If the input contains Chinese characters, search on Baidu
+  //   cmd: /[\u2E80-\uFE4F]/,
+  //   handler(val) {
+  //     encryptAndForward("baidu", val);
+  //   },
+  // },
   {
     // If the input matches none of the above commands, search using the default search engine
     cmd: /.+/,
