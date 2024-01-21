@@ -85,14 +85,20 @@ export function Index() {
       }
     }
 
-    function inputFocus(val: KeyboardEvent) {
-      if (val.keyCode !== 27) return;
+    function globalKeyEvent(val: KeyboardEvent) {
+      // if (!(val.keyCode === 27 || val.keyCode === 13)) return;
+      // console.log(val.keyCode);
 
-      if (inputFocusing) myRef.current?.blur();
-      else myRef.current?.focus();
+      if (val.keyCode === 27) {
+        if (inputFocusing) myRef.current?.blur();
+        else myRef.current?.focus();
+      }
+      if (val.keyCode === 17) {
+        window.location.href = "#/functions";
+      }
     }
     document.addEventListener("visibilitychange", changeEvent);
-    document.addEventListener("keydown", inputFocus);
+    document.addEventListener("keydown", globalKeyEvent);
 
     Object.assign(window, {
       callBack: (val: recType) => {
@@ -115,7 +121,7 @@ export function Index() {
 
     return () => {
       document.removeEventListener("visibilitychange", changeEvent);
-      document.removeEventListener("keydown", inputFocus);
+      document.removeEventListener("keydown", globalKeyEvent);
     };
   }, []);
 

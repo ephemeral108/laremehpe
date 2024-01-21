@@ -9,7 +9,9 @@ import { Database } from "./children/Database/Database";
 import { UrlEncoder } from "./children/UrlEncoder/UrlEncoder";
 import { Timer } from "./children/Timer/Timer";
 import { Collections } from "./children/Collections/Collections";
-import { Commands } from "./children/Commands/Commands"
+import { Commands } from "./children/Commands/Commands";
+import { Memo } from "../../components/Memo/Memo";
+
 type funs = {
   name: string;
   address: React.ReactNode;
@@ -18,6 +20,10 @@ const funList: Array<funs> = [
   {
     name: "collections",
     address: <Collections />,
+  },
+  {
+    name: "memo",
+    address: <Memo show={true} clearText={() => {}} inputText="null" />,
   },
   {
     name: "url encoder",
@@ -42,7 +48,8 @@ const funList: Array<funs> = [
   {
     name: "timer",
     address: <Timer />,
-  }, {
+  },
+  {
     name: "commands",
     address: <Commands />,
   },

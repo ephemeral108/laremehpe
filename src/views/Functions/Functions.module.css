@@ -11,6 +11,9 @@
   overflow-x: auto;
   cursor: pointer;
 }
+.box::-webkit-scrollbar {
+  display: none;
+}
 .outer {
   height: 100%;
   display: flex;
