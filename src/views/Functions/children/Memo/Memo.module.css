@@ -1,0 +1,52 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.box .entry {
+  width: 80%;
+  display: flex;
+  position: relative;
+}
+.box .entry input {
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 0 50px 0 10px;
+  font-size: 18px;
+  line-height: 18px;
+  vertical-align: middle;
+}
+.box .entry button {
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+.box .listBox {
+  width: 80%;
+}
+.box .listBox .item:hover button {
+  display: inline-block;
+}
+.box .listBox .item {
+  display: flex;
+  justify-content: flex-start;
+  min-height: 57px;
+  max-height: 90px;
+}
+.box .listBox .item .text {
+  margin-left: 5px;
+  word-break: break-all;
+  overflow-y: auto;
+  flex: 1;
+  max-height: 70px;
+}
+.box .listBox .item .opt {
+  width: 12%;
+  display: flex;
+  justify-content: flex-end;
+}
+.box .listBox .item button {
+  display: none;
+}

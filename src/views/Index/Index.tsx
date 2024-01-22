@@ -4,7 +4,6 @@ import { Menu } from "../../components/Menu/Menu";
 import { useEffect, useState, useRef } from "react";
 import { goto } from "../../utils/common/common";
 import { ping } from "../../utils/common/ping";
-import { Memo } from "../../components/Memo/Memo";
 import { useBackendContext } from "../../context/Backend";
 import { useSelector } from "react-redux";
 import { Rocket } from "../../components/Rocket/Rocket";
@@ -334,17 +333,6 @@ export function Index() {
           />
         </div>
       </div>
-      <Memo
-        show={
-          localStorage.getItem("memoStatus") === "true" &&
-          placeholder === "search"
-        }
-        inputText={inputVal}
-        clearText={clearText}
-        // refresh={(cb) => {
-        //   memoRefresh = cb;
-        // }}
-      />
       {store === "computer" ? <Rocket /> : ""}
     </div>
   );
