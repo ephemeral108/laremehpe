@@ -10,7 +10,7 @@ import { UrlEncoder } from "./children/UrlEncoder/UrlEncoder";
 import { Timer } from "./children/Timer/Timer";
 import { Collections } from "./children/Collections/Collections";
 import { Commands } from "./children/Commands/Commands";
-import { Memo } from "../../components/Memo/Memo";
+import { Memo } from "./children/Memo/Memo";
 
 type funs = {
   name: string;
@@ -23,7 +23,7 @@ const funList: Array<funs> = [
   },
   {
     name: "memo",
-    address: <Memo show={true} clearText={() => {}} inputText="null" />,
+    address: <Memo />,
   },
   {
     name: "url encoder",
@@ -58,8 +58,27 @@ export function Functions() {
   const to = useNavigate();
   const [page, setPage] = useState<funs>();
 
+  const keyEvent = (ev: KeyboardEvent) => {
+    const key = +ev.key;
+    if (key !== key || key < 0 || key >= funList.length) return;
+    const actEl = document?.activeElement?.tagName;
+    if (actEl === "INPUT" || actEl === "TEXTAREA") return;
+
+    setPage(funList[key]);
+  };
+  const unregisterHotKey = () => {
+    window.removeEventListener("keydown", keyEvent);
+  };
+  const registerHotKey = () => {
+    window.addEventListener("keydown", keyEvent);
+  };
   useEffect(() => {
     setPage(funList[0]);
+    registerHotKey();
+
+    return () => {
+      unregisterHotKey();
+    };
   }, []);
 
   return (
