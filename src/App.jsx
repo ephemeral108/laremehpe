@@ -8,13 +8,14 @@ import { Functions } from "./views/Functions/Functions";
 // import { TestButton } from "./components/TestButton/TestButton";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { addMes } from "./components/FixedToast/FixedToast";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (localStorage.getItem("lastMes")) {
-      addMes(last);
+      addMes(localStorage.getItem("lastMes"));
       localStorage.setItem("lastMes", "");
     }
 

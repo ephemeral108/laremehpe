@@ -39,4 +39,4 @@ const toast = (mes: string) => {
   }
   setVal(mes);
 };
-export { toast };
+export { toast, Toast };

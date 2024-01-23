@@ -2,7 +2,7 @@
 import { toast } from "../../components/Toast/Toast";
 import { backend } from "../backend/backend";
 import { getKeywordList } from "../common/common";
-import { updateKeywordList } from "../common/common";
+// import { updateKeywordList } from "../common/common";
 
 export async function install(val: string): Promise<void> {
   //val: ' add baidu http://www.baidu.com'
@@ -36,5 +36,7 @@ export async function install(val: string): Promise<void> {
   ];
   instance.setPlaceholders(newList);
   toast(url.startsWith("http") ? url : "http://" + url);
-  updateKeywordList(newList);
+  console.log(newList);
+
+  // updateKeywordList(newList);
 }

@@ -1,6 +1,6 @@
 import { toast } from "../../components/Toast/Toast";
 import { backend } from "../backend/backend";
-import { updateKeywordList } from "../common/common";
+// import { updateKeywordList } from "../common/common";
 
 export async function install(val: string) {
   const instance = backend.getInstance();
@@ -18,6 +18,8 @@ export async function install(val: string) {
     return;
   }
   instance.setPlaceholders(shortcut);
-  updateKeywordList(shortcut);
+  console.log(shortcut);
+
+  // updateKeywordList(shortcut);
   // getKeywordList();
 }
