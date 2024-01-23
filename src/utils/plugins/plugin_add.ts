@@ -37,6 +37,7 @@ export async function install(val: string): Promise<void> {
   instance.setPlaceholders(newList);
   toast(url.startsWith("http") ? url : "http://" + url);
   console.log(newList);
+  debugger;
 
   // updateKeywordList(newList);
 }

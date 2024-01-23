@@ -7,6 +7,17 @@
 .entry:nth-last-child(1) {
   flex-grow: 10;
 }
+.pop {
+  margin-top: 30px;
+}
+.pop .gap {
+  width: 100%;
+  height: 20px;
+}
+.pop span {
+  display: inline-block;
+  width: 40px;
+}
 .entry {
   overflow: hidden;
   display: flex;

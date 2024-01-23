@@ -86,14 +86,16 @@ export function Index() {
 
     function globalKeyEvent(val: KeyboardEvent) {
       // if (!(val.keyCode === 27 || val.keyCode === 13)) return;
-      // console.log(val.keyCode);
+
+      console.log(val);
 
       if (val.keyCode === 27) {
         if (inputFocusing) myRef.current?.blur();
         else myRef.current?.focus();
       }
-      if (val.keyCode === 17) {
+      if (val.key === "j" && val.ctrlKey) {
         window.location.href = "#/functions";
+        val.preventDefault();
       }
     }
     document.addEventListener("visibilitychange", changeEvent);
