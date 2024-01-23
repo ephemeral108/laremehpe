@@ -1,5 +1,5 @@
 // import { addMes } from "../../components/FixedToast/FixedToast";
-import { setVal } from "../../components/Toast/Toast";
+import { toast } from "../../components/Toast/Toast";
 import { backend } from "../backend/backend";
 import { getKeywordList } from "../common/common";
 import { updateKeywordList } from "../common/common";
@@ -15,12 +15,11 @@ export async function install(val: string): Promise<void> {
   //'baidu'
   const key: string = entry.find((val) => val != url) || "";
   if (!key || !url) {
-    setVal && setVal("please check your key or url spell");
+    toast("please check your key or url spell");
     return;
   }
 
   if (getKeywordList().findIndex((val) => val.key === key) > -1) {
-    // setVal("the key already exist!");
     let shortcut = getKeywordList().find((ele) => ele.key === key)?.url;
     localStorage.setItem(
       "lastMes",
@@ -36,6 +35,6 @@ export async function install(val: string): Promise<void> {
     { key, url: url.startsWith("http") ? url : "http://" + url },
   ];
   instance.setPlaceholders(newList);
-  setVal && setVal(url.startsWith("http") ? url : "http://" + url);
+  toast(url.startsWith("http") ? url : "http://" + url);
   updateKeywordList(newList);
 }

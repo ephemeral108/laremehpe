@@ -1,6 +1,6 @@
 import { Routes, Route, HashRouter } from "react-router-dom";
 import { NotFound } from "./views/NotFound/NotFound";
-import { setVal } from "./components/Toast/Toast";
+import { toast } from "./components/Toast/Toast";
 import { Loading } from "./views/Loading/Loading";
 import { Index } from "./views/Index/Index";
 import { Experiment } from "./views/Experiment/Experiment";
@@ -18,7 +18,7 @@ function App() {
       localStorage.setItem("lastMes", "");
     }
 
-    setVal("Welcom back!");
+    toast("Welcom back!");
     dispatch({
       type: "app/device",
       payload: screen.availWidth >= 1920 ? "computer" : "mobile",

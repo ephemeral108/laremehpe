@@ -1,5 +1,5 @@
 import styles from "./Index.module.css";
-import { setVal } from "../../components/Toast/Toast";
+import { toast } from "../../components/Toast/Toast";
 import { Menu } from "../../components/Menu/Menu";
 import { useEffect, useState, useRef } from "react";
 import { goto } from "../../utils/common/common";
@@ -57,7 +57,7 @@ export function Index() {
     localStorage.setItem("searchEngine", "baidu");
     ping(googleLogo, false)
       .then(() => {
-        setVal && setVal("google search");
+        toast("google search");
         localStorage.setItem("searchEngine", "google");
       })
       .catch(() => {});
@@ -207,7 +207,7 @@ export function Index() {
 
   const openUrl = (url: string) => {
     if (url.startsWith("http")) {
-      setVal && setVal("try to open url for ya!");
+      toast("try to open url for ya!");
       window.open(url);
     }
   };
@@ -215,7 +215,7 @@ export function Index() {
     let receive;
     try {
       const send = await navigator.clipboard.readText();
-      setVal && setVal(send);
+      toast(send);
       receive = (await cloud.copy()).get("content");
       setInputVal(receive);
       await navigator.clipboard.writeText(receive);

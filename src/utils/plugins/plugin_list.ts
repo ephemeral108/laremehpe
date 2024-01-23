@@ -1,4 +1,4 @@
-import { setVal } from "../../components/Toast/Toast";
+import { toast } from "../../components/Toast/Toast";
 import { getKeywordList } from "../common/common";
 
 export function install(val: string): void {
@@ -8,13 +8,13 @@ export function install(val: string): void {
 
   switch (val.replace(/list /, "")) {
     case "val":
-      setVal(vals.join(","));
+      toast(vals.join(","));
       break;
     case "key":
-      setVal(keys.join(","));
+      toast(keys.join(","));
       break;
     default:
-      setVal(
+      toast(
         "add space and val show all the url, add space and key show all the keys!"
       );
       break;

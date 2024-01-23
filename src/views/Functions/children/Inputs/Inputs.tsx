@@ -2,7 +2,7 @@ import { Button, Input, Space } from "antd";
 import styles from "./Inputs.module.css";
 import { useBackendContext } from "../../../../context/Backend";
 import { useState } from "react";
-import { setVal } from "../../../../components/Toast/Toast";
+import { toast } from "../../../../components/Toast/Toast";
 
 export const Inputs = (): JSX.Element => {
   const { TextArea } = Input;
@@ -24,7 +24,7 @@ export const Inputs = (): JSX.Element => {
           type="primary"
           onClick={() => {
             cloud.paste(text);
-            setVal && setVal("success!");
+            toast("success!");
           }}
         >
           save

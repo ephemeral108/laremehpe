@@ -31,4 +31,12 @@ function Toast() {
   return <div {...toastProp}>{innerText}</div>;
 }
 
-export { Toast, setVal };
+// export { Toast, setVal };
+const toast = (mes: string) => {
+  if (!setVal) {
+    alert("toast: " + mes);
+    return;
+  }
+  setVal(mes);
+};
+export { toast };

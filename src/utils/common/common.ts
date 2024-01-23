@@ -71,8 +71,7 @@ const command: Array<{
           console.log(err);
           // try to resolve it as windows command
           location.href = "cmd://" + val;
-          // setVal &&
-          //   setVal(
+          //   toast(
           //     "cannot find corresponding plugin, please check you spell or install function" +
           //       err
           //   );

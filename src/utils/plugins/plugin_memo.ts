@@ -1,4 +1,4 @@
-import { setVal } from "../../components/Toast/Toast";
+import { toast } from "../../components/Toast/Toast";
 import { backend } from "../backend/backend";
 
 export function install(val: string, clearInputCallBack?: () => void): void {
@@ -11,7 +11,7 @@ export function install(val: string, clearInputCallBack?: () => void): void {
           key: val.replace("memo add ", ""),
         },
       ];
-      cloud.updateMemo(data).then(() => [setVal && setVal("success")]);
+      cloud.updateMemo(data).then(() => [toast("success")]);
     });
 
     clearInputCallBack && clearInputCallBack();
@@ -21,7 +21,7 @@ export function install(val: string, clearInputCallBack?: () => void): void {
     const item = val.replace("memo remove ", "");
     cloud.fetchMemo().then((res) => {
       const data = res.get("list").filter((val) => val.key != item);
-      cloud.updateMemo(data).then(() => [setVal && setVal("success")]);
+      cloud.updateMemo(data).then(() => [toast("success")]);
     });
 
     clearInputCallBack && clearInputCallBack();

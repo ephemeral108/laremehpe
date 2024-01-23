@@ -2,7 +2,7 @@ import { Button } from "antd";
 import styles from "./Timer.module.css";
 import { useEffect, useState } from "react";
 import { useBackendContext } from "../../../../context/Backend";
-import { setVal } from "../../../../components/Toast/Toast";
+import { toast } from "../../../../components/Toast/Toast";
 const table = "65975e3490d3d1241de49d20";
 export const Timer = () => {
   const [time, setTime] = useState(0);
@@ -21,9 +21,7 @@ export const Timer = () => {
         onClick={() => {
           const time = new Date().valueOf();
           setTime(time);
-          cloud
-            .setObj(table, { time: time + "" })
-            .then(() => setVal && setVal("success"));
+          cloud.setObj(table, { time: time + "" }).then(() => toast("success"));
         }}
       >
         reset

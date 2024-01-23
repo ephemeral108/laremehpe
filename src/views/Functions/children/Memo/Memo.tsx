@@ -3,7 +3,7 @@ import styles from "./Memo.module.css";
 import { useEffect, useState } from "react";
 import { useBackendContext } from "../../../../context/Backend";
 import { copyText } from "../../../../utils/common/copy";
-import { setVal as toast } from "../../../../components/Toast/Toast";
+import { toast } from "../../../../components/Toast/Toast";
 
 interface memoItem {
   key: string;
@@ -77,7 +77,7 @@ export const Memo = () => {
                           (data) => data.key !== item.key
                         );
                         cloud.updateMemo(data).then(() => {
-                          toast && toast("success");
+                          toast("success");
                         });
                         return data;
                       });
