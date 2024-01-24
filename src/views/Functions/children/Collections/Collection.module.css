@@ -18,6 +18,9 @@
   display: inline-block;
   width: 40px;
 }
+.addEntry .top {
+  background: #00ff00 !important;
+}
 .entry {
   overflow: hidden;
   display: flex;

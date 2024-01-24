@@ -7,10 +7,11 @@ import { backend } from "../../../../utils/backend/backend";
 const Item = (props: {
   clickHandler: (item: item) => void;
   entry: { key: string; url: string; name: string };
+  styles?: object;
 }) => {
   return (
     <a
-      className={styles.entry}
+      className={[styles.entry, props.styles ? props.styles : ""].join(" ")}
       // href={props.entry.url}
       onClick={() => {
         props.clickHandler(props.entry);
@@ -26,15 +27,26 @@ const Item = (props: {
 
 type item = { key: string; url: string; name: string };
 
-const PopFooter = (props: { onConfirm: () => void; onOpen: () => void }) => {
+const PopFooter = (props: {
+  onConfirm: () => void;
+  onOpen: () => void;
+  type: action;
+}) => {
   return (
     <Space>
-      <Button onClick={props.onConfirm}>confirm</Button>
-      <Button onClick={props.onOpen}>open</Button>
+      {props.type === "add" ? (
+        <Button onClick={props.onConfirm}>add</Button>
+      ) : (
+        <>
+          <Button onClick={props.onConfirm}>confirm</Button>
+          <Button onClick={props.onOpen}>open</Button>
+        </>
+      )}
     </Space>
   );
 };
 const Pop = (props: {
+  type: action;
   item: item;
   del: () => void;
   getItem: (foo: (val: item) => void) => void;
@@ -91,19 +103,29 @@ const Pop = (props: {
       <div className={styles.gap}></div>
       <Space>
         <span></span>
-        <Button danger type="primary" onClick={props.del}>
-          delete
-        </Button>
+        {props.type === "modify" ? (
+          <Button danger type="primary" onClick={props.del}>
+            delete
+          </Button>
+        ) : (
+          <></>
+        )}
       </Space>
     </div>
   );
 };
 
 const instance = backend.getInstance();
+type action = "add" | "modify" | "";
 export const Collections = () => {
   const [list, setList] = useState<item[]>([]);
-  const [mo, setMo] = useState({
+  const [mo, setMo] = useState<{
+    open: boolean;
+    type: action;
+    item: item;
+  }>({
     open: false,
+    type: "",
     item: {
       key: "",
       url: "",
@@ -139,6 +161,7 @@ export const Collections = () => {
   const cancelModal = () => {
     setMo({
       open: false,
+      type: "",
       item: {
         key: "",
         url: "",
@@ -154,21 +177,39 @@ export const Collections = () => {
             entry={val}
             key={val.key + seq}
             clickHandler={(item) => {
-              console.log(item);
-
+              // console.log(item);
               setMo({
                 open: true,
+                type: "modify",
                 item,
               });
             }}
           />
         ))}
+        <Item
+          // className={styles.addEntry}
+          styles={styles.addEntry}
+          entry={{
+            name: "add",
+            url: "http://",
+            key: "add",
+          }}
+          clickHandler={(newItem) => {
+            // console.log(newItem);
+            setMo({
+              open: true,
+              type: "add",
+              item: newItem,
+            });
+          }}
+        />
         <a className={styles.entry}></a>
       </div>
       <Modal
         open={mo.open}
         footer={
           <PopFooter
+            type={mo.type}
             onConfirm={() => {
               if (!changeInfo) {
                 message.error("cannot get changed item info!");
@@ -196,6 +237,7 @@ export const Collections = () => {
         }}
       >
         <Pop
+          type={mo.type}
           getItem={(cb) => {
             changeInfo = cb as () => item;
           }}
