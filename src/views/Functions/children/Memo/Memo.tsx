@@ -46,7 +46,14 @@ export const Memo = () => {
             add();
           }}
         />
-        <Button onClick={add}>+</Button>
+        {/* <div className={styles.opt}>
+          <Button onClick={add}>+</Button>
+          <Button onClick={refresh}>refresh</Button>
+        </div> */}
+        <div className={styles.opt}>
+          <span onClick={add}>+</span>
+          <span onClick={refresh}>refresh</span>
+        </div>
       </div>
       <div className={styles.listBox}>
         {/* <div className={styles.list}>{list.map((val) => val)}</div> */}

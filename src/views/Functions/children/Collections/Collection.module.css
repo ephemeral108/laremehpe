@@ -4,6 +4,15 @@
   justify-content: center;
   box-sizing: border-box;
 }
+.filterSearch {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.filterSearch input {
+  width: 80%;
+}
 .entry:nth-last-child(1) {
   flex-grow: 10;
 }

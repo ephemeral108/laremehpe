@@ -117,7 +117,9 @@ const Pop = (props: {
 
 const instance = backend.getInstance();
 type action = "add" | "modify" | "";
+let latestData: item[];
 export const Collections = () => {
+  const [keyword, setKeyword] = useState("");
   const [list, setList] = useState<item[]>([]);
   const [mo, setMo] = useState<{
     open: boolean;
@@ -134,7 +136,27 @@ export const Collections = () => {
   });
   let changeInfo: null | (() => item) = null;
   useEffect(() => {
-    const arr = getKeywordList()
+    setOrderList(getKeywordList());
+    // const arr = getKeywordList()
+    // .map((val) => ({
+    //   ...val,
+    //   name: val.url
+    //     .replace(/(http:\/\/|https:\/\/|www)\.{0,1}/g, "")
+    //     .substring(0, 5),
+    // }))
+    // .sort((a, b) => a.key.charCodeAt(0) - b.key.charCodeAt(0));
+
+    // setList(arr);
+  }, []);
+
+  const setOrderList = (
+    tmp: {
+      url: string;
+      key: string;
+    }[]
+  ) => {
+    setKeyword("");
+    latestData = tmp
       .map((val) => ({
         ...val,
         name: val.url
@@ -143,20 +165,7 @@ export const Collections = () => {
       }))
       .sort((a, b) => a.key.charCodeAt(0) - b.key.charCodeAt(0));
 
-    setList(arr);
-  }, []);
-
-  const setOrderList = (tmp: item[]) => {
-    setList(
-      tmp
-        .map((val) => ({
-          ...val,
-          name: val.url
-            .replace(/(http:\/\/|https:\/\/|www)\.{0,1}/g, "")
-            .substring(0, 5),
-        }))
-        .sort((a, b) => a.key.charCodeAt(0) - b.key.charCodeAt(0))
-    );
+    setList(latestData);
   };
   const cancelModal = () => {
     setMo({
@@ -169,8 +178,29 @@ export const Collections = () => {
       },
     });
   };
+  const filterSearchResult = (keyword: string) => {
+    keyword = keyword.toLowerCase();
+    setList(
+      latestData.filter(
+        (val) =>
+          val.key.toLowerCase().indexOf(keyword) > -1 ||
+          val.url.toLowerCase().indexOf(keyword) > -1
+      )
+    );
+  };
+  useEffect(() => {
+    filterSearchResult(keyword);
+  }, [keyword]);
+
   return (
     <>
+      <div className={styles.filterSearch}>
+        <Input
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
+          autoFocus
+        />
+      </div>
       <div className={styles.box}>
         {list.map((val, seq) => (
           <Item
