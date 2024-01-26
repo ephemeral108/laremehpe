@@ -11,6 +11,7 @@ import { Timer } from "./children/Timer/Timer";
 import { Collections } from "./children/Collections/Collections";
 import { Commands } from "./children/Commands/Commands";
 import { Memo } from "./children/Memo/Memo";
+import { switchTab } from "../../utils/utils/shortcut";
 
 type funs = {
   name: string;
@@ -54,11 +55,15 @@ const funList: Array<funs> = [
     address: <Commands />,
   },
 ];
+
+// let doubleCtrl = false;
 export function Functions() {
   const to = useNavigate();
   const [page, setPage] = useState<funs>();
 
   const keyEvent = (ev: KeyboardEvent) => {
+    switchTab(ev, "/");
+
     const key = +ev.key;
     if (key !== key || key < 0 || key >= funList.length) return;
     const actEl = document?.activeElement?.tagName;

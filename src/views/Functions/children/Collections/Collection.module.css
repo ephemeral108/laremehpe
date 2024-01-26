@@ -5,13 +5,24 @@
   box-sizing: border-box;
 }
 .filterSearch {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  width: 80%;
+  position: relative;
+  margin: 0 auto 20px auto;
+}
+.filterSearch button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  padding: 5px 8px;
+  background-color: #eee;
+  border: 0;
+  box-sizing: border-box;
+  color: #666;
+  border-radius: 4px;
+  transform: translateY(-50%);
 }
 .filterSearch input {
-  width: 80%;
+  width: 100%;
 }
 .entry:nth-last-child(1) {
   flex-grow: 10;

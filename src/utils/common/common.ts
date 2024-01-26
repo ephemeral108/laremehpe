@@ -28,6 +28,11 @@ export const stripCmdHead = (cmd: string) => {
   return cmd.substring(cmd.indexOf(" ") + 1);
 };
 
+// export const refreshKeywordList = async () => {
+//   const data = await backend.getInstance()?.fetchPlaceholders();
+//   if (!data) return [];
+//   return data.get("list");
+// };
 // Fetch the list of placeholders from the backend and update the keyword list
 //read keyword list from cache
 const cachedKeywordList = localStorage.getItem("keywordList");
@@ -41,13 +46,29 @@ if (cachedKeywordList) {
   }
 }
 //update cache keyword list
-backend
-  .getInstance()
-  ?.fetchPlaceholders()
-  .then((res) => {
-    keywordList = res.get("list");
-    localStorage.setItem("keywordList", JSON.stringify(keywordList));
-  });
+// backend
+//   .getInstance()
+//   ?.fetchPlaceholders()
+//   .then((res) => {
+//     keywordList = res.get("list");
+//     localStorage.setItem("keywordList", JSON.stringify(keywordList));
+//   });
+export const refreshKeywordList = async () => {
+  const data = await backend.getInstance()?.fetchPlaceholders();
+  // console.log(data.get("list"), "data");
+
+  if (!data) return;
+  // .then((res) => {
+  keywordList = data.get("list");
+  localStorage.setItem("keywordList", JSON.stringify(keywordList));
+  // });
+};
+
+refreshKeywordList();
+// refreshKeywordList().then((data) => {
+//   keywordList = data;
+//   localStorage.setItem("keywordList", JSON.stringify(keywordList));
+// });
 
 // Define an array of command objects with a cmd property and a handler function
 const command: Array<{

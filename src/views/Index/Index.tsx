@@ -8,6 +8,7 @@ import { useBackendContext } from "../../context/Backend";
 import { useSelector } from "react-redux";
 import { Rocket } from "../../components/Rocket/Rocket";
 import { storeType } from "../../utils/common/store";
+import { switchTab } from "../../utils/utils/shortcut";
 // import { useLocation } from "react-router-dom";
 
 type recType = {
@@ -39,7 +40,7 @@ const config = {
 };
 
 let inputFocusing = true;
-
+// let doubleCtrl = false;
 // let memoRefresh: null | (() => Promise<void>) = null;
 export function Index() {
   const myRef = useRef<HTMLInputElement>(null);
@@ -85,18 +86,17 @@ export function Index() {
     }
 
     function globalKeyEvent(val: KeyboardEvent) {
-      // if (!(val.keyCode === 27 || val.keyCode === 13)) return;
-
-      console.log(val);
-
+      // if (val.ctrlKey) {
+      //   if (doubleCtrl) {
+      //     window.location.href = "#/functions";
+      //   } else doubleCtrl = true;
+      // } else doubleCtrl = false;
       if (val.keyCode === 27) {
         if (inputFocusing) myRef.current?.blur();
         else myRef.current?.focus();
       }
-      if (val.key === "j" && val.ctrlKey) {
-        window.location.href = "#/functions";
-        val.preventDefault();
-      }
+
+      switchTab(val, "#/functions");
     }
     document.addEventListener("visibilitychange", changeEvent);
     document.addEventListener("keydown", globalKeyEvent);
@@ -231,16 +231,16 @@ export function Index() {
     }
   }
 
-  function clearText() {
-    text = "";
-    // menuContent = { s: [] };
-    setInputVal("");
-    setRecArr([]);
-    setDirective(false);
-    setTimeout(() => {
-      document.getElementById("input")?.focus();
-    }, 0);
-  }
+  // function clearText() {
+  //   text = "";
+  //   // menuContent = { s: [] };
+  //   setInputVal("");
+  //   setRecArr([]);
+  //   setDirective(false);
+  //   setTimeout(() => {
+  //     document.getElementById("input")?.focus();
+  //   }, 0);
+  // }
 
   return (
     <div className={styles.box}>

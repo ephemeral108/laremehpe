@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import styles from "./Collection.module.css";
-import { getKeywordList } from "../../../../utils/common/common";
+import {
+  getKeywordList,
+  refreshKeywordList,
+} from "../../../../utils/common/common";
 import { Button, Input, Modal, Space, message } from "antd";
 import { backend } from "../../../../utils/backend/backend";
 
@@ -135,18 +138,11 @@ export const Collections = () => {
     },
   });
   let changeInfo: null | (() => item) = null;
+  const refresh = () => {
+    refreshKeywordList().then(() => setOrderList(getKeywordList()));
+  };
   useEffect(() => {
-    setOrderList(getKeywordList());
-    // const arr = getKeywordList()
-    // .map((val) => ({
-    //   ...val,
-    //   name: val.url
-    //     .replace(/(http:\/\/|https:\/\/|www)\.{0,1}/g, "")
-    //     .substring(0, 5),
-    // }))
-    // .sort((a, b) => a.key.charCodeAt(0) - b.key.charCodeAt(0));
-
-    // setList(arr);
+    refresh();
   }, []);
 
   const setOrderList = (
@@ -165,6 +161,8 @@ export const Collections = () => {
       }))
       .sort((a, b) => a.key.charCodeAt(0) - b.key.charCodeAt(0));
 
+    // console.log(tmp, latestData);
+
     setList(latestData);
   };
   const cancelModal = () => {
@@ -180,6 +178,9 @@ export const Collections = () => {
   };
   const filterSearchResult = (keyword: string) => {
     keyword = keyword.toLowerCase();
+
+    if (latestData === undefined) return;
+
     setList(
       latestData.filter(
         (val) =>
@@ -200,6 +201,15 @@ export const Collections = () => {
           onChange={(e) => setKeyword(e.target.value)}
           autoFocus
         />
+        <button
+          className={styles.refresh}
+          onClick={() => {
+            console.log("refresh");
+            refresh();
+          }}
+        >
+          refresh
+        </button>
       </div>
       <div className={styles.box}>
         {list.map((val, seq) => (
@@ -217,15 +227,13 @@ export const Collections = () => {
           />
         ))}
         <Item
-          // className={styles.addEntry}
           styles={styles.addEntry}
           entry={{
-            name: "add",
+            name: list.length + "",
             url: "http://",
             key: "add",
           }}
           clickHandler={(newItem) => {
-            // console.log(newItem);
             setMo({
               open: true,
               type: "add",

@@ -39,6 +39,7 @@ export const Memo = () => {
     <div className={styles.box}>
       <div className={styles.entry}>
         <Input
+          autoFocus
           onChange={(e) => setVal(e.target.value)}
           value={val}
           onKeyDown={(e) => {
