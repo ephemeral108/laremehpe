@@ -163,7 +163,6 @@ export const Collections = () => {
       }))
       .sort((a, b) => a.key.charCodeAt(0) - b.key.charCodeAt(0));
 
-    console.log("refresh", latestData, tmp);
     setList(latestData);
   };
   const cancelModal = () => {
@@ -178,13 +177,8 @@ export const Collections = () => {
     });
   };
   const filterSearchResult = (keyword: string) => {
+    if (latestData === undefined) return;
     keyword = keyword.toLowerCase();
-
-    if (latestData === undefined) {
-      toast("unknown error!");
-      return;
-    }
-
     setList(
       latestData.filter(
         (val) =>
@@ -256,7 +250,14 @@ export const Collections = () => {
                 message.error("cannot get changed item info!");
                 return;
               }
-              latestData.push(changeInfo());
+              const newEntry = changeInfo();
+              if (
+                latestData.find((val) => val.key === newEntry.key) !== undefined
+              ) {
+                toast("key already exist!");
+                return;
+              }
+              latestData.push(newEntry);
               instance.setPlaceholders(
                 latestData.map((val) => ({ key: val.key, url: val.url }))
               );
@@ -271,9 +272,16 @@ export const Collections = () => {
               }
               // console.log(changeInfo());
               const res = latestData.filter((val) => {
-                return val.key != mo.item.key && val.url != mo.item.url;
+                return val.key !== mo.item.key || val.url !== mo.item.url;
               });
-              res.push(changeInfo());
+              const newEntry = changeInfo();
+              if (res.find((val) => val.key === newEntry.key) !== undefined) {
+                toast("key already exist!");
+                return;
+              }
+
+              res.push(newEntry);
+
               instance.setPlaceholders(
                 res.map((val) => ({ key: val.key, url: val.url }))
               );
