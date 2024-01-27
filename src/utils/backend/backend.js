@@ -113,6 +113,6 @@ export class backend {
       "643502153531836e685cb3a9"
     );
     todo.set("list", val);
-    todo.save();
+    return todo.save();
   }
 }

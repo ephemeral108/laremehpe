@@ -6,6 +6,7 @@ import {
 } from "../../../../utils/common/common";
 import { Button, Input, Modal, Space, message } from "antd";
 import { backend } from "../../../../utils/backend/backend";
+import { toast } from "../../../../components/Toast/Toast";
 
 const Item = (props: {
   clickHandler: (item: item) => void;
@@ -33,12 +34,13 @@ type item = { key: string; url: string; name: string };
 const PopFooter = (props: {
   onConfirm: () => void;
   onOpen: () => void;
+  onAdd: () => void;
   type: action;
 }) => {
   return (
     <Space>
       {props.type === "add" ? (
-        <Button onClick={props.onConfirm}>add</Button>
+        <Button onClick={props.onAdd}>add</Button>
       ) : (
         <>
           <Button onClick={props.onConfirm}>confirm</Button>
@@ -161,8 +163,7 @@ export const Collections = () => {
       }))
       .sort((a, b) => a.key.charCodeAt(0) - b.key.charCodeAt(0));
 
-    // console.log(tmp, latestData);
-
+    console.log("refresh", latestData, tmp);
     setList(latestData);
   };
   const cancelModal = () => {
@@ -179,7 +180,10 @@ export const Collections = () => {
   const filterSearchResult = (keyword: string) => {
     keyword = keyword.toLowerCase();
 
-    if (latestData === undefined) return;
+    if (latestData === undefined) {
+      toast("unknown error!");
+      return;
+    }
 
     setList(
       latestData.filter(
@@ -204,7 +208,6 @@ export const Collections = () => {
         <button
           className={styles.refresh}
           onClick={() => {
-            console.log("refresh");
             refresh();
           }}
         >
@@ -248,13 +251,26 @@ export const Collections = () => {
         footer={
           <PopFooter
             type={mo.type}
+            onAdd={() => {
+              if (!changeInfo) {
+                message.error("cannot get changed item info!");
+                return;
+              }
+              latestData.push(changeInfo());
+              instance.setPlaceholders(
+                latestData.map((val) => ({ key: val.key, url: val.url }))
+              );
+              // setList(res);
+              setOrderList(latestData);
+              cancelModal();
+            }}
             onConfirm={() => {
               if (!changeInfo) {
                 message.error("cannot get changed item info!");
                 return;
               }
               // console.log(changeInfo());
-              const res = list.filter((val) => {
+              const res = latestData.filter((val) => {
                 return val.key != mo.item.key && val.url != mo.item.url;
               });
               res.push(changeInfo());
@@ -281,15 +297,19 @@ export const Collections = () => {
           }}
           item={mo.item}
           del={() => {
-            const res = list.filter((val) => {
-              return val.key != mo.item.key && val.url != mo.item.url;
+            const res = latestData.filter((val) => {
+              return val.key != mo.item.key || val.url != mo.item.url;
             });
             cancelModal();
-            console.log(res);
-            instance.setPlaceholders(
-              res.map((val) => ({ key: val.key, url: val.url }))
-            );
-            setList(res);
+            instance
+              .setPlaceholders(
+                res.map((val) => ({ key: val.key, url: val.url }))
+              )
+              .then(() => {
+                // refresh();
+                setOrderList(res);
+              });
+            // setList(res);
           }}
         />
       </Modal>

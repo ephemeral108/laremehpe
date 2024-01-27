@@ -55,13 +55,10 @@ if (cachedKeywordList) {
 //   });
 export const refreshKeywordList = async () => {
   const data = await backend.getInstance()?.fetchPlaceholders();
-  // console.log(data.get("list"), "data");
-
   if (!data) return;
-  // .then((res) => {
   keywordList = data.get("list");
+  console.log(data, "api");
   localStorage.setItem("keywordList", JSON.stringify(keywordList));
-  // });
 };
 
 refreshKeywordList();

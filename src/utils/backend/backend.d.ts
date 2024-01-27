@@ -7,7 +7,7 @@ export declare class backend {
 
 interface myBack {
   fetchPlaceholders: () => Promise<result>;
-  setPlaceholders: (val: Array<{ key: string; url: string }>) => void;
+  setPlaceholders: (val: Array<{ key: string; url: string }>) => Promise<void>;
   fetchMemo: () => Promise<{ get: (val: string) => Array<memoItem> }>;
   updateMemo: (val: Array<memoItem>) => Promise<object>;
   copy: () => Promise<result>;
