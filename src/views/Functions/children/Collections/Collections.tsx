@@ -200,6 +200,16 @@ export const Collections = () => {
           autoFocus
         />
         <button
+          className={[styles.clear, keyword.length ? "" : styles.hide].join(
+            " "
+          )}
+          onClick={() => {
+            setKeyword("");
+          }}
+        >
+          <img src="/clear.png" alt="clear text img" />
+        </button>
+        <button
           className={styles.refresh}
           onClick={() => {
             refresh();
