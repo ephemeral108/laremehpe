@@ -1,7 +1,6 @@
-// import { addMes } from "../../components/FixedToast/FixedToast";
 import { toast } from "../../components/Toast/Toast";
 import { backend } from "../backend/backend";
-import { getKeywordList } from "../common/common";
+import { getKeywordList, updateKeywordList } from "../common/common";
 // import { updateKeywordList } from "../common/common";
 
 export async function install(val: string): Promise<void> {
@@ -21,10 +20,9 @@ export async function install(val: string): Promise<void> {
 
   if (getKeywordList().findIndex((val) => val.key === key) > -1) {
     let shortcut = getKeywordList().find((ele) => ele.key === key)?.url;
-    localStorage.setItem(
-      "lastMes",
-      "the key already exist! url is: " + shortcut
-    );
+    toast("the key already exist! url is: " + shortcut);
+
+    return;
   }
   const instance = backend.getInstance();
 
@@ -36,8 +34,7 @@ export async function install(val: string): Promise<void> {
   ];
   instance.setPlaceholders(newList);
   toast(url.startsWith("http") ? url : "http://" + url);
-  console.log(newList);
-  debugger;
-
+  // console.log(newList);
+  updateKeywordList(newList);
   // updateKeywordList(newList);
 }

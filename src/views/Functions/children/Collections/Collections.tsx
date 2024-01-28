@@ -7,6 +7,7 @@ import {
 import { Button, Input, Modal, Space, message } from "antd";
 import { backend } from "../../../../utils/backend/backend";
 import { toast } from "../../../../components/Toast/Toast";
+import { useEscape } from "../../../../utils/common/toggleInputFocus";
 
 const Item = (props: {
   clickHandler: (item: item) => void;
@@ -16,8 +17,9 @@ const Item = (props: {
   return (
     <a
       className={[styles.entry, props.styles ? props.styles : ""].join(" ")}
-      // href={props.entry.url}
-      onClick={() => {
+      href={props.entry.url}
+      onClick={(ev) => {
+        ev.preventDefault();
         props.clickHandler(props.entry);
       }}
       title={props.entry.url}
@@ -139,6 +141,7 @@ export const Collections = () => {
       name: "",
     },
   });
+  useEscape();
   let changeInfo: null | (() => item) = null;
   const refresh = () => {
     refreshKeywordList().then(() => setOrderList(getKeywordList()));
@@ -219,20 +222,6 @@ export const Collections = () => {
         </button>
       </div>
       <div className={styles.box}>
-        {list.map((val, seq) => (
-          <Item
-            entry={val}
-            key={val.key + seq}
-            clickHandler={(item) => {
-              // console.log(item);
-              setMo({
-                open: true,
-                type: "modify",
-                item,
-              });
-            }}
-          />
-        ))}
         <Item
           styles={styles.addEntry}
           entry={{
@@ -248,7 +237,22 @@ export const Collections = () => {
             });
           }}
         />
-        <a className={styles.entry}></a>
+        {list.map((val, seq) => (
+          <Item
+            entry={val}
+            key={val.key + seq}
+            clickHandler={(item) => {
+              // console.log(item);
+              setMo({
+                open: true,
+                type: "modify",
+                item,
+              });
+            }}
+          />
+        ))}
+
+        {/* <a className={styles.entry}></a> */}
       </div>
       <Modal
         open={mo.open}

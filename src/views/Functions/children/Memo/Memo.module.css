@@ -6,7 +6,10 @@
 .box .entry {
   width: 80%;
   display: flex;
-  position: relative;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 99;
 }
 .box .entry input {
   width: 100%;

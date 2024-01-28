@@ -7,7 +7,11 @@
   .entry {
     width: @contentWidth;
     display: flex;
-    position: relative;
+    // position: relative;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 99;
     input {
       width: 100%;
       height: 40px;
@@ -17,26 +21,6 @@
       line-height: 18px;
       vertical-align: middle;
     }
-    // button:nth-of-type(2) {
-    //   height: 100%;
-    //   position: absolute;
-    //   top: 0px;
-    //   right: 80px;
-    // }
-    // button:nth-of-type(1) {
-    //   height: 100%;
-    //   position: absolute;
-    //   top: 0px;
-    //   right: 0px;
-    // }
-    // .opt {
-    //   height: 100%;
-    //   position: absolute;
-    //   top: 0;
-    //   right: 0;
-    //   display: flex;
-    //   align-items: center;
-    // }
     .opt {
       height: 100%;
       position: absolute;
@@ -74,7 +58,6 @@
     }
     .item {
       display: flex;
-      // height: 57px;
       justify-content: flex-start;
       min-height: 57px;
       max-height: 90px;
@@ -84,7 +67,6 @@
         overflow-y: auto;
         flex: 1;
         max-height: 70px;
-        // width: 75%;
       }
       .opt {
         width: 12%;

@@ -1,0 +1,1 @@
+import{t as e,g as c}from"./index-23d59722.js";function r(t){const s=c(),l=s.map(a=>a.key),o=s.map(a=>a.url);switch(t.replace(/list /,"")){case"val":e(o.join(","));break;case"key":e(l.join(","));break;default:e("add space and val show all the url, add space and key show all the keys!");break}}export{r as install};

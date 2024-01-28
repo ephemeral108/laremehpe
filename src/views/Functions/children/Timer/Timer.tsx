@@ -26,6 +26,14 @@ export const Timer = () => {
       >
         reset
       </Button>
+      <div className={styles.aphorism}>
+        <p>There're things we can have, but can't keep</p>
+        <p>who cares if one more light goes out</p>
+        <p>in the sky of a million stars</p>
+        <p>who cares when someone's time runs out?</p>
+        <p>if a moment is all we are</p>
+        <p>-- Chester Bennington</p>
+      </div>
     </div>
   );
 };

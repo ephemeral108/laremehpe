@@ -6,7 +6,7 @@ import { backend } from "../backend/backend";
 type list = Array<{ key: string; url: string }>;
 
 // Declare a variable to hold a list of keywords
-let keywordList: list;
+let keywordList: list = [];
 
 // Define a function to return the keyword list
 export function getKeywordList() {
@@ -14,9 +14,9 @@ export function getKeywordList() {
 }
 
 // Define a function to update the keyword list
-export function updateKeywordList(_: list) {
-  // keywordList = list;
-  location.reload();
+export function updateKeywordList(list: list) {
+  keywordList = list;
+  // location.reload();
 }
 
 /**

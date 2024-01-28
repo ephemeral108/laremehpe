@@ -8,6 +8,32 @@ export const addMes: (val: string) => void = (val) => {
   !isDisplaying && alterMes();
 };
 
+const readLastMesFromStorage = () => {
+  let storage: null | string | string[] = localStorage.getItem("lastMes");
+  if (!storage) {
+    storage = [];
+  } else {
+    storage = storage.split("|");
+  }
+
+  return storage;
+};
+
+export const addLastMes = (mes: string) => {
+  const storage = readLastMesFromStorage();
+  storage.push(mes);
+  localStorage.setItem("lastMes", storage.join("|"));
+};
+
+export const showAllLastMes = () => {
+  const storage = readLastMesFromStorage();
+  storage.forEach((mes) => {
+    addMes(mes);
+  });
+
+  localStorage.setItem("lastMes", "");
+};
+
 export const FixedToast = () => {
   const [text, setText] = useState<string>("");
   const [clazz, setClazz] = useState<string>(

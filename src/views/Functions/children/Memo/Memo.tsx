@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useBackendContext } from "../../../../context/Backend";
 import { copyText } from "../../../../utils/common/copy";
 import { toast } from "../../../../components/Toast/Toast";
+import { useEscape } from "../../../../utils/common/toggleInputFocus";
 
 interface memoItem {
   key: string;
@@ -13,6 +14,7 @@ export const Memo = () => {
   const { cloud } = useBackendContext();
   const [list, setList] = useState<memoItem[]>([]);
   const [val, setVal] = useState<string>("");
+  useEscape();
   const refresh = async () => {
     setList((await cloud.fetchMemo()).get("list"));
   };
@@ -61,19 +63,29 @@ export const Memo = () => {
         <List
           dataSource={list}
           renderItem={(item) => (
-            <List.Item className={styles.item}>
+            <List.Item
+              className={styles.item}
+              onClick={() => {
+                // console.log("click");
+                copyText(item.key).then(() => {
+                  toast("message copied!");
+                });
+              }}
+            >
               <Typography.Text mark>[EVENT]:</Typography.Text>
               <div className={styles.text}>{item.key}</div>
               <div className={styles.opt}>
                 <Space>
-                  <Button
+                  {/* <Button
                     type="primary"
                     onClick={() => {
-                      copyText(item.key);
+                      copyText(item.key).then(() => {
+                        toast("message copied!");
+                      });
                     }}
                   >
                     copy
-                  </Button>
+                  </Button> */}
                   <Popconfirm
                     title="Delete the memo?"
                     description="Are you sure to delete this memo?"

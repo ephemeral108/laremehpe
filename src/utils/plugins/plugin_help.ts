@@ -1,4 +1,3 @@
-import { setVal } from "../../components/Toast/Toast";
 import { addMes } from "../../components/FixedToast/FixedToast";
 
 export function install(val: string) {
