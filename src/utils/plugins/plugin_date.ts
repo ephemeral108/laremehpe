@@ -8,9 +8,9 @@ export const install = (val: string) => {
     addMes(tmp);
     navigator.clipboard.writeText(tmp);
   } else {
-    const formatDate = `${date.getFullYear()}年 ${
+    const formatDate = `${date.getFullYear()}-${
       date.getMonth() + 1
-    }月 ${date.getDate()}日 ${date.getHours()}: ${date.getMinutes()}: ${date.getSeconds()}`;
+    }-${date.getDate()}-${date.getHours()}: ${date.getMinutes()}: ${date.getSeconds()}`;
     addMes(formatDate);
     navigator.clipboard.writeText(formatDate);
   }
