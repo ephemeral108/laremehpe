@@ -5,6 +5,7 @@ import { Loading } from "./views/Loading/Loading";
 import { Index } from "./views/Index/Index";
 import { Experiment } from "./views/Experiment/Experiment";
 import { Functions } from "./views/Functions/Functions";
+import { Timetable } from "./views/Timetable/Timetable";
 // import { TestButton } from "./components/TestButton/TestButton";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -31,6 +32,7 @@ function App() {
         <Route path="/loading" element={<Loading />} />
         <Route path="/experiment" element={<Experiment />} />
         <Route path="/functions" element={<Functions />} />
+        <Route path="/timetable" element={<Timetable />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </HashRouter>

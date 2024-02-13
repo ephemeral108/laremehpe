@@ -3,6 +3,8 @@ import styles from "./Database.module.css";
 import { useEffect, useState } from "react";
 import { useBackendContext } from "../../../../context/Backend";
 
+const HISTORY_KEY_NAME = "6507aba663372b4e216bf1b8";
+
 export const Database = (): JSX.Element => {
   const { cloud } = useBackendContext();
   const [result, setResult] = useState<string>("");
@@ -26,23 +28,41 @@ export const Database = (): JSX.Element => {
 
   useEffect(() => {
     (async () => {
-      const his: string[] = (
-        await cloud.getObj("6507aba663372b4e216bf1b8")
-      ).get("list");
+      const his: string[] = (await cloud.getObj(HISTORY_KEY_NAME)).get("list");
       if (his) {
         setHistory(his);
       }
     })();
   }, []);
 
-  /*useEffect(() => {
-    localStorage.setItem("check_history", history.join("|"));
-  }, [history]);*/
+  const updateHistory = async (val: (prev: string[]) => string[]) => {
+    const his: string[] = (await cloud.getObj(HISTORY_KEY_NAME)).get("list");
+    if (his) {
+      const res = val(his);
+      cloud.setObj(HISTORY_KEY_NAME, { list: res });
+      setHistory(res);
+    }
+  };
+  const checkHistoryQuick = (queryKey: string) => {
+    cloud
+      .getObj(queryKey)
+      .then((res) => {
+        setResult(JSON.stringify(res));
+      })
+      .catch((err) => {
+        setResult(JSON.stringify(err));
+      });
+  };
 
   return (
     <div className={styles.box}>
       <div>
-        <Input name="input1" value={form.input1} onChange={formHandler} />
+        <Input
+          name="input1"
+          placeholder='{ "content": string[] } | { "list": any[] }'
+          value={form.input1}
+          onChange={formHandler}
+        />
         <Button
           onClick={() => {
             let obj;
@@ -79,16 +99,21 @@ export const Database = (): JSX.Element => {
             cloud
               .getObj(form.input2)
               .then((res) => {
-                setResult(JSON.stringify(res));
+                const obj = res.toJSON();
+                const jsObj = JSON.stringify(obj);
+                setResult(jsObj);
+                const checker = document.querySelector(
+                  "input:checked"
+                ) as HTMLInputElement | null;
+                checker && (checker.checked = false);
                 if (history.includes(form.input2)) return;
-                setHistory((prev) => {
-                  let arr = [...prev, form.input2];
-                  cloud.setObj("6507aba663372b4e216bf1b8", { list: arr });
-                  return arr;
-                });
+                // let arr = ;
+                updateHistory((prev) => [...prev, form.input2]);
               })
               .catch((err) => {
-                setResult(JSON.stringify(err));
+                setResult((e) => {
+                  return e + "===> error: " + JSON.stringify(err);
+                });
               });
           }}
           type="primary"
@@ -202,6 +227,7 @@ export const Database = (): JSX.Element => {
           onClick={() => {
             cloud.delTable(form.input8).then(() => {
               setResult("success");
+              updateHistory((his) => his.filter((val) => val !== form.input8));
             });
           }}
         >
@@ -211,14 +237,28 @@ export const Database = (): JSX.Element => {
 
       <div className={styles.gap}>
         ---------------------------------------------------------
-        <p>{result}</p>
+        <p className={styles.result}>{result}</p>
         ---------------------------------------------------------
       </div>
       <div>
         history:
         <ul>
           {history.map((val, seq) => (
-            <li key={seq}>{val}</li>
+            <li
+              key={seq}
+              onTouchEnd={() => checkHistoryQuick(val)}
+              onDoubleClick={() => checkHistoryQuick(val)}
+              className={styles.listUnit}
+            >
+              <label>
+                <input
+                  type="radio"
+                  name="queryKey"
+                  style={{ display: "none" }}
+                />
+                <span>{val}</span>
+              </label>
+            </li>
           ))}
         </ul>
       </div>

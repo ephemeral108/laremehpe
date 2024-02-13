@@ -4,3 +4,11 @@
 .gap {
   margin-top: 20px;
 }
+.result {
+  max-width: 80vw;
+  white-space: wrap;
+  word-break: break-all;
+}
+.listUnit input:checked + span {
+  background-color: #ff6600;
+}

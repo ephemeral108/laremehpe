@@ -3,10 +3,13 @@ import styles from "./Timer.module.css";
 import { useEffect, useState } from "react";
 import { useBackendContext } from "../../../../context/Backend";
 import { toast } from "../../../../components/Toast/Toast";
+import { useNavigate } from "react-router-dom";
 const table = "65975e3490d3d1241de49d20";
 export const Timer = () => {
   const [time, setTime] = useState(0);
   const { cloud } = useBackendContext();
+  const to = useNavigate();
+
   useEffect(() => {
     cloud.getObj(table).then((val) => {
       setTime(new Date(Number(val.get("time"))).valueOf());
@@ -15,6 +18,14 @@ export const Timer = () => {
   }, []);
   return (
     <div className={styles.box}>
+      <div
+        className={styles.more}
+        onClick={() => {
+          to("/timetable");
+        }}
+      >
+        <img src="/more.png" alt="" />
+      </div>
       <Countdown timeStamp={time} />
       <Button
         type="primary"
@@ -66,7 +77,7 @@ const calDate = (past: number) => {
   };
 };
 
-const Countdown = (props: { timeStamp: number }) => {
+export const Countdown = (props: { timeStamp: number }) => {
   const [date, setDate] = useState({
     day: 0,
     hour: 0,

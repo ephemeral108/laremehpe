@@ -1,18 +1,32 @@
 .box {
   height: 100%;
   width: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
   padding-bottom: 200px;
   padding-top: 150px;
+  .more {
+    @size: 20px;
+    width: @size;
+    height: @size;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
   button {
     margin-top: 50px;
   }
 
   .aphorism {
-    margin-top: 300px;
+    // margin-top: 300px;
+    margin-top: 30vh;
     p {
       letter-spacing: 1px;
       font-weight: bold;
@@ -22,4 +36,9 @@
       text-align: right;
     }
   }
+}
+
+.hisModalBox {
+  height: 100%;
+  overflow: scroll;
 }
