@@ -139,7 +139,8 @@ export const Timetable = () => {
         <LeftCircleOutlined
           style={{ fontSize: "20px", color: "#08c" }}
           onClick={() => {
-            to("/functions");
+            // to("/functions");
+            to(-1);
           }}
         />
         <h1>Timetable:</h1>
