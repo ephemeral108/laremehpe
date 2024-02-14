@@ -109,7 +109,7 @@ export const Memo = () => {
               </div>
             </List.Item>
           )}
-          header={<div>Memo</div>}
+          header={<div>Memo ({list.length})</div>}
         />
       </div>
     </div>
