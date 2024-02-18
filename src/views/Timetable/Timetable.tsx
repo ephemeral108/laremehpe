@@ -1,4 +1,14 @@
-import { Button, Drawer, Input, Modal, Popconfirm, Space, Table } from "antd";
+import {
+  Button,
+  DatePicker,
+  Drawer,
+  Input,
+  Modal,
+  Popconfirm,
+  Space,
+  Table,
+  TimePicker,
+} from "antd";
 import styles from "./Timetable.module.css";
 import { LeftCircleOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
@@ -55,6 +65,21 @@ const HistoryModal = (props: {
     </Drawer>
   );
 };
+
+// const CustomModal = (props: { open: boolean }) => {
+//   return (
+//     <Modal open={props.open} onOk={(e) => {}}>
+//       <DatePicker showTime onChange={(e) => {}} onOk={(e) => {}} />
+//       <TimePicker
+//         format={"HH:mm"}
+//         onChange={(e) => {
+//           console.log(e);
+//         }}
+//       />
+//     </Modal>
+//   );
+// };
+
 const AddModal = (props: {
   open: boolean;
   close: (updateList: boolean) => void;
@@ -123,6 +148,9 @@ export const Timetable = () => {
     status: false,
     dataList: [],
   });
+  // const [custom, setCustom] = useState({
+  //   status: false,
+  // });
 
   const refresh = async () => {
     const obj = await cloud.getObj(TIMETABLE_KEY);
@@ -167,6 +195,25 @@ export const Timetable = () => {
               >
                 reset
               </Button>
+              {/* <Button
+                onClick={() => {
+                  console.log("custom");
+                  setCustom({
+                    status: true,
+                  });
+                }}
+              >
+                custom
+              </Button> */}
+
+              <DatePicker
+                showTime
+                onOk={(e) => {
+                  const val = e.valueOf();
+                  console.log(val);
+                }}
+              />
+
               <Popconfirm
                 title="Delete the entry"
                 description="Are you sure to delete this entry?"
@@ -208,6 +255,7 @@ export const Timetable = () => {
         }}
       />
 
+      {/* <CustomModal open={custom.status} /> */}
       <AddModal
         open={addModalStatus}
         close={(val) => {
