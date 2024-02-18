@@ -157,6 +157,12 @@ export const Timetable = () => {
     setDataList(obj.get("list"));
   };
 
+  const updateList = (list: dataType[]) => {
+    cloud.setObj(TIMETABLE_KEY, { list }).then(() => {
+      refresh();
+    });
+  };
+
   useEffect(() => {
     refresh();
   }, []);
@@ -188,29 +194,22 @@ export const Timetable = () => {
                     return val.key === record.key ? record : val;
                   });
 
-                  cloud.setObj(TIMETABLE_KEY, { list: res }).then(() => {
-                    refresh();
-                  });
+                  updateList(res);
                 }}
               >
                 reset
               </Button>
-              {/* <Button
-                onClick={() => {
-                  console.log("custom");
-                  setCustom({
-                    status: true,
-                  });
-                }}
-              >
-                custom
-              </Button> */}
-
               <DatePicker
                 showTime
                 onOk={(e) => {
                   const val = e.valueOf();
-                  console.log(val);
+                  record.history = [...record.history, val].sort(
+                    (a, b) => b - a
+                  );
+                  const res = dataList.map((val) => {
+                    return val.key === record.key ? record : val;
+                  });
+                  updateList(res);
                 }}
               />
 
