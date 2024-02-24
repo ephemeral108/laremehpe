@@ -1,0 +1,1 @@
+import{b as r,t as c,u as i,g as l}from"./index-899b78e0.js";async function u(s){const t=r.getInstance();if(t===null)return;const n=l(),o=s.replace("remove ",""),e=n.filter(a=>a.key!==o);t.setPlaceholders(e).then(()=>{c("removed!")}),i(e)}export{u as install};

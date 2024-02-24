@@ -7,7 +7,6 @@ import {
   Popconfirm,
   Space,
   Table,
-  TimePicker,
 } from "antd";
 import styles from "./Timetable.module.css";
 import { LeftCircleOutlined } from "@ant-design/icons";
@@ -43,6 +42,7 @@ const HistoryModal = (props: {
   historyModal: boolean;
   dataList: number[];
   closeModal: () => void;
+  removeHistory: (key: number) => void;
 }) => {
   const transformTime = (time: number) => {
     const date = new Date(time);
@@ -59,7 +59,16 @@ const HistoryModal = (props: {
     >
       <div className={styles.hisModalBox}>
         {props.dataList.map((val) => (
-          <p key={val}>{transformTime(val)}</p>
+          <Popconfirm
+            key={val}
+            title="remove from history?"
+            onConfirm={() => {
+              // console.log(val);
+              props.removeHistory(val);
+            }}
+          >
+            <p>{transformTime(val)}</p>
+          </Popconfirm>
         ))}
       </div>
     </Drawer>
@@ -143,9 +152,11 @@ export const Timetable = () => {
   const [dataList, setDataList] = useState<dataType[]>([]);
   const [historyModal, setHistoryModal] = useState<{
     status: boolean;
+    key: number;
     dataList: number[];
   }>({
     status: false,
+    key: -1,
     dataList: [],
   });
   // const [custom, setCustom] = useState({
@@ -157,9 +168,10 @@ export const Timetable = () => {
     setDataList(obj.get("list"));
   };
 
-  const updateList = (list: dataType[]) => {
+  const updateList = (list: dataType[], success?: () => void) => {
     cloud.setObj(TIMETABLE_KEY, { list }).then(() => {
       refresh();
+      success && success();
     });
   };
 
@@ -201,6 +213,7 @@ export const Timetable = () => {
               </Button>
               <DatePicker
                 showTime
+                inputReadOnly
                 onOk={(e) => {
                   const val = e.valueOf();
                   record.history = [...record.history, val].sort(
@@ -233,6 +246,7 @@ export const Timetable = () => {
                 onClick={() => {
                   setHistoryModal({
                     status: true,
+                    key: record.key,
                     dataList: record.history,
                   });
                 }}
@@ -271,11 +285,34 @@ export const Timetable = () => {
         closeModal={() => {
           setHistoryModal({
             status: false,
+            key: -1,
             dataList: [],
           });
         }}
         dataList={historyModal.dataList}
         historyModal={historyModal.status}
+        removeHistory={(removeItemVal) => {
+          // record.history = [Date.now(), ...record.history];
+          let tmp: number[] = [];
+          const res = dataList.map((entry) => {
+            if (entry.key === historyModal.key) {
+              entry.history = entry.history.filter(
+                (val) => val !== removeItemVal
+              );
+              tmp = entry.history;
+            }
+            return entry;
+          });
+
+          updateList(res, () => {
+            setHistoryModal((oldVal) => {
+              return {
+                ...oldVal,
+                dataList: tmp,
+              };
+            });
+          });
+        }}
       />
     </div>
   );
