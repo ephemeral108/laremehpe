@@ -41,12 +41,17 @@
 .box .listBox {
   width: 80%;
 }
+.box .listBox .item:hover {
+  background-color: #eee;
+}
 .box .listBox .item:hover button {
   display: inline-block;
 }
 .box .listBox .item {
   display: flex;
   justify-content: flex-start;
+  box-sizing: border-box;
+  padding: 0 10px;
   min-height: 57px;
   max-height: 90px;
 }

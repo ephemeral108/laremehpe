@@ -7,7 +7,6 @@
   .entry {
     width: @contentWidth;
     display: flex;
-    // position: relative;
     position: sticky;
     top: 0;
     background-color: #fff;
@@ -53,12 +52,18 @@
   .listBox {
     width: @contentWidth;
 
+    .item:hover {
+      background-color: #eee;
+    }
     .item:hover button {
       display: inline-block;
     }
     .item {
       display: flex;
       justify-content: flex-start;
+      // margin: 0 10px;
+      box-sizing: border-box;
+      padding: 0 10px;
       min-height: 57px;
       max-height: 90px;
       .text {
