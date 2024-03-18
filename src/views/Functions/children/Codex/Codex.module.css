@@ -1,7 +1,12 @@
 .box {
-  margin: 10px;
   display: flex;
   flex-direction: column;
+  margin: 10px;
+}
+@media screen and (min-width: 1920px) {
+  .box {
+    margin: 10px 10vw;
+  }
 }
 .box span {
   margin-bottom: 20px;
