@@ -11,6 +11,7 @@ import { useEscape } from "../../../../utils/common/toggleInputFocus";
 
 // let longPress = 0;
 const Item = (props: {
+  direct: boolean;
   clickHandler: (item: item) => void;
   entry: { key: string; url: string; name: string };
   styles?: object;
@@ -33,6 +34,10 @@ const Item = (props: {
         }}
         onClick={(ev) => {
           ev.preventDefault();
+          if (props.direct) {
+            props.clickHandler(props.entry);
+            return;
+          }
           location.href = props.entry.url;
         }}
       >
@@ -241,6 +246,7 @@ export const Collections = () => {
             url: "http://",
             key: "add",
           }}
+          direct={true}
           clickHandler={(newItem) => {
             setMo({
               open: true,
@@ -253,6 +259,7 @@ export const Collections = () => {
           <Item
             entry={val}
             key={val.key + seq}
+            direct={false}
             clickHandler={(item) => {
               // console.log(item);
               setMo({
