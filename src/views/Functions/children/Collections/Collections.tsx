@@ -9,7 +9,7 @@ import { backend } from "../../../../utils/backend/backend";
 import { toast } from "../../../../components/Toast/Toast";
 import { useEscape } from "../../../../utils/common/toggleInputFocus";
 
-let longPress = 0;
+// let longPress = 0;
 const Item = (props: {
   clickHandler: (item: item) => void;
   entry: { key: string; url: string; name: string };
@@ -19,30 +19,25 @@ const Item = (props: {
     <a
       className={[styles.entry, props.styles ? props.styles : ""].join(" ")}
       href={props.entry.url}
-      onContextMenu={(ev) => {
-        ev.preventDefault();
-        props.clickHandler(props.entry);
-      }}
-      onTouchStart={() => {
-        longPress = new Date().valueOf();
-      }}
-      onTouchEnd={(ev) => {
-        if (new Date().valueOf() - longPress > 1000) {
-          ev.preventDefault();
-          props.clickHandler(props.entry);
-        } else {
-          location.href = props.entry.url;
-        }
-        longPress = 0;
-      }}
-      onClick={(ev) => {
-        ev.preventDefault();
-        location.href = props.entry.url;
-      }}
       title={props.entry.url}
       key={props.entry.key}
+      onClick={(e) => {
+        e.preventDefault();
+      }}
     >
-      <div className={styles.top}>{props.entry.name}</div>
+      <div
+        className={styles.top}
+        onContextMenu={(ev) => {
+          ev.preventDefault();
+          props.clickHandler(props.entry);
+        }}
+        onClick={(ev) => {
+          ev.preventDefault();
+          location.href = props.entry.url;
+        }}
+      >
+        {props.entry.name}
+      </div>
       <div className={styles.bottom}>{props.entry.key}</div>
     </a>
   );
