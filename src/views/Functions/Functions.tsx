@@ -3,15 +3,16 @@ import styles from "./Functions.module.css";
 import { Button } from "antd";
 import { useEffect, useState } from "react";
 import { Eval } from "./children/Eval/Eval";
-import { Base64Converter } from "./children/Base64Converter/Base64Converter";
+// import { Base64Converter } from "./children/Base64Converter/Base64Converter";
 import { Inputs } from "./children/Inputs/Inputs";
 import { Database } from "./children/Database/Database";
-import { UrlEncoder } from "./children/UrlEncoder/UrlEncoder";
+// import { UrlEncoder } from "./children/UrlEncoder/UrlEncoder";
 import { Timer } from "./children/Timer/Timer";
 import { Collections } from "./children/Collections/Collections";
 import { Commands } from "./children/Commands/Commands";
 import { Memo } from "./children/Memo/Memo";
 import { switchTab } from "../../utils/utils/shortcut";
+import { Codex } from "./children/Codex/Codex";
 
 type funs = {
   name: string;
@@ -23,21 +24,29 @@ const funList: Array<funs> = [
     address: <Collections />,
   },
   {
+    name: "inputs",
+    address: <Inputs />,
+  },
+  {
+    name: "timer",
+    address: <Timer />,
+  },
+  {
     name: "memo",
     address: <Memo />,
   },
   {
-    name: "url encoder",
-    address: <UrlEncoder />,
+    name: "codex",
+    address: <Codex />,
   },
-  {
-    name: "base64 converter",
-    address: <Base64Converter />,
-  },
-  {
-    name: "inputs",
-    address: <Inputs />,
-  },
+  // {
+  //   name: "url encoder",
+  //   address: <UrlEncoder />,
+  // },
+  // {
+  //   name: "base64 converter",
+  //   address: <Base64Converter />,
+  // },
   {
     name: "eval js",
     address: <Eval />,
@@ -46,10 +55,7 @@ const funList: Array<funs> = [
     name: "database management",
     address: <Database />,
   },
-  {
-    name: "timer",
-    address: <Timer />,
-  },
+
   {
     name: "commands",
     address: <Commands />,

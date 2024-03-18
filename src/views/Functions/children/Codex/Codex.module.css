@@ -1,0 +1,8 @@
+.box {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.box span {
+  margin-bottom: 20px;
+}
