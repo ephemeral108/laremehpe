@@ -52,7 +52,7 @@ const funList: Array<funs> = [
     address: <Eval />,
   },
   {
-    name: "database management",
+    name: "database",
     address: <Database />,
   },
 
