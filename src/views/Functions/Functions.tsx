@@ -13,6 +13,7 @@ import { Commands } from "./children/Commands/Commands";
 import { Memo } from "./children/Memo/Memo";
 import { switchTab } from "../../utils/utils/shortcut";
 import { Codex } from "./children/Codex/Codex";
+import { History } from "./children/History/History";
 
 type funs = {
   name: string;
@@ -55,10 +56,13 @@ const funList: Array<funs> = [
     name: "database",
     address: <Database />,
   },
-
   {
     name: "commands",
     address: <Commands />,
+  },
+  {
+    name: "history",
+    address: <History />,
   },
 ];
 

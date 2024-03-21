@@ -1,6 +1,6 @@
 import { addMes } from "../../components/FixedToast/FixedToast";
-// import { setVal } from "../../components/Toast/Toast";
 import { backend } from "../backend/backend";
+import { addHistory } from "../utils/history/history";
 
 // Define a type for a list of objects with a key and url property
 type list = Array<{ key: string; url: string }>;
@@ -40,6 +40,7 @@ if (cachedKeywordList) {
   try {
     keywordList = JSON.parse(cachedKeywordList);
   } catch (e) {
+    // message.error("error: ");
     addMes(
       "error: try to parse keyword list from local cache, reason: unresolved string!"
     );
@@ -185,7 +186,9 @@ const command: Array<{
 
 // Encode the input and forward it to the corresponding search engine
 function encryptAndForward(engine: string | null, val: string) {
-  localStorage.setItem("lastInputVal", val);
+  // localStorage.setItem("lastInputVal", val);
+  // addHistory(val);
+  addHistory(val);
   window.location.href =
     (engine === "google"
       ? "https://www.google.com/search?q="
@@ -197,9 +200,6 @@ function encryptAndForward(engine: string | null, val: string) {
 
 // Define a function to execute the appropriate command based on the input
 export function goto(wd: string, clearInputCallBack?: () => void): void {
-  //add debug break point
-  // console.log("debug");
-  // return;
   // Find the first command that matches the input and execute its handler function
   const cmd = command.find((val) => new RegExp(val.cmd).test(wd));
   if (!cmd) return;

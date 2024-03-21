@@ -1,0 +1,7 @@
+.box {
+  padding: 0 10vw;
+  box-sizing: border-box;
+}
+.gap {
+  margin-bottom: 1vh;
+}

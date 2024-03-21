@@ -106,9 +106,6 @@ export function Index() {
         setInputVal((input) => {
           if (String(val.q).toUpperCase() !== String(input).toUpperCase())
             return input; // return if request call back is not correspond with input value
-          // computedMenuHeight =
-          //   val.s.length * (window.screen.width > 425 ? 44 : 38) + 15;
-          // setMenuHeight(computedMenuHeight);
           setMenuHeight({
             maxHeight: "561px",
           });
@@ -135,8 +132,6 @@ export function Index() {
     text = value;
     if (!value) {
       setRecArr([]);
-      // computedMenuHeight = 0;
-      // setMenuHeight(computedMenuHeight);
       setMenuHeight({
         maxHeight: "0px",
       });
@@ -151,9 +146,7 @@ export function Index() {
         goto(inputVal, () => {
           setInputVal("");
           setDirective(false); // set command font weight to normal
-          // memoRefresh && memoRefresh();
         });
-        // blur();
         break;
       case 38: //up
         updateChosen(chosen - 1 > -2 ? chosen - 1 : recArr.length - 1);
