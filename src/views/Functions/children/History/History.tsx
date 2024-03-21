@@ -30,7 +30,7 @@ export const History = () => {
       <List
         bordered
         dataSource={data}
-        renderItem={(item) => (
+        renderItem={(item: string) => (
           <List.Item>
             <Typography.Text mark>[HISTORY]</Typography.Text> {item}
           </List.Item>
