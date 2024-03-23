@@ -1,0 +1,25 @@
+.box {
+  width: 100%;
+  box-sizing: border-box;
+
+  input {
+    margin: 5px 0;
+  }
+
+  .codeBox {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @import "../../../../less/media";
+
+  @media @computer {
+    padding: 0 10vw;
+  }
+
+  @media @mobile {
+    padding: 0 2vw;
+  }
+}

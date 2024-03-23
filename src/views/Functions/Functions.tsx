@@ -14,6 +14,7 @@ import { Memo } from "./children/Memo/Memo";
 import { switchTab } from "../../utils/utils/shortcut";
 import { Codex } from "./children/Codex/Codex";
 import { History } from "./children/History/History";
+import { QrCode } from "./children/QrCode/QrCode";
 
 type funs = {
   name: string;
@@ -39,6 +40,10 @@ const funList: Array<funs> = [
   {
     name: "codex",
     address: <Codex />,
+  },
+  {
+    name: "qrCode",
+    address: <QrCode />,
   },
   // {
   //   name: "url encoder",

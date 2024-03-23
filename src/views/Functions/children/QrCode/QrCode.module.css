@@ -1,0 +1,23 @@
+.box {
+  width: 100%;
+  box-sizing: border-box;
+}
+.box input {
+  margin: 5px 0;
+}
+.box .codeBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (min-width: 1920px) {
+  .box {
+    padding: 0 10vw;
+  }
+}
+@media screen and (max-width: 1920px) {
+  .box {
+    padding: 0 2vw;
+  }
+}

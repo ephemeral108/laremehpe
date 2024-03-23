@@ -130,14 +130,15 @@ const command: Array<{
     // If the input starts with "sougou ", search on sougou
     cmd: /^(sougou |s )/,
     handler(val) {
-      encryptAndForward("sougou", val);
+      encryptAndForward("sougou", stripCmdHead(val));
     },
   },
   {
     // If the input starts with "google ", search on Google
     cmd: /^(google |g )/,
     handler(val) {
-      encryptAndForward("google", val);
+      // if (val.startsWith("g ")) val = val.replace("g ", "");
+      encryptAndForward("google", stripCmdHead(val));
     },
   },
   {

@@ -80,19 +80,21 @@ export const Codex = () => {
   }, [form.type, form.input]);
   return (
     <div className={styles.box}>
-      <Radio.Group
-        onChange={(e) =>
-          setForm({
-            ...form,
-            type: e.target.value,
-          })
-        }
-        value={form.type}
-      >
-        <Radio value={0}>base64 codex</Radio>
-        <Radio value={1}>url codex</Radio>
-        <Radio value={2}>escape</Radio>
-      </Radio.Group>
+      <div className={styles.radioBox}>
+        <Radio.Group
+          onChange={(e) =>
+            setForm({
+              ...form,
+              type: e.target.value,
+            })
+          }
+          value={form.type}
+        >
+          <Radio value={0}>base64 codex</Radio>
+          <Radio value={1}>url codex</Radio>
+          <Radio value={2}>escape</Radio>
+        </Radio.Group>
+      </div>
       <TextArea
         showCount
         autoFocus
