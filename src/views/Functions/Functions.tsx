@@ -15,6 +15,7 @@ import { switchTab } from "../../utils/utils/shortcut";
 import { Codex } from "./children/Codex/Codex";
 import { History } from "./children/History/History";
 import { QrCode } from "./children/QrCode/QrCode";
+import { Doodle } from "./children/Doodle/Doodle";
 
 type funs = {
   name: string;
@@ -45,14 +46,6 @@ const funList: Array<funs> = [
     name: "qrCode",
     address: <QrCode />,
   },
-  // {
-  //   name: "url encoder",
-  //   address: <UrlEncoder />,
-  // },
-  // {
-  //   name: "base64 converter",
-  //   address: <Base64Converter />,
-  // },
   {
     name: "eval js",
     address: <Eval />,
@@ -60,6 +53,10 @@ const funList: Array<funs> = [
   {
     name: "database",
     address: <Database />,
+  },
+  {
+    name: "doodle",
+    address: <Doodle />,
   },
   {
     name: "commands",
