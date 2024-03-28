@@ -104,13 +104,30 @@ import { useEffect, useRef, useState } from "react";
 import { Button, Input, Space } from "antd";
 import styles from "./Doodle.module.css";
 
+type device = "desktop" | "mobile" | "tablet";
+const getDeviceType = () => {
+  const userAgent = navigator.userAgent;
+  const isMobile =
+    /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+  const isTablet = /iPad|Android tablet/i.test(userAgent);
+
+  let deviceType: device = "desktop";
+  if (isMobile) {
+    deviceType = "mobile";
+  } else if (isTablet) {
+    deviceType = "tablet";
+  }
+
+  return deviceType;
+};
+
 export const Doodle = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctx = useRef<CanvasRenderingContext2D | null>(null);
   const isDrawing = useRef(false);
   const [size, setSize] = useState({
-    x: 200,
-    y: 200,
+    x: 400,
+    y: 500,
   });
 
   useEffect(() => {
@@ -127,6 +144,12 @@ export const Doodle = () => {
     // 添加鼠标和触摸事件监听
     addCanvasEventListeners(canvas);
 
+    if (getDeviceType() === "desktop") {
+      setSize({
+        x: 1920,
+        y: 800,
+      });
+    }
     // 清理函数，移除事件监听器
     return () => {
       removeCanvasEventListeners(canvas);
@@ -192,11 +215,11 @@ export const Doodle = () => {
     const x =
       "clientX" in event
         ? event.clientX - rect.left
-        : event.touches[0].clientX - rect.left;
+        : (event as TouchEvent).touches[0].clientX - rect.left;
     const y =
       "clientY" in event
         ? event.clientY - rect.top
-        : event.touches[0].clientY - rect.top;
+        : (event as TouchEvent).touches[0].clientY - rect.top;
     context.beginPath();
     context.moveTo(x, y);
   };
@@ -208,11 +231,11 @@ export const Doodle = () => {
     const x =
       "clientX" in event
         ? event.clientX - rect.left
-        : event.touches[0].clientX - rect.left;
+        : (event as TouchEvent).touches[0].clientX - rect.left;
     const y =
       "clientY" in event
         ? event.clientY - rect.top
-        : event.touches[0].clientY - rect.top;
+        : (event as TouchEvent).touches[0].clientY - rect.top;
 
     context.lineTo(x, y);
     context.stroke();
@@ -220,27 +243,51 @@ export const Doodle = () => {
 
   return (
     <div className={styles.box}>
-      <canvas ref={canvasRef} width={size.x} height={size.y} />
-      <Space>
-        <Button onClick={() => {}}>clear</Button>
-        <Input
-          value={size.x}
-          onChange={(e) => {
-            setSize({
-              y: size.y,
-              x: +e.target.value,
-            });
+      <canvas
+        ref={canvasRef}
+        width={size.x}
+        height={size.y}
+        className={styles.canvas}
+      />
+      <Space className={styles.gap}>
+        <Button
+          onClick={() => {
+            if (!canvasRef.current || !ctx.current) return;
+            const canvas = canvasRef.current;
+            const context = ctx.current;
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.beginPath(); // 可选：开始新的绘图路径
           }}
-        />
-        <Input
-          value={size.y}
-          onChange={(e) => {
-            setSize({
-              y: e.target.value,
-              x: size.x,
-            });
-          }}
-        />
+          type="primary"
+        >
+          clear
+        </Button>
+        <div className={styles.overlap}>
+          <label>
+            <span>width: </span>
+            <Input
+              value={size.x}
+              onChange={(e) => {
+                setSize({
+                  y: size.y,
+                  x: +e.target.value || 0,
+                });
+              }}
+            />
+          </label>
+          <label>
+            <span>height:</span>
+            <Input
+              value={size.y}
+              onChange={(e) => {
+                setSize({
+                  y: +e.target.value || 0,
+                  x: size.x,
+                });
+              }}
+            />
+          </label>
+        </div>
       </Space>
     </div>
   );
