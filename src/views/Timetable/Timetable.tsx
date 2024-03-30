@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { backend, myBack } from "../../utils/backend/backend";
 import { toast } from "../../components/Toast/Toast";
 import { Countdown } from "../Functions/children/Timer/Timer";
+import { getTimeDiff } from "../../utils/utils/timeDiff";
 
 interface dataType {
   key: number;
@@ -144,6 +145,7 @@ const AddModal = (props: {
 };
 
 const TIMETABLE_KEY = "65cb0d0f6658614f41d44c94";
+const { RangePicker } = DatePicker;
 
 export const Timetable = () => {
   const [addModalStatus, setAddModalStatus] = useState(false);
@@ -159,6 +161,7 @@ export const Timetable = () => {
     key: -1,
     dataList: [],
   });
+  const [timeCal, setTimeCal] = useState<string>("");
   // const [custom, setCustom] = useState({
   //   status: false,
   // });
@@ -180,7 +183,7 @@ export const Timetable = () => {
   }, []);
 
   return (
-    <div>
+    <div className={styles.box}>
       <div className={styles.title}>
         <LeftCircleOutlined
           style={{ fontSize: "20px", color: "#08c" }}
@@ -314,6 +317,26 @@ export const Timetable = () => {
           });
         }}
       />
+
+      <section className={styles.gap}>
+        <h3>time calculator: </h3>
+        <RangePicker
+          showTime
+          onOk={(e) => {
+            if (!e[1] || !e[0]) return;
+            const timeArr = e.map((val) => val?.valueOf());
+            const result = getTimeDiff(
+              timeArr[0] as number,
+              timeArr[1] as number
+            );
+            setTimeCal(
+              `${result.years}year ${result.months}month ${result.days}day ${result.hours}hour:${result.minutes}minute:${result.seconds}second`
+            );
+          }}
+        />
+
+        <h4>result: {timeCal} </h4>
+      </section>
     </div>
   );
 };

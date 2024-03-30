@@ -1,3 +1,3 @@
-function isNumber(num: number) {
+export function isNumber(num: number) {
   return typeof num === "number" && num === num;
 }

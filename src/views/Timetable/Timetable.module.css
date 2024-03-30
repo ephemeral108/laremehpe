@@ -1,6 +1,12 @@
 .box {
-  display: flex;
-  justify-content: center;
+  box-sizing: border-box;
+  padding: 20px;
+}
+.box .gap {
+  margin-top: 30px;
+}
+.box .gap h3 {
+  margin-bottom: 20px;
 }
 .title {
   display: flex;
