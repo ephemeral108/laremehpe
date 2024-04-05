@@ -47,11 +47,12 @@ export function Index() {
   const [recArr, setRecArr] = useState<string[]>([]);
   const [inputVal, setInputVal] = useState("");
   const [chosen, setChosen] = useState(-1);
-  const [menuHeight, setMenuHeight] = useState<object>({});
+  // const [menuHeight, setMenuHeight] = useState<object>({});
   const [directive, setDirective] = useState(false);
   const { cloud } = useBackendContext();
   const [placeholder, setPlaceholder] = useState("never stop learning...");
   const store = useSelector<storeType>((state) => state.device);
+  const [showMenu, setShowMenu] = useState(true);
   // const [memoRefresh,setMemoRefresh] = useState(undefined)
 
   useEffect(() => {
@@ -106,9 +107,9 @@ export function Index() {
         setInputVal((input) => {
           if (String(val.q).toUpperCase() !== String(input).toUpperCase())
             return input; // return if request call back is not correspond with input value
-          setMenuHeight({
-            maxHeight: "561px",
-          });
+          // setMenuHeight({
+          //   maxHeight: "561px",
+          // });
           setRecArr(val.s);
           return input;
         });
@@ -123,6 +124,10 @@ export function Index() {
     };
   }, []);
 
+  // useEffect(()=>{
+
+  // },[recArr.length])
+
   const searchHandler: (val: { target: { value: string } }) => void = ({
     target: { value },
   }) => {
@@ -132,9 +137,9 @@ export function Index() {
     text = value;
     if (!value) {
       setRecArr([]);
-      setMenuHeight({
-        maxHeight: "0px",
-      });
+      // setMenuHeight({
+      //   maxHeight: "0px",
+      // });
       return;
     }
     getRec(value);
@@ -168,10 +173,11 @@ export function Index() {
   function blur() {
     inputFocusing = false;
     setChosen(-1);
+    setShowMenu(false);
     // setMenuHeight(0);
-    setMenuHeight({
-      maxHeight: "0px",
-    });
+    // setMenuHeight({
+    //   maxHeight: "0px",
+    // });
     //wait until animation finish
     setTimeout(() => {
       if (!inputFocusing) setPlaceholder("search");
@@ -189,9 +195,10 @@ export function Index() {
     //   recArr.length * (window.screen.width > 425 ? 44 : 38) + 15;
     // setMenuHeight(computedMenuHeight);
     // setMenuHeight("auto");
-    setMenuHeight({
-      maxHeight: recArr.length ? "561px" : "0px",
-    });
+    // setMenuHeight({
+    //   maxHeight: recArr.length ? "561px" : "0px",
+    // });
+    setShowMenu(true);
     setPlaceholder("never stop learning...");
 
     // setState((state) => ({
@@ -296,7 +303,7 @@ export function Index() {
               setRecArr([]);
               setDirective(false);
               myRef.current?.focus();
-              setMenuHeight({ maxHeight: "0px" });
+              // setMenuHeight({ maxHeight: "0px" });
               //
             }}
             className={styles.clearIcon}
@@ -305,10 +312,13 @@ export function Index() {
           ""
         )}
         {/* style={{ height: menuHeight + "px" }} */}
-        <div className={styles.menu} style={menuHeight}>
+        {/* style={menuHeight} */}
+        <div className={styles.menu}>
           <Menu
             arr={recArr}
             chosen={chosen}
+            showMenu={showMenu}
+            device={store === "computer"}
             updateChosen={(e) => {
               setChosen(e);
               setInputVal(recArr[e]);
