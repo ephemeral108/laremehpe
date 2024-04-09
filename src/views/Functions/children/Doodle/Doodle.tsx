@@ -44,8 +44,8 @@ export const Doodle = () => {
 
     if (getDeviceType() === "desktop") {
       setSize({
-        x: 1920,
-        y: 800,
+        x: 1600,
+        y: 600,
       });
     }
     // 清理函数，移除事件监听器
