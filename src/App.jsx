@@ -10,6 +10,7 @@ import { Timetable } from "./views/Timetable/Timetable";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { showAllLastMes } from "./components/FixedToast/FixedToast";
+import { _ } from "lodash";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,10 +19,24 @@ function App() {
     showAllLastMes();
 
     toast("Welcom back!");
+
     dispatch({
       type: "app/device",
-      payload: screen.availWidth >= 1920 ? "computer" : "mobile",
+      payload: screen.availWidth >= 768 ? "computer" : "mobile",
     });
+
+    const resizeListener = _.throttle(() => {
+      dispatch({
+        type: "app/device",
+        payload: screen.availWidth >= 768 ? "computer" : "mobile",
+      });
+    }, 2000);
+
+    window.addEventListener("resize", resizeListener);
+
+    return () => {
+      window.removeEventListener("resize", resizeListener);
+    };
   }, []);
 
   return (

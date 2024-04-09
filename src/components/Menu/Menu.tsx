@@ -38,7 +38,7 @@ export function Menu(props: {
       onMouseLeave={props.onLeave}
       style={{
         // gridTemplateRows: props.arr.length + "fr",
-        gridTemplateRows: `repeat(auto-fill, ${li.length}fr)`,
+        // gridTemplateRows: `repeat(auto-fill, ${li.length}fr)`,
         height: li.length * (props.device ? 44 : 38) + 15 + "px",
       }}
     >
