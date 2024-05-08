@@ -3,6 +3,7 @@
 ### This is my official site: (enjoy yourself!!)
 
 https://laremehpe.gitee.io/#/index
+https://ephemeral108.github.io/laremehpe/
 
 ### features:
 
